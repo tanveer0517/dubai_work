@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="user_forbidden_inherit_new" inherit_id="website.403">
+            <xpath expr="//t[@t-call='website.layout']/div[@id='wrap']" position="replace">
+                <div id="wrap_new">
+                    <div class="container">
+                        <h1>&amp;nbspOops you've have encountered
+                            an error</h1>
+                        <h3>
+                            <p class="error_p">
+                                It apperrs that Either something went wrong..<br /><br/>
+                                This website is temporarily unable to service your request as it has exceeded it’s resource limit. Please check back shortly.
+                            </p>
+                            <p class="error_p">
+                                If you have any questions, please contact our Technical Support department.
+                            </p>
+                            <p class="error_p">
+                                <a href="/">Back To Home</a>
+                            </p>
+                        </h3>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

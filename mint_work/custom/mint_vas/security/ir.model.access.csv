@@ -1,0 +1,2 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_jwt_authentication_group_all","jwt_authentication group_user_all","model_jwt_authentication",,1,1,1,0

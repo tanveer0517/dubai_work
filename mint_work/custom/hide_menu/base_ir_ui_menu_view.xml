@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.menu" id="base.module_mi">
+            <field name="groups_id" eval="[(6, 0, [ref('group_bss_nobody')])]" />
+        </record>
+
+        <record model="ir.ui.menu" id="base.menu_module_updates">
+            <field name="groups_id" eval="[(6, 0, [ref('group_bss_nobody')])]" />
+        </record>
+
+    </data>
+</odoo>

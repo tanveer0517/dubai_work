@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="custom_view_product_brand_form" model="ir.ui.view">
+        <field name="name">product.brand.form</field>
+        <field name="model">product.brand</field>
+        <field name="inherit_id" ref="product_enhancement.view_product_brand_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='server_id']"  position="after">
+                <field name="brand_code"/>
+                <field name="brand_img_url"/>
+            </xpath>
+            <xpath expr="//group"  position="after">
+                <div>
+                    <label for="brand_lang_name" string="Name Description"/>
+                    <field name="brand_lang_name">
+                        <tree editable="bottom">
+                            <field name="language_id" options="{'no_create': True,'no_edit': True}"/>
+                            <field name="name"/>
+                        </tree>
+                    </field>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- <record id="custom_view_product_brand_form_for_client" model="ir.ui.view">
+        <field name="name">res.lang.form</field>
+        <field name="model">res.lang</field>
+        <field name="inherit_id" ref="mint_client_product_catelog.view_product_brand_form_for_client"/>
+        <field name="arch" type="xml">
+            
+        </field>
+    </record> -->
+
+</odoo>

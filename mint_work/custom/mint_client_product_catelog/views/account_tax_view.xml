@@ -1,0 +1,19 @@
+<odoo>
+    <data>
+
+        <!-- Inherit account tax code form view for adding tax_code field
+        for handling synchronization process -->
+        <record model="ir.ui.view" id="account_tax_form_inherit_client">
+            <field name="name">account.tax.form.inherit.client</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="tax_code"/>
+                    <field name="master_db_acc_tax_id" invisible="1"/>
+                 </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Added field at the POS Order Form View -->
+    <record id="view_pos_order_form_inherited" model="ir.ui.view">
+        <field name="name">pos.oder.form.inherited </field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="replace"/>
+            <div class="oe_button_box" position="before">
+                <h1>
+                    <field class="oe_title oe_left" name="name" readonly="1"/>
+                </h1>
+            </div>
+            
+            <field name="partner_id" position="after">
+            <field name="street" placeholder="Street"/>
+            <field name="street2" placeholder="Street2"/>
+            <field name="phone" placeholder="+97145515182"/>
+            <field name="mobile" placeholder="+97145515182"/>
+        </field>
+
+        </field>
+     </record>
+
+</odoo>

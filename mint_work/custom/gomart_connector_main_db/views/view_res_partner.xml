@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Added field at the Customer Form View -->
+    <record id="view_res_partner_form_inherited" model="ir.ui.view">
+        <field name="name">res.partner.form.inherited </field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="createCustomer"
+                        string="Create Customer" type="object"/>
+                </header>
+            </xpath>
+            <field name="type" position="after">
+                <field name="firstname" readonly="0" required="1"/>
+                <field name="lastname" readonly="0" required="1"/>
+                <field class="oe_edit_only" name="gender"
+                    options="{'horizontal': true}" widget="radio"/>
+                <field name="dob" readonly="0" required="1"/>
+                <field name="country_id"/>
+                <field name="password" password="True" readonly="0" required="1"/>
+            </field>
+            <xpath expr="//field[@name='email']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='mobile']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <field name="category_id" position="after">
+                <field name="go_mart_cust_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

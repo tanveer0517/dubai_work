@@ -1,0 +1,545 @@
+// const definition
+@odoo-color-light    : #afd110;
+@odoo-color-light-green: #F0F4C3;
+//@odoo-color-dark     : #2b5e21;
+@odoo-color-dark     : #7f1593;
+@odoo-color-full-dark     : #3e004a;
+@odoo-color-white    : #fff;
+@odoo-color-grey     : #e2e2e2;
+
+// tweak start ...
+@odoo-brand-optional     : @odoo-color-light;
+@odoo-color-pink         : @odoo-color-dark;
+@odoo-brand-secondary    : @odoo-color-white;
+
+
+.pos .pos-topheader{
+    background: @odoo-color-full-dark!important;
+}
+
+.pos .rightpane-header{
+    background: @odoo-color-light-green!important;
+}
+
+.pos .mode-button.selected-mode,
+.pos .product .price-tag,
+.pos .debug-widget,
+.pos .debug-widget .event
+{
+    background: @odoo-color-light !important;
+}
+.pos .mode-button.selected-mode:hover{
+    background: @odoo-color-dark !important;
+}
+
+.pos .actionpad .button.pay .pay-circle{
+    background: @odoo-color-light !important;
+}
+.pos .leftpane{
+    background: @odoo-color-white !important;
+}
+.pos .leftpane .pads {
+    border-top: solid 3px @odoo-color-light;
+}
+.pos .order-button.square{
+    //color:@odoo-color-white;
+    background:@odoo-color-dark;
+    height: 35px;
+    min-width: 35px;
+        border-radius: 50%;
+        line-height: 35px;
+        margin: 0 5px;
+}
+.pos .oe_icon.oe_green{
+    color: @odoo-color-dark;
+}
+.pos .pos-rightheader .header-button,
+.pos .pos-branding .username{
+    color: @odoo-color-white;
+}
+.pos .pos-branding .username{
+    line-height: 60px;
+}
+.pos .product .product-name{
+    //color: @odoo-color-dark;
+    color: #000000;
+}
+.pos .debug-widget .category,
+.pos .debug-widget h1{
+    background: @odoo-color-dark;
+}
+
+.pos .control-button.highlight, .pos .button.highlight {
+    background: @odoo-color-light !important;
+    border: solid 1px @odoo-color-light !important;
+}
+.payment-screen .paymentlines-empty .total {
+    color: @odoo-color-light;
+    text-shadow: 0px 2px @odoo-color-white, 0px 2px 2px rgb(43, 94, 34);
+}
+.pos .order-container{
+    //background: @odoo-color-grey !important;
+    background: @odoo-color-white !important;
+}
+.pos .order{
+    //background: @odoo-color-grey !important;
+    background: transparent !important;
+    border-top : 3px solid @odoo-color-light;
+    font-size: 13px;
+}
+.pos .order .orderline.selected{
+    border-bottom : 1px solid @odoo-color-light;
+    border-top : 1px solid @odoo-color-light;
+}
+.pos .actionpad .button{
+    background: @odoo-color-white !important;
+}
+.pos .numpad button{
+    background: @odoo-color-white !important;
+}
+.pos .product{
+    border-color: #ddd !important;
+    margin: 6px !important;
+}
+.pos .paymentline.selected{
+    background: @odoo-color-light !important;
+}
+.pos .paymentline.selected .edit {
+    color: @odoo-color-dark !important;
+    box-shadow: 0px 0px 0px 3px @odoo-color-dark !important;
+}
+.pos .paymentline .col-change.highlight {
+    background: @odoo-color-dark !important;
+    color : @odoo-color-white !important;
+}
+
+.pos .clientlist-screen .client-list  {
+    font-size: 14px; line-height: 30px;
+}
+
+.pos .clientlist-screen .client-list tr.highlight{
+    background: @odoo-color-light !important;
+}
+.pos .clientlist-screen .client-details {
+    border-bottom: solid 5px @odoo-color-light !important;
+}
+
+.pos .searchbox { position: absolute; left: 60px; }
+
+.pos .searchbox input {
+    max-width: calc(~'100% - 80px') !important;
+    border-radius: 2px;
+}
+
+.pos .searchbox input:focus {
+    outline: none;
+    box-shadow: 0px 0px 0px 2px @odoo-color-light inset;
+    color: @odoo-color-dark;
+}
+.pos *::-webkit-scrollbar-thumb{
+    background : @odoo-color-dark;
+}
+
+.pos .pos-content { background: @odoo-color-white; }
+
+/* screen color combination */
+.pos .oe_status i,
+.pos .oe_status {
+    background:transparent;
+    color: @odoo-color-white !important;
+}
+
+.pos .order-button.square .selected,
+.pos .numpad button:hover,
+.pos .mode-button.selected-mode,
+.pos .mode-button.selected-mode:hover {
+    color: @odoo-color-white !important;
+    background: @odoo-color-light !important;
+}
+.pos .pos-rightheader .header-button{
+     background: transparent !important;
+    color: @odoo-color-white !important;
+    border: 1px solid @odoo-color-white !important;
+    border-radius: 4px;
+        font-size: 16px;
+        line-height: 40px;
+}
+.pos .pos-rightheader .header-button:last-child{
+    border: none;
+}
+/* Search bar changes */
+.pos .searchbox input {
+    width: 100%;
+    border-radius: 2px;
+}
+.pos .searchbox{
+    /*position: inherit;*/
+    width: 92%;
+    text-align:right;
+}
+/* Category */
+.pos .category-button {
+    text-align: center;
+    border-color: @odoo-color-light !important;
+}
+
+
+.pos .category-button {
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    font-size: 11px;
+    margin: 8px !important;
+    width: 70px;
+    height:70px;
+    background:#fff;
+    border: 1px solid @odoo-color-light !important;
+    border-radius: 4px;
+    border-bottom-width: 3px;
+    cursor: pointer;
+}
+.pos .category-btn{
+    background:@odoo-color-light !important;
+    color: @odoo-color-white;
+    text-align:center;
+    font-size: large !important;
+}
+/* Subcategory button */
+.pos .subcategory-btn{
+    color: white;
+    min-width: 80px !important;
+    line-height: 40px !important;
+    padding: 3px 13px;
+    font-size: 20px;
+    background: rgb(230, 230, 230);
+    border-radius: 5px;
+    border: solid 1px rgb(209, 209, 209);
+    cursor: pointer;
+    background: @odoo-color-dark !important;
+    margin: 5px;
+    margin-right:0px;
+}
+/*.pos .subcategory-btn:hover{
+    background: white !important;
+    border: 1px solid @odoo-color-light !important;
+    border-radius: 4px;
+    color: @odoo-color-light !important;
+ }*/
+.pos .category-title{
+    margin-top: 10px;
+    display: none;
+}
+.pos .category-button .category-dot{
+    color: @odoo-color-white;
+}
+
+
+/* Css custamization (09-09-2018)*/
+
+.pos{
+    background: @odoo-color-white;
+}
+
+.pos .order-button.square i{
+    margin-top: 2px;
+    font-size: 18px !important;
+    color: @odoo-color-white;
+}
+
+/*.pos .order-button.square i.fa-plus:before{
+        content: "+" !important;
+}
+.pos .order-button.square i.fa-minus:before{
+        content: "-" !important;
+}*/
+.pos .order-button.square i.fa-minus{
+    margin-top: 0px;
+}
+.pos .pos-topheader{
+    height: 60px;
+}
+.pos .order-button.selected .order-sequence{
+    font-weight: 400;
+    font-size: 14px;
+    background-color: @odoo-color-full-dark;
+}
+
+.pos .order-button.selected, .pos .order-button{
+    background-color: @odoo-color-white;
+    color: @odoo-color-full-dark;
+}
+
+.pos .pos-rightheader .order-selector{   
+    padding-top: 0px;
+}
+
+.pos .pos-branding{
+    border-right: transparent !important;
+}
+
+.pos .control-button{
+    background: @odoo-color-light;
+    color: @odoo-color-white;
+}
+.pos .control-button:hover{
+    background: @odoo-color-white;
+    color: #383838;
+}
+
+.pos .rightpane{
+        right: 460px !important;
+    left: 0 !important;
+}
+
+.pos .leftpane{
+    right: 10px;
+        left: unset;
+}
+
+.pos .pos-rightheader > *{
+    border-right: transparent !important;
+}
+
+
+.pos .oe_status{
+        margin-right: 20px;
+    border-radius: 8px;
+    padding: 5px;
+        width: 26px;
+    height: 26px;
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.pos .oe_status .oe_icon{
+        width: 26px;
+   height: 21px;
+    font-size: 20px;
+}
+
+
+
+.pos .pos-rightheader .header-button:last-child {
+    
+    height: 40px !important;
+    margin-top: 4px;
+    margin-right: 10px;
+}
+
+
+.pos .pos-rightheader .header-button:last-child:before {
+    content: 'X';
+    font-size: 16px;
+    border-radius: 50% !important;
+        margin-right: 5px;
+}
+
+.pos .category-list, .pos .rightpane-header, .pos .rightpane-header{
+        background: transparent !important;
+        border-bottom: transparent;
+}
+.pos .category-btn{
+    background: @odoo-color-dark !important;
+}
+.selection-area{
+    display: none;
+}
+
+
+.pos .breadcrumb:last-child, .pos .leftpane{
+    border-right: transparent !important;
+}
+.pos .breadcrumb-button.breadcrumb-home{
+        line-height: 37px;
+    padding: 0;
+    width: 37px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 7px;
+    margin-left: 10px;
+    color: #fff;
+    background: @odoo-color-light;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.pos .order{
+    border-top: transparent;
+}
+
+.pos *::-webkit-scrollbar-track {
+    background: rgb(255, 255, 255);
+    border-left: solid 1px rgb(224, 224, 224);
+}
+
+.pos *::-webkit-scrollbar-thumb {
+    background: #cacaca;
+}
+
+.pos .order-container{
+        margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.pos .leftpane .pads{   
+    margin-top: 20px;
+}
+.pos .pos-content{
+    width: 100% !important;
+    top: 60px;
+}
+
+.pos .rightpane-header{
+    border-bottom: transparent;
+}
+
+.pos .searchbox input{
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    border-color: #ccc !important;
+    border-radius: 4px;
+    max-width: 500px;
+    float: left;
+}
+
+.pos .rightpane-header, .pos .rightpane-header{
+        margin-top: 7px;
+}
+
+.pos .categories{
+    border-bottom: transparent;
+}
+
+.pos .leftpane .pads{
+    border-top: transparent;
+}
+
+.pos .leftpane .subwindow .subwindow-container{
+    padding:3px;
+}
+
+.pos .control-buttons{
+    padding: 0px;
+        margin-bottom: 5px;
+}
+
+.pos .control-button{
+    margin-left: 0px;
+}
+
+.pos .actionpad{
+    margin: 0px;
+	width: 97px !important;
+}
+
+.pos .numpad{
+    width: 336px !important;
+    margin: 0px;
+}
+.pos .numpad button{
+    width: 84px !important;
+}
+
+.pos .product-list{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-left: 10px;
+    padding: 0px;   
+}
+
+
+.pos .category-button .category-img img{
+    -webkit-filter: grayscale(0);
+    max-height: 70px !important;
+    max-width: 70px !important;
+    border-radius: 8px;
+    object-fit: none;
+}
+.pos .category-button{
+    border: none !important;
+    height: 100px;
+}
+.pos .category-button .category-img{
+        border: 1px solid #ddd !important;
+        border-radius: 8px;
+}
+.pos .category-button.js-category-next, .pos .category-button.js-category-previous, .pos .category-button.js-category-next-1, .pos .category-button.js-category-previous-1, .pos .category-button.js-category-next-2, .pos .category-button.js-category-previous-2{
+    height: 70px;
+}
+
+.pos .category-button .category-dot{
+    display: none;
+}
+.pos .category-button.js-category-next > div, .pos .category-button.js-category-previous > div, .pos .category-button.js-category-next-1 > div, .pos .category-button.js-category-previous-1 > div, 
+.pos .category-button.js-category-next-2 > div, .pos .category-button.js-category-previous-2 > div{
+        height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pos .category-list{
+    overflow-y: hidden;
+}
+
+.pos .product .price-tag, .pos .debug-widget, .pos .debug-widget .event{
+    background: #383838 !important;
+    border-radius: 25px;
+}
+
+.pos .pos-logo{
+ height: 45px!important;
+    margin-left: 10px!important;
+    padding: 5px;   
+}
+
+.pos .pos-rightheader{
+    display: flex;
+    align-items: center;
+}
+
+.pos .pos-rightheader .order-selector{
+ align-items: center;   
+}
+.pos .order-button.select-order.selected{
+        padding: 5px 10px;
+            margin-top: 10px;
+}
+
+.pos .order-button.selected{
+    height: 50px;
+}
+
+.control-button.js_saleordersList{
+    margin-left: 7px;
+}
+
+.pos .category-button .category-name{
+        line-height: 12px;
+        bottom: initial;
+        padding-top: 5px;
+          overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+
+.category-list, .maincategory-list{
+    overflow: scroll hidden;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+.pos .order-button.select-order{
+    margin-top: 10px;  
+    height: 50px; 
+}
+.pos .order-button .order-sequence{
+    line-height: 50px;
+}

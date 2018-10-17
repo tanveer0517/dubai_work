@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <!--&lt;!&ndash; JS, CSS, Validation Scripts&ndash;&gt;-->
+        <template id="portal_css_js" name="Saas Portal CSS JS Assets" inherit_id="web.assets_frontend">
+            <xpath expr="." position="inside">
+                <!--<link rel="stylesheet" type="text/css" href="/saas_portal_enhancement/static/src/css/tab_panel_menu_css.css"/>-->
+                <script type="text/javascript" src="/saas_portal_enhancement/static/src/js/validation.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>
+

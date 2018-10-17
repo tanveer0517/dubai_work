@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<odoo>
+<data>
+
+    <!--
+        ALL BUGS
+    -->
+    <record model="ir.actions.act_window" id="project_case_categ_act0">
+        <field name="name">Cases</field>
+        <field name="res_model">project.case</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form,calendar,graph</field>
+        <field name="view_id" eval="False"/>
+        <field name="domain" eval=""/>
+        <field name="search_view_id" ref="view_project_case_filter"/>
+        <field name="help" type="html">
+            <p>
+                The Odoo cases tacker allows you to efficiantly manage things
+                like internal requests, software development bugs, customer
+                complaints, project troubles, material breakdowns, etc.
+            </p>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_crm_tag_kanban_view0">
+        <field name="sequence" eval="0"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="project_case_kanban_view"/>
+        <field name="act_window_id" ref="project_case_categ_act0"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_crm_tag_tree_view0">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="project_case_tree_view"/>
+        <field name="act_window_id" ref="project_case_categ_act0"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_crm_tag_calendar_view0">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="project_case_calendar_view"/>
+        <field name="act_window_id" ref="project_case_categ_act0"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_crm_tag_form_view0">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="project_case_form_view"/>
+        <field name="act_window_id" ref="project_case_categ_act0"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_crm_tag_graph_view0">
+        <field name="sequence" eval="4"/>
+        <field name="view_mode">graph</field>
+        <field name="view_id" ref="project_case_graph_view"/>
+        <field name="act_window_id" ref="project_case_categ_act0"/>
+    </record>
+
+    <menuitem name="Cases" id="menu_project_case_track"  parent="menu_project_case"
+            action="project_case_categ_act0" sequence="15"/>
+</data>
+</odoo>

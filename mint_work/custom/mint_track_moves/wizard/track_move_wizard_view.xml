@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_track_stock_quant_wizard_form" model="ir.ui.view">
+            <field name="name">Track.stock.quant</field>
+            <field name="model">track.stock.quant</field>
+            <field name="arch" type="xml">
+                <form string="Barcode Label Printing">
+                    <sheet>
+                        <group string="Select Operation">
+                            <field name="search_type"/>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="product_barcode" attrs="{'invisible': [('search_type', '=', 'lot')]}"/>
+                                <field name="lot_serial_no"  attrs="{'invisible': [('search_type', '=', 'barcode')]}"/>
+                            </group>
+                            <group>
+                                <field name="operation_type"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Track Moves" type="object" name="get_tracked_moves" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_track_stock_moves_wizard" model="ir.actions.act_window">
+            <field name="name">Track Stock Moves</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">track.stock.quant</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="mint_track_moves.view_track_stock_quant_wizard_form"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_track_stock_moves_wizard" id="menu_action_track_moves_form"
+                  parent="stock.menu_stock_warehouse_mgmt" groups="stock.group_production_lot,stock.group_stock_manager,stock.group_stock_user"
+                  sequence="3"/>
+    </data>
+</odoo>

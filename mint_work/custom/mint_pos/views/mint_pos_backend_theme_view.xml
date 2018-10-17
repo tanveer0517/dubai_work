@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Loads javascript and css files in pos assets-->
+        <template id="assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+               <script type="text/javascript" src="/mint_pos/static/src/js/models.js"></script>
+               <script type="text/javascript" src="/mint_pos/static/src/js/popups.js"></script>
+               <script type="text/javascript" src="/mint_pos/static/src/js/screens.js"></script>
+               <script type="text/javascript" src="/mint_pos/static/src/js/db.js"></script>
+               <script type="text/javascript" src="/mint_pos/static/src/js/lib/jquery.simplePagination.js"></script>
+               <link rel="stylesheet" href="/mint_pos/static/src/css/pos.css" id="pos-stylesheet"/>
+                <link rel="stylesheet" href="/mint_pos/static/src/css/datepicker.css" id="pos-stylesheet"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

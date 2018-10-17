@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="order_sales_report_date" model="ir.actions.report.xml">
+            <field name="name">Multi Sales Report Date Range</field>
+            <field name="model">pos.sales.report.date</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pos_order_history_date.report_sale_orders_date</field>
+        </record>
+
+    </data>
+</odoo>

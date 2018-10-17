@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="employee_access_right_view_form" model="ir.ui.view">
+            <field name="name">Employee Access Right</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <xpath expr='//page[3]' position="after">
+                    <page string="Employee Access Right" name="employee_access_page">
+                        <group>
+                            <group>
+                                <field name="res_group_id"
+                                   domain="[('empower_group','=','True')]"
+                                   widget="selection"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

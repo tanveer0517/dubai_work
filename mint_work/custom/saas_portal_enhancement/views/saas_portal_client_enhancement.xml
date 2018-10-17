@@ -1,0 +1,147 @@
+<odoo>
+    <data>
+        <!-- explicit Form view definition -->
+        <record model="ir.ui.view" id="saas_portal_view_client_form_inherit">
+            <field name="name">saas.portal.view.client.form.inherit</field>
+            <field name="model">saas_portal.client</field>
+            <field name="inherit_id" ref="saas_portal.view_clients_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='support_team_id']" position="attributes">
+                    <attribute name="options">{'no_create_edit': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_log_ids']" position="attributes">
+                    <attribute name="options">{'no_create': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='trial']" position="before">
+                    <field name="req_no"/>
+                    <field name="plan_price"/>
+                    <field name="sub_period"/>
+                    <field name="merchant_id" attrs="{'readonly':[('trial','=',False)]}"/>
+                    <!--<field name="store_id"/>-->
+                    <field name="store_type" attrs="{'readonly':[('trial','=',False)]}"/>
+                    <field name="plan_type"/>
+                    <field name="subscription_id" options="{'no_create_edit': True}"/>
+                </xpath>
+                <xpath expr="//sheet/group"
+                       position="before">
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="action"
+                                name="%(contract.action_account_analytic_overdue_all)d"
+                                icon="fa-star"
+                                context="{'search_default_client_id': active_id ,'search_default_active':1, 'search_default_recurring_invoices':1 }" >
+                                <field string="Subscription"
+                                   name="subscription_count"
+                                   widget="statinfo"/>
+                    </button>
+                        </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+                id="partner_inherit_for_subscription">
+            <field name="name">partner.inherit.for.subscription</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                        <button class="oe_stat_button o_res_partner_tip_opp" type="action"
+                            attrs="{'invisible': [('customer', '=', False)]}"
+                            name="%(contract.action_account_analytic_overdue_all)d"
+                            icon="fa-star"
+                            context="{'search_default_partner_id': active_id}" >
+
+                            <field string="Subscriptions"
+                                   name="subscription_count"
+                                   widget="statinfo"/>
+                        </button>
+                </div>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+                id="partner_inherit_for_subscription">
+            <field name="name">partner.inherit.for.subscription</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                        <button class="oe_stat_button o_res_partner_tip_opp" type="action"
+                            attrs="{'invisible': [('customer', '=', False)]}"
+                            name="%(contract.action_account_analytic_overdue_all)d"
+                            icon="fa-star"
+                            context="{'search_default_partner_id': active_id}" >
+
+                            <field string="Subscriptions"
+                                   name="subscription_count"
+                                   widget="statinfo"/>
+                        </button>
+                </div>
+            </field>
+        </record>
+
+        <record model="ir.ui.view"
+                id="partner_inherit_for_subscription">
+            <field name="name">partner.inherit.for.subscription</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                        <button class="oe_stat_button o_res_partner_tip_opp" type="action"
+                            attrs="{'invisible': [('customer', '=', False)]}"
+                            name="%(contract.action_account_analytic_overdue_all)d"
+                            icon="fa-star"
+                            context="{'search_default_partner_id': active_id}" >
+                            <field string="Subscriptions"
+                                   name="subscription_count"
+                                   widget="statinfo"/>
+                        </button>
+                </div>
+            </field>
+        </record>
+
+        <!-- Client search view for subscription -->
+        <record id="view_saas_portal_client_subscription_search"
+                model="ir.ui.view">
+            <field name="name">view.saas.portal.client.subscription
+                .search</field>
+            <field name="model">saas_portal.client</field>
+            <field name="inherit_id" ref="saas_portal.view_saas_portal_client_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="subscription_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Next Invoice" domain="[]" context="{'group_by':'subscription_id'}"/>
+                    </group>
+                </field>
+
+            </field>
+        </record>
+
+        <!-- explicit Form view definition -->
+        <record model="ir.ui.view" id="res_partner_bank_form_inherit">
+            <field name="name">res.partner.bank.form.inherit</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_id']" position="after">
+                    <field name="iban" required="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- explicit Form view definition -->
+        <record model="ir.ui.view" id="res_partner_bank_tree_inherit">
+            <field name="name">res.partner.bank.tree.inherit</field>
+            <field name="model">res.partner.bank</field>
+            <field name="inherit_id" ref="base.view_partner_bank_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_name']" position="after">
+                    <field name="iban" required="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

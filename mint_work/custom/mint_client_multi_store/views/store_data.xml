@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="multi_store_1" model="store.master">
+            <field name="store_name">Chained Store</field>
+        </record>
+    </data>
+
+ </odoo>

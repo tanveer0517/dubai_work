@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_mint_price_update_wizard_form" model="ir.ui.view">
+            <field name="name">mint.price.update.wizard.form</field>
+            <field name="model">mint.price.update.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Update Product Price">
+                    <group string="Details">
+                        <group>
+                            <field name="type" invisible="1"/>
+                            <field name="select_price"/>
+                            <field name="csv_import"/>
+                            <field name="csv_file" filename='csv_file_name' attrs="{'invisible': [('csv_import', '=', False)],'required': [('csv_import', '=', True)]}"/>
+                            <field name="csv_file_name" invisible="1"/>
+                            <a href="/mint_product_price_update/static/csv/product.template.csv">Download Product Price CSV</a>
+                        </group>
+                    </group>
+                    <group string="Add Product Manually and update price or import csv file to update the product price" attrs="{'invisible': [('csv_import','=', True)]}">
+                        <field name="product_ids" nolabel="1">
+                            <tree string="Product" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="product_id" options="{'no_open': True, 'no_create': True}"/>
+                                <field name="barcode" readonly="1"/>
+                                <field name="list_price" readonly="1"/>
+                                <field name="standard_price" readonly="1"/>
+                                <field name="new_list_price"/>
+                                <field name="new_standard_price"/>
+                            </tree>
+                            <form string="Products"  options="{'no_create': True, 'no_open': True}">
+                                <group>
+                                    <group>
+                                        <field name="sequence" widget="handle" invisible="1"/>
+                                        <field name="product_id" options="{'no_create': True}"/>
+                                        <field name="list_price" readonly="1"/>
+                                        <field name="standard_price" readonly="1"/>
+                                        <field name="new_list_price"/>
+                                        <field name="new_standard_price"/>
+                                    </group>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                    <!--<group string="Add Product Manually and update price or import csv file to update the product price" attrs="{'invisible': ['|',('csv_import','=', True),('select_price', '!=', 'both')]}">-->
+                    <!--<field name="product_ids" nolabel="1" attrs="{'invisible': [('csv_import','=', True)]}">-->
+                    <!--<tree string="Product" editable="bottom">-->
+                    <!--<field name="sequence" widget="handle"/>-->
+                    <!--<field name="id" invisible="1"/>-->
+                    <!--<field name="name" readonly="1"/>-->
+                    <!--<field name="default_code"  readonly="1"/>-->
+                    <!--<field name="barcode" readonly="1"/>-->
+                    <!--<field name="list_price"/>-->
+                    <!--<field name="standard_price"/>-->
+                    <!--<field name="active" invisible="1"/>-->
+                    <!--</tree>-->
+                    <!--</field>-->
+                    <!--</group>-->
+                    <!--<group string="Add Product Manually and update price or 1111 import csv file to update the product price"  attrs="{'invisible': ['|',('csv_import','=', True),('select_price', '!=', 'list_price')]}">-->
+                    <!--<field name="product_ids_sale_price" nolabel="1" attrs="{'invisible': [('csv_import','=', True)]}">-->
+                    <!--<tree string="Product" editable="bottom">-->
+                    <!--<field name="sequence" widget="handle"/>-->
+                    <!--<field name="id" invisible="1"/>-->
+                    <!--<field name="name" readonly="1"/>-->
+                    <!--<field name="default_code"  readonly="1"/>-->
+                    <!--<field name="barcode" readonly="1"/>-->
+                    <!--<field name="list_price"/>-->
+                    <!--<field name="active" invisible="1"/>-->
+                    <!--</tree>-->
+                    <!--</field>-->
+                    <!--</group>-->
+                    <!--<group string="Add Product Manually and update price or import csv file to update the product price"  attrs="{'invisible': ['|',('csv_import','=', True),('select_price', '!=', 'standard_price')]}">-->
+                    <!--<field name="product_ids_cost_price" nolabel="1" attrs="{'invisible': [('csv_import','=', True)]}">-->
+                    <!--<tree string="Product" editable="bottom">-->
+                    <!--<field name="sequence" widget="handle"/>-->
+                    <!--<field name="id" invisible="1"/>-->
+                    <!--<field name="name" readonly="1"/>-->
+                    <!--<field name="default_code"  readonly="1"/>-->
+                    <!--<field name="barcode" readonly="1"/>-->
+                    <!--<field name="standard_price"/>-->
+                    <!--<field name="active" invisible="1"/>-->
+                    <!--</tree>-->
+                    <!--</field>-->
+                    <!--</group>-->
+                    <footer>
+                        <button name="update_prodcut_price" string="Update Price" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_price_update" model="ir.actions.act_window">
+            <field name="name">Update Product Price</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mint.price.update.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="mint_product_price_update.view_mint_price_update_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem action="action_product_price_update" id="menu_action_update_product_price_form"
+                  parent="stock.menu_stock_warehouse_mgmt" groups="stock.group_production_lot,stock.group_stock_manager,stock.group_stock_user"
+                  sequence="4"/>
+
+    </data>
+</openerp>

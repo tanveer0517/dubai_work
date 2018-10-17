@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+
+        <!--Email template -->
+        <record id="email_template_reject_pos_order" model="mail.template">
+            <field name="name">Pos Order - Rejection by Email</field>
+            <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+            <field name="subject">${object.company_id.name} ${object.state in ('draft', 'sent') and 'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="point_of_sale.model_pos_order"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<p>Dear ${object.partner_id.name}
+% set access_action = object.with_context(force_website=True).get_access_action()
+% set doc_name = 'quotation' if object.state in ('draft', 'sent') else 'order Rejection'
+% set is_online = access_action and access_action['type'] == 'ir.actions.act_url'
+% set access_name = is_online and object.template_id and doc_name == 'quotation' and 'Accept and pay %s online' % doc_name or 'View %s' % doc_name
+% set access_url = is_online and access_action['url'] or None
+
+% if object.partner_id.parent_id:
+    (<i>${object.partner_id.parent_id.name}</i>)
+% endif
+,</p>
+<p>
+Here is your ${doc_name} <strong>${object.name}</strong>
+% if object.origin:
+(with reference: ${object.origin} )
+% endif
+amounting in <strong>${object.amount_total} ${object.pricelist_id.currency_id.name}</strong>
+from ${object.company_id.name}.
+</p>
+
+    <br/><br/>
+% if is_online:
+    <center>
+        <a href="${access_url}" style="background-color: #1abc9c; padding: 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 16px;" class="o_default_snippet_text">${access_name}</a>
+        <br/><br/>
+        <span style="color:#888888">(or view attached PDF)</span>
+    </center>
+    <br/>
+% endif
+<p>
+Rejection Reason is<strong>${object.reject_reason}</strong>
+</p>
+
+<p>You can reply to this email if you have any questions.</p>
+<p>Thank you,</p>
+
+<p style="color:#eeeeee;">
+% if object.user_id and object.user_id.signature:
+    ${object.user_id.signature | safe}
+% endif
+</p>
+]]></field>
+        </record>
+    <!-- Email template for Reject Reason Template -->
+    <record id="sale_order_reject_action_mail" model="mail.template">
+        <field name="name">Sales Order Reject Status- Send by Email</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+        <field name="email_to">${object.partner_email|safe}</field>
+        <field name="subject">${object.company_id.name} ${object.state in ('draft', 'sent') and 'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="body_html"><![CDATA[<html>
+            <head></head>
+            % set record = ctx.get('record')
+            % set company = record and record.company_id or user.company_id
+            <body style="margin: 0; padding: 0;">
+                <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="wrap no22" style="border-collapse: collapse;width: 100%;margin: 0 auto;">
+                    <tbody>
+                        <tr>
+                            <td width="100%" align="center" valign="top" background="/saas_custom_mail_config/static/src/img/background.jpg" class="wrap wrapimg"
+                                style="-webkit-background-size: cover; width: 100%; margin: 0px auto; background-image: url(/saas_custom_mail_config/static/src/img/background.jpg);
+                                background-color: #3e3e3e; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;">
+                                <div>
+                                    <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="row600" style="border-collapse: collapse;margin-top:50px;">
+                                        <!--start logo img-->
+                                        <tbody>
+                                            <tr align="center" valign="top" background="/saas_custom_mail_config/static/src/img/header_background_1.jpg" class="wrap wrapimg"
+                                                style="-webkit-background-size: cover; width: 100%;background-color: #3e3e3e; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;">
+                                                <td align="center">
+                                                    <div style="padding:0px;width:100%;margin:auto;color:#fff">
+                                                        <table cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;background:inherit;color:inherit">
+                                                            <tbody>
+                                                                <tr>
+                                                                     <td valign="center" align="center" width="100%" style="padding:10px 10px 10px 5px;font-size: 12px">
+                                                                         <img src="/logo.png?company=${company.id}" style="padding: 0px; margin:3px 0px; height: auto; width: 200px;" alt="${user.company_id.name}">
+                                                                     </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div style="padding:0px;width:100%;margin:auto;color:#fff">
+                                                        <table cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;background:inherit;color:inherit">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td valign="center" align="center" width="100%" style="padding:10px 10px 10px 5px;">
+                                                                        <a href="#" style="color: #f0f0f0;text-decoration: none;outline: none;">
+                                                                            <p style="color:#a6a8ab;outline:none;text-decoration:none;font-size:20px;font-family:'Helvetica Neue',helvetica,arial,sans-serif;font-weight:100">
+                                                                            <h2><b>Welcome to ${object.company_id.name}</b></h2></p>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--end logo img-->
+                                            <tr>
+                                                <td align="center" style="min-width: 590px;">
+                                                    <table width="590" border="0" cellpadding="0" style="min-width: 590px; padding: 20px; border-collapse:separate;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td valign="top" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">
+                                                                    <span style="font-size:20px; color:white; font-weight: bold;">Dear ${object.partner_id.name},</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td valign="top" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">
+                                                                    <span style="font-size:20px; color:white; font-weight: bold;">
+                                                                        Your order is rejected due to ${object.note|safe}.
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tbody>
+    </table>
+</body>
+</html>
+]]></field>
+</record>
+
+    <!-- Email template for Reject Reason Template -->
+    <record id="sale_order_accept_action_mail" model="mail.template">
+        <field name="name">Sales Order Accept Status- Send by Email</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="email_from">${(object.user_id.email and '%s &lt;%s&gt;' % (object.user_id.name, object.user_id.email) or '')|safe}</field>
+        <field name="email_to">${object.partner_email|safe}</field>
+        <field name="subject">${object.company_id.name} ${object.state in ('draft', 'sent') and 'Quotation' or 'Order'} (Ref ${object.name or 'n/a' })</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="body_html"><![CDATA[<html>
+            <head></head>
+            % set record = ctx.get('record')
+            % set company = record and record.company_id or user.company_id
+            <body style="margin: 0; padding: 0;">
+                <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="wrap no22" style="border-collapse: collapse;width: 100%;margin: 0 auto;">
+                    <tbody>
+                        <tr>
+                            <td width="100%" align="center" valign="top" background="/saas_custom_mail_config/static/src/img/background.jpg" class="wrap wrapimg"
+                                style="-webkit-background-size: cover; width: 100%; margin: 0px auto; background-image: url(/saas_custom_mail_config/static/src/img/background.jpg);
+                                background-color: #3e3e3e; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;">
+                                <div>
+                                    <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="row600" style="border-collapse: collapse;margin-top:50px;">
+                                        <!--start logo img-->
+                                        <tbody>
+                                            <tr align="center" valign="top" background="/saas_custom_mail_config/static/src/img/header_background_1.jpg" class="wrap wrapimg"
+                                                style="-webkit-background-size: cover; width: 100%;background-color: #3e3e3e; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;">
+                                                <td align="center">
+                                                    <div style="padding:0px;width:100%;margin:auto;color:#fff">
+                                                        <table cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;background:inherit;color:inherit">
+                                                            <tbody>
+                                                                <tr>
+                                                                     <td valign="center" align="center" width="100%" style="padding:10px 10px 10px 5px;font-size: 12px">
+                                                                         <img src="/logo.png?company=${company.id}" style="padding: 0px; margin:3px 0px; height: auto; width: 200px;" alt="${user.company_id.name}">
+                                                                     </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div style="padding:0px;width:100%;margin:auto;color:#fff">
+                                                        <table cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;background:inherit;color:inherit">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td valign="center" align="center" width="100%" style="padding:10px 10px 10px 5px;">
+                                                                        <a href="#" style="color: #f0f0f0;text-decoration: none;outline: none;">
+                                                                            <p style="color:#a6a8ab;outline:none;text-decoration:none;font-size:20px;font-family:'Helvetica Neue',helvetica,arial,sans-serif;font-weight:100">
+                                                                            <h2><b>Welcome to ${object.company_id.name}</b></h2></p>
+                                                                        </a>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!--end logo img-->
+                                            <tr>
+                                                <td align="center" style="min-width: 590px;">
+                                                    <table width="590" border="0" cellpadding="0" style="min-width: 590px; padding: 20px; border-collapse:separate;">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td valign="top" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">
+                                                                    <span style="font-size:20px; color:white; font-weight: bold;">Dear ${object.partner_id.name},</span>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td valign="top" style="font-family:Arial,Helvetica,sans-serif; color: #555; font-size: 14px;">
+                                                                    <span style="font-size:20px; color:white; font-weight: bold;">
+                                                                        Your order is Accepted.
+                                                                    </span>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </tbody>
+    </table>
+</body>
+</html>
+]]></field>
+</record>
+
+    </data>
+</odoo>

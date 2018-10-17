@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_users_form_mint" model="ir.ui.view">
+        <field name="name">res.users.form.mint</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//notebook/page[2]/group['messaging']" position="after">
+                <group string="Downgraded Modules">
+                        <field name="client_module_ids" nolabel="1"
+                               options="{'no_create' : True, 'no_open': True}">
+                            <tree>
+                                <field name="name" string="Module"/>
+                                <field name="model_ids" string="Models" />
+                            </tree>
+                        </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

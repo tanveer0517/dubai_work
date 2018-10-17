@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_store_time_schedule,store.time.schedule,model_store_time_schedule,base.group_user,1,1,1,0
+access_res_users_store_manager,access.res.user.store.manager,base.model_res_users,mint_client_multi_store.saas_store_manager,1,1,1,1
+access_res_company_store_manager,access.res.company.store.manager,base.model_res_company,mint_client_multi_store.saas_store_manager,1,1,1,1
+access_res_group_store_manager,access.res.group.store.manager,base.model_res_groups,mint_client_multi_store.saas_store_manager,1,1,1,1
+access_ir_module_cate_store_manager,access.ir.module.cate.store.manager,base.model_ir_module_category,mint_client_multi_store.saas_store_manager,1,1,1,1
+access_ir_ui_view_cate_store_manager,access.ir.ui.view.store.manager,base.model_ir_ui_view,mint_client_multi_store.saas_store_manager,1,1,1,1

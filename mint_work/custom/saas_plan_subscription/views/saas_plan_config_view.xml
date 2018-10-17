@@ -1,0 +1,169 @@
+<odoo>
+    <data>
+        <record id="bista_plan_config" model="ir.ui.view">
+            <field name="name">Plan.Configuration</field>
+            <field name="model">saas_portal.plan</field>
+            <field name="inherit_id" ref="saas_portal.view_plans_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='summary']" position="after">
+                        <br/>
+                        <label for="active" string="Active"/>
+                        <field name="active"/>
+                    </xpath>
+                    <xpath expr="//button[@name='action_sync_server']" position="attributes">
+                        <attribute name="attrs">{'invisible': ['|', ('id', '=', False), ('state', '=', 'draft')]}</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='server_id']" position="attributes">
+                        <attribute name="options">{'no_create_edit': True}</attribute>
+                    </xpath>
+                    <xpath expr="//field[@name='on_create_email_template']" position="attributes">
+                        <attribute name="options">{'no_create_edit': True}</attribute>
+                    </xpath>
+                    <xpath expr="//button[@name='action_sync_server']" position="after">
+                        <button type="object" name="update_plan_feature_master"
+                                class="oe_highlight" string="Update Feature Master"/>
+                    </xpath>
+                    <xpath expr="//sheet//field[@name='template_id']"
+                           position="after" >
+                        <field name="plan_price" />
+                        <field name="sub_period" />
+                        <field name="plan_type" />
+                        <field name="button_text" required="1"/>
+                    </xpath>
+
+                    <xpath expr="//form//sheet" position="inside">
+                        <notebook>
+                            <page name="plan_features" string="Plan Features">
+                                <field name="plan_features_ids" options="{'no_create': True}">
+                                    <tree string="Plan Features" delete="false" create="false">
+                                        <field name="name"/>
+                                        <field name="pfeature_master_id" invisible="1"/>
+                                    </tree>
+                                    <form string="Plan Features">
+                                        <sheet>
+                                            <group>
+                                                <group string="Feature Name">
+                                                    <field name="plan_id" invisible="1"/>
+                                                    <field name="name" readonly="1"/>
+                                                    <field name="pfeature_master_id" invisible="1"/>
+                                                </group>
+                                            </group>
+                                            <group string="Plan Features Description">
+                                                <field name="feature_list_ids" options="{'no_create': True}" nolabel="1">
+                                                    <tree string="Plan Feature List" editable="bottom" delete="false" create="false">
+                                                        <field name="name" readonly="1"/>
+                                                        <field name="pfeature_list_id" invisible="1"/>
+                                                        <field name="checked"/>
+                                                        <field name="is_there"/>
+                                                        <field name="description"/>
+                                                    </tree>
+                                                </field>
+                                            </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                            <page name="plan_description" string="Plan Description" invisible="1">
+                                <group name="plan_description"  cols="4">
+                                    <field name="plan_description_ids" nolabel="1">
+                                        <tree name="plan_description_tree" editable="bottom">
+                                            <field name="plan_description_id" invisible="1"/>
+                                            <field name="plan_description_details" nolabel="1"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page name="plan_subscription" string="Subscription Product">
+                                <group name="plan_subscription">
+                                    <field name="plan_subscription_ids" nolabel="1">
+                                        <tree name="plan_subscription_tree" editable="bottom">
+                                            <field name="product_id" options="{'no_create_edit': True}"
+                                                   domain="[('is_subscription', '=', True)]"/>
+                                            <field name="subscription_id" invisible="1"/>
+                                            <field name="saas_prod_desc" />
+                                            <!--<field name="subscription_title" required="1"/>-->
+                                            <!--<field name="subscription_period" required="1"/>-->
+                                            <field name="no_of_users" required="1"/>
+                                            <!--<field name="size_limit" required="1"/>-->
+                                            <field name="subscription_price" required="1"/>
+                                            <field name="reference_prod_id"
+                                                   string="reference"
+                                                   invisible="1"/>
+                                        </tree>
+                                        <form name="plan_subscription_form">
+                                            <sheet>
+                                                <div class="oe_left" style="width: 500px;">
+                                                    <!--<field name="logo" widget="image" class="oe_avatar oe_left"/>-->
+                                                    <!--<div class="oe_title" style="width: 500px;">-->
+                                                        <!--<label class="oe_edit_only" for="Title" string="Title" required="1"/>-->
+                                                        <!--<h1><field name="subscription_title" class="oe_inline"/></h1>-->
+                                                        <!--<field name="subscription_id" invisible="1"/>-->
+                                                    <!--</div>-->
+                                                    <separator string="Plan Subscription Details"/>
+                                                    <group>
+                                                        <!--<field name="subscription_period" required="1"/>-->
+                                                        <field name="no_of_users" required="1"/>
+                                                        <!--<field name="size_limit" required="1"/>-->
+                                                        <field name="subscription_price" required="1"/>
+                                                    </group>
+                                                </div>
+                                            </sheet>
+                                        </form>
+                                    </field>
+                                </group>
+                            </page>
+			                <page name="required_module" string="Dependency Addons" invisible="1">
+                                <group name="required_module"  cols="4">
+                                    <field name="required_module_ids" nolabel="1" widget="many2many_tags" attrs="{'readonly':[('state','not in', ['draft'])]}">
+                                    </field>
+                                </group>
+                            </page>
+                            <page name="installed_module" string="Add Package Modules" invisible="1">
+                                <group name="installed_module"  cols="4">
+                                    <field name="installed_module_ids" nolabel="1" widget="many2many_tags" attrs="{'readonly':[('state','not in', ['draft'])]}">
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_plans_tree_inherit" model="ir.ui.view">
+            <field name="name">saas_portal.plans.tree</field>
+            <field name="model">saas_portal.plan</field>
+            <field name="inherit_id" ref="saas_portal.view_plans_tree"/>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <field name="name"  position="after">
+                    <field name="sub_period"/>
+                    <field name="plan_type"/>
+                    <field name="expiration"/>
+                    <field name="plan_price"/>
+                </field>
+                <field name="template_id" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="state" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_pricelist_view_for_saas" model="ir.ui.view">
+            <field name="name">product.pricelist.form_saas</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='country_group_ids']"
+                       position="before">
+                    <field name="recurring_rule_type" />
+                </xpath>
+            </data>
+            </field>
+        </record>
+    </data>
+</odoo>

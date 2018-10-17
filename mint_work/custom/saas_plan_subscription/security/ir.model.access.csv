@@ -1,0 +1,16 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_plan_subscription,access.plan.subscription,model_bista_plan_subscription,base.group_portal,1,1,0,0
+access_plan_description,access_plan_description,model_plan_description,base.group_portal,1,1,0,0
+
+access_saas_portal_plan,access_saas_portal_plan,model_saas_portal_plan,base.group_user,1,1,1,0
+access_plan_subscription,access.plan.subscription,model_bista_plan_subscription,base.group_user,1,1,1,0
+access_plan_description,access_plan_description,model_plan_description,base.group_user,1,1,1,0
+access_plan_features_master,access_plan_features_master,model_plan_features_master,base.group_user,1,1,1,0
+access_plan_feature_list,access_plan_feature_list,model_plan_feature_list,base.group_user,1,1,1,0
+
+access_saas_portal_plan,access_saas_portal_plan,model_saas_portal_plan,base.group_erp_manager,1,1,1,1
+access_plan_subscription,access.plan.subscription,model_bista_plan_subscription,base.group_erp_manager,1,1,1,1
+access_plan_description,access_plan_description,model_plan_description,base.group_erp_manager,1,1,1,1
+access_plan_features_master,access_plan_features_master,model_plan_features_master,base.group_erp_manager,1,1,1,1
+access_plan_feature_list,access_plan_feature_list,model_plan_feature_list,base.group_erp_manager,1,1,1,1
+

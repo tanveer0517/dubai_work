@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Saas Custom Error Handling Template View -->
+        <template id="custom_error_handling" name="OOPS!!! Something Went Wrong.">
+            <t t-call="website.layout">
+                <div id="block_error">
+                    <div class="col-xs-12 text-center">
+                        <h2>Error 404. &amp;nbspOops you've have encountered an error</h2>
+                        <p class="error_p">
+                            It apperrs that Either something went wrong..<br /><br/>
+                            This website is temporarily unable to service your request as it has exceeded it’s resource limit. Please check back shortly.
+                        </p>
+                        <p class="error_p">
+                            If you have any questions, please contact our Technical Support department.
+                        </p>
+                        <p class="error_p">
+                            <a href="/">Back To Home</a>
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <!--Saas Custom Error Handling Template End's Here-->
+    </data>
+</odoo>

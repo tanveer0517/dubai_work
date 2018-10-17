@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- POS Order Wizard -->
+        <record id="view_order_history" model="ir.ui.view">
+            <field name="name">view.history.wizard</field>
+            <field name="model">pos.order.history</field>
+            <field name="arch" type="xml">
+                <form string="Order History">
+
+                    <group>
+                        <field name="company_id" invisible="1"/>
+                        <group><field name="partner_id" required='1'/></group>
+                        <group><field name="location" required='1'/></group>
+                        <group><field name="start_date" required='1'/></group>
+                        <group><field name="end_date" required='1'/></group>
+                        <group><field name="state" required='1'/></group>
+                    </group>
+
+                    <footer>
+                        <button string="Print" type="object" name="order_history" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <!--  POS Order Form view -->
+        <record id="action_view_pos_oder_wizard" model="ir.actions.act_window">
+            <field name="name">POS Order History</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.order.history</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+                <field name="view_id" ref="point_of_sale.view_report_pos_order_search"/> 
+            <field name="target">new</field>
+        </record>
+
+        <!-- POS order Menu -->
+        <menuitem id="menu_report_order_details" action="action_view_pos_oder_wizard" parent="point_of_sale.menu_point_rep" sequence="5"/>
+
+        <!--  POS Order Qweb Report  -->
+        <report 
+            id="report_web_quote"
+            string="print report"
+            model="pos.order.history" 
+            report_type="qweb-pdf"
+            file="pos_order_history.report_posorder_history" 
+            name="pos_order_history.report_posorder_history" 
+            menu="False"
+        />
+
+    </data>
+</odoo>

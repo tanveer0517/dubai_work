@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_portal_project_case,access.res.portal.project.case,model_project_case,base.group_portal,1,1,0,0
+access_res_portal_ticket_category,access.res.portal.ticket.category,model_ticket_category,base.group_portal,1,1,0,0
+access_res_portal_ticket_call_type,access.res.portal.ticket.call.type,model_ticket_call_type,base.group_portal,1,1,0,0

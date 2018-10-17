@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="custom_res_lang_form" model="ir.ui.view">
+        <field name="name">res.lang.form</field>
+        <field name="model">res.lang</field>
+        <field name="inherit_id" ref="base.res_lang_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form"  position="inside">
+                <header>
+                    <button name="sync_language_marakez" string="Sync" type="object" class="oe_highlight"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='iso_code']"  position="after">
+                <!-- <field name="server" options="{'no_create': True, 'no_open': True}"/> -->
+                <field name="active"/>
+                <field name="is_default"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

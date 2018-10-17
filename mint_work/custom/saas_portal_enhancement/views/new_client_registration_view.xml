@@ -1,0 +1,330 @@
+<odoo>
+    <data>
+        <!-- New Client -->
+        <record id="view_new_clients_tree" model="ir.ui.view">
+            <field name="name">saas_portal.new.client.tree</field>
+            <field name="model">saas_portal.new.client</field>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <tree string="New Clients">
+                    <field name="request_no"/>
+                    <field name="client_id"/>
+                    <field name="contact_no"/>
+                    <field name="company"/>
+                    <field name="database"/>
+                    <field name="plan_id"/>
+                    <field name="plan_type"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_new_clients_form" model="ir.ui.view">
+            <field name="name">saas_portal.new.client.form</field>
+            <field name="model">saas_portal.new.client</field>
+            <field name="arch" type="xml">
+                <form string="New Clients">
+                    <header>
+                        <button string="Ask For Documents"
+                                name="action_document_pending" type="object"
+                                attrs="{'invisible':[('state', 'in', ['confirmed','document_pending','document_rejected','rejected','document_approval','pending_approval'])]}"
+                                icon="fa-file-powerpoint-o" class="oe_highlight"
+                                help="Confirm client database."
+                        />
+                        <button string="Send For Approval"
+                                name="action_pending_approval" type="object"
+                                attrs="{'invisible':[('state', 'in', ['confirmed','document_pending','document_rejected','document_approval','rejected','pending_approval'])]}"
+                                icon="fa-file-powerpoint-o"
+                                help="Confirm client database."
+                        />
+                        <button string="Approve"
+                                name="action_confirm_client" type="object"
+                                attrs="{'invisible':[('state', 'in', ['new','document_pending','document_rejected','confirmed','rejected'])]}"
+                                icon="fa-check-circle"
+                                help="Confirm client database."
+                        />
+                        <button name="%(saas_portal_enhancement.action_view_client_rejection_wizard)d"
+                                string="Reject" type="action"
+                                attrs="{'invisible':[('state', 'in', ['confirmed','rejected'])]}"
+                                icon="fa-ban"
+                                help="Reject client database."
+                        />
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="new"
+                               clickable=""/>
+                    </header>
+                    <sheet>
+                        <group string="Registration">
+                            <div class="oe_title">
+                                <h2>
+                                    <label for="request_no" string="Request Num: "/><field name="request_no" readonly="1"/>
+                                </h2>
+                            </div>
+                        </group>
+                        <group string="Details">
+                            <group>
+                                <field name="client_id" required="1" context="{'no_reset_password': True}" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                <field name="client_email" readonly="1"/>
+                                <field name="plan_id" required="1"  options="{'no_create_edit': True}" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                <field name="plan_type" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="merchant_id" options="{'no_create_edit': True}" attrs="{'required':[('state', 'in', ['pending_approval','document_approval'])], 'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                <!--<field name="store_id" attrs="{'required':[('state', 'in', ['pending_approval','document_approval'])]}"/>-->
+                                <field name="store_type" attrs="{'required':[('state', 'in', ['pending_approval','document_approval'])], 'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                <field name="plan_price" readonly="1"/>
+                                <field name="sub_period" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Personal Information">
+                                <group>
+                                    <group>
+                                        <field name="company"  required="1" placeholder="eg: My Company" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <field name="company_website" required="1" placeholder="eg : www.your_domain.com" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <field name="company_reg_num" placeholder="Enter your company registration number" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <field name="company_type" options="{'no_create_edit': True}" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <field name="database" attrs="{'required':[('state', 'in', ['pending_approval','document_approval'])],'readonly':[('state', 'in', ['confirmed','rejected'])]}" placeholder="eg : your_db_name.alies_name"/>
+                                        <field name="vat" attrs="{'required':[('state', 'in', ['document_pending','pending_approval','document_approval'])], 'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="street1"  required="1" placeholder="street1" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                        <field name="street2"  required="1" placeholder="landmark" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                        <field name="city"  required="1" placeholder="city" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                        <field name="state_id" placeholder="dubai" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                        <field name="country_id"  required="1" placeholder="United Arabs Emirate" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                        <!--<field name="zip"  required="1"/>-->
+                                        <field name="contact_no"  required="1" placeholder="eg : +963627783422" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                        <field name="landline_no" required="1" placeholder="eg : +962233438332" attrs="{'readonly':[('state', 'not in', ['new','document_pending'])]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Business Information">
+                                <group>
+                                    <group>
+                                        <field name="business_type_ids" options="{'no_create_edit': True}" widget="many2many_tags"  required="1" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <!--<field name="product_type" />-->
+                                        <field name="types_of_barcodes" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <field name="brand_ids"  widget="many2many_tags" options="{'no_create_edit': True}" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <field name="ecommerce_platforms_ids"  widget="many2many_tags" options="{'no_create_edit': True}" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                    </group>
+                                    <group>
+
+                                        <field name="num_of_outlets" attrs="{'invisible':[('store_type', '=', 'single')], 'readonly':[('state', 'in', ['confirmed','rejected'])]}" />
+                                        <field name="avg_selling_price" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <field name="avg_monthly_sales" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                        <field name="num_of_styles" attrs="{'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Bank Details">
+                                <group string="Bank Account Details">
+                                    <field name="client_bank_id" options="{'no_create_edit': True}" attrs="{'required':[('state', 'in', ['pending_approval','document_approval'])], 'readonly':[('state', 'in', ['confirmed','rejected'])]}"/>
+                                    <field name="client_bank_acc" attrs="{'required':[('state', 'in', ['pending_approval','document_approval'])], 'readonly':[('state', 'in', ['confirmed','rejected'])]}" placeholder="eg : 1000234452333223"/>
+                                    <field name="client_bank_iban" attrs="{'required':[('state', 'in', ['pending_approval','document_approval'])], 'readonly':[('state', 'in', ['confirmed','rejected'])]}" placeholder="eg: AE07 0331 2345 6789 0123 456"/>
+                                </group>
+                            </page>
+                            <page string="Attachments">
+                                <style>
+                                    .document_container{margin:10px auto;}
+                                    .each_document_row{margin:10px auto;}
+                                </style>
+                                <separator string="No Duplicate Files allowd or files with same name are not allowed"/>
+                                <div class="container-fluid document_container">
+                                    <div class="row each_document_row">
+                                        <div class="col-xs-12 col-md-3">
+                                            <label for="emirates_id_card"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-5">
+                                            <field name="emirates_id_card_name" invisible="1"/>
+                                            <field name="emirates_id_card" filename="emirates_id_card_name" widget="binary" attrs="{'readonly' : ['|',('emirates_id_card_rejected_state','=', 'rejected'),('state', 'in', ['confirmed', 'rejected'])]}"/>
+                                            <field name="emirates_id_card_rejected" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <field name="emirates_id_card_rejected_state" readonly="1" nolabel="1" attrs="{'invisible' : [('state', 'in', ['new', 'pending_approval', 'confirmed', 'rejected'])]}" />
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <button type="action"
+                                                    attrs="{'invisible' : ['|', ('state', 'in', ['new', 'confirmed', 'rejected']), ('emirates_id_card_rejected', '=', True)]}"
+                                                    name="%(saas_portal_enhancement.action_view_client_document_rejection_wizard)d"
+                                                    string="Reject"
+                                                    class="oe_highlight"
+                                                    context="{'default_file_name': emirates_id_card_name,
+                                                    'default_document': 'Emirates ID Card'}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row each_document_row">
+                                        <div class="col-xs-12 col-md-3">
+                                            <label for="passport_and_poa"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-5">
+                                            <field name="passport_and_poa_name" invisible="1"/>
+                                            <field name="passport_and_poa" filename="passport_and_poa_name" widget="binary" attrs="{'readonly' : ['|',('passport_and_poa_rejected_state','=', 'rejected'),('state', 'in', ['confirmed', 'rejected'])]}"/>
+                                            <field name="passport_and_poa_rejected" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <field name="passport_and_poa_rejected_state" readonly="1" nolabel="1" attrs="{'invisible' : [('state', 'in', ['new', 'pending_approval', 'confirmed', 'rejected'])]}" />
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <button type="action"
+                                                    attrs="{'invisible' : ['|', ('state', 'in', ['new', 'confirmed', 'rejected']), ('passport_and_poa_rejected', '=', True)]}"
+                                                    name="%(saas_portal_enhancement.action_view_client_document_rejection_wizard)d"
+                                                    string="Reject"
+                                                    class="oe_highlight"
+                                                    context="{'default_file_name': passport_and_poa_name,
+                                                    'default_document': 'Passport and POA'}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row each_document_row">
+                                        <div class="col-xs-12 col-md-3">
+                                            <label for="vat_num"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-5">
+                                            <field name="vat_num_name" invisible="1"/>
+                                            <field name="vat_num" filename="vat_num_name" widget="binary"  attrs="{'readonly' : ['|',('vat_num_rejected_state','=', 'rejected'),('state', 'in', ['confirmed', 'rejected'])]}"/>
+                                            <field name="vat_num_rejected" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <field name="vat_num_rejected_state" readonly="1" nolabel="1" attrs="{'invisible' : [('state', 'in', ['new', 'pending_approval', 'confirmed', 'rejected'])]}" />
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <button type="action"
+                                                    attrs="{'invisible' : ['|', ('state', 'in', ['new', 'confirmed', 'rejected']), ('vat_num_rejected', '=', True)]}"
+                                                    name="%(saas_portal_enhancement.action_view_client_document_rejection_wizard)d"
+                                                    string="Reject"
+                                                    class="oe_highlight"
+                                                    context="{'default_file_name': vat_num_name,
+                                                    'default_document': 'VAT Number'}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row each_document_row">
+                                        <div class="col-xs-12 col-md-3">
+                                            <label for="visa_and_poa"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-5">
+                                            <field name="visa_and_poa_name" invisible="1"/>
+                                            <field name="visa_and_poa" filename="visa_and_poa_name" widget="binary" attrs="{'readonly' : ['|',('visa_and_poa_rejected_state','=', 'rejected'),('state', 'in', ['confirmed', 'rejected'])]}"/>
+                                            <field name="visa_and_poa_rejected" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <field name="visa_and_poa_rejected_state" readonly="1" nolabel="1" attrs="{'invisible' : [('state', 'in', ['new', 'pending_approval', 'confirmed', 'rejected'])]}" />
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <button type="action"
+                                                    attrs="{'invisible' : ['|', ('state', 'in', ['new', 'confirmed', 'rejected']), ('visa_and_poa_rejected', '=', True)]}"
+                                                    name="%(saas_portal_enhancement.action_view_client_document_rejection_wizard)d"
+                                                    string="Reject"
+                                                    class="oe_highlight"
+                                                    context="{'default_file_name': visa_and_poa_name,
+                                                    'default_document': 'VISA and POA'}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row each_document_row">
+                                        <div class="col-xs-12 col-md-3">
+                                            <label for="operating_address_uae"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-5">
+                                            <field name="operating_address_uae_name" invisible="1"/>
+                                            <field name="operating_address_uae" filename="operating_address_uae_name" widget="binary" attrs="{'readonly' : ['|',('operating_address_uae_rejected_state','=', 'rejected'),('state', 'in', ['confirmed', 'rejected'])]}"/>
+                                            <field name="operating_address_uae_rejected" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <field name="operating_address_uae_rejected_state" readonly="1" nolabel="1" attrs="{'invisible' : [('state', 'in', ['new', 'pending_approval', 'confirmed', 'rejected'])]}" />
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <button type="action"
+                                                    attrs="{'invisible' : ['|', ('state', 'in', ['new', 'confirmed', 'rejected']), ('operating_address_uae_rejected', '=', True)]}"
+                                                    name="%(saas_portal_enhancement.action_view_client_document_rejection_wizard)d"
+                                                    string="Reject"
+                                                    class="oe_highlight"
+                                                    context="{'default_file_name': operating_address_uae_name,
+                                                    'default_document': 'Operating Address UAE'}"/>
+                                        </div>
+                                    </div>
+                                    <div class="row each_document_row">
+                                        <div class="col-xs-12 col-md-3">
+                                            <label for="trade_license"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-5">
+                                            <field name="trade_license_name" invisible="1"/>
+                                            <field name="trade_license" filename="trade_license_name" widget="binary" attrs="{'readonly' : ['|',('trade_license_rejected_state','=', 'rejected'),('state', 'in', ['confirmed', 'rejected'])]}"/>
+                                            <field name="trade_license_rejected" invisible="1"/>
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <field name="trade_license_rejected_state" readonly="1" nolabel="1" attrs="{'invisible' : [('state', 'in', ['new', 'pending_approval', 'confirmed', 'rejected'])]}" />
+                                        </div>
+                                        <div class="col-xs-12 col-md-2 text-right">
+                                            <button type="action"
+                                                    attrs="{'invisible' : ['|', ('state', 'in', ['new', 'confirmed', 'rejected']), ('trade_license_rejected', '=', True)]}"
+                                                    name="%(saas_portal_enhancement.action_view_client_document_rejection_wizard)d"
+                                                    string="Reject"
+                                                    class="oe_highlight"
+                                                    context="{'default_file_name': trade_license_name,
+                                                    'default_document': 'Trade License'}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </page>
+                            <page string="Rejection Reasons" attrs="{'invisible' : [('state', 'not in', ['document_rejected','document_approval','rejected'])]}">
+                                <group>
+                                    <field name="rejection"  nolabel="1" readonly="1">
+                                        <tree string="Client Rejection">
+                                            <field name="client_id" invisible="1"/>
+                                            <field name="name"/>
+                                            <field name="document"/>
+                                            <field name="file_name"/>
+                                            <field name="state"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                        <group>
+                            <field name="client_rejection_note" readonly="1" attrs="{'invisible' : [('state', 'not in', ['rejected'])]}"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_saas_portal_new_client_filter" model="ir.ui.view">
+            <field name="name">saas_portal.new.client.select</field>
+            <field name="model">saas_portal.new.client</field>
+            <field name="arch" type="xml">
+                <search string="Search New Client">
+                    <field name="database"/>
+                    <filter string="New" name="current"
+                            domain="[('state', 'not in',['confirmed','rejected'])]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Plan" domain="[]" context="{'group_by':'plan_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_new_clients" model="ir.actions.act_window">
+            <field name="name">Registration Request</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">saas_portal.new.client</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_saas_portal_new_client_filter"/>
+            <field name="context">{'search_default_current': 1}</field>
+        </record>
+
+
+        <menuitem id="menu_new_registration"
+                  parent="saas_portal.menu_base_saas"
+                  name="Registration"
+                  sequence="0"/>
+        <menuitem action="action_new_clients" id="menu_new_clients"
+                  parent="saas_portal_enhancement.menu_new_registration"
+                  sequence="1"/>
+    </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!-- Assets POS -->
+        <template id="assets" inherit_id="point_of_sale.assets">
+        	<xpath expr="." position="inside">
+	            <link rel="stylesheet" href="/gomart_theme/static/src/less/pos.less" id="pos-stylesheet"/>
+	        </xpath>
+        </template>
+        <!-- Assets Backend -->
+        <template id="assets_backend" name="mint_greem_theme_backend_assets"
+                  inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/gomart_theme/static/src/less/assets_backend.less"/>
+            </xpath>
+        </template>
+        <!-- Assets Common -->
+        <template id="assets_common" name="mint_green_theme_common_assets"
+                  inherit_id="web.assets_common">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/gomart_theme/static/src/less/assets_common.less"/>
+            </xpath>
+        </template>
+
+</odoo>

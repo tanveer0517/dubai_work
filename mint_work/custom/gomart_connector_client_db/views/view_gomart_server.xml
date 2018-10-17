@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- GoMart Server Tree View -->
+        <record id="view_gomart_server_api_tree" model="ir.ui.view">
+            <field name="name">gomart.server.api.tree</field>
+            <field name="model">gomart.server.api</field>
+            <field name="arch" type="xml">
+                <tree string="GoMart API URL">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- GoMart Server Form View -->
+        <record id="view_gomart_server_api_form" model="ir.ui.view">
+            <field name="name">gomart.server.api.form</field>
+            <field name="model">gomart.server.api</field>
+            <field name="arch" type="xml">
+                <form string="GoMart API URL">
+                    <sheet>
+                        <h1>GoMart API URL</h1>
+                        <p>
+                            <field name="name"
+                                placeholder="http://www.erpzone.com/api/" required="1"/>
+                        </p>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--  GoMart Server Action View -->
+        <record id="action_gomart_server" model="ir.actions.act_window">
+            <field name="name">API URL </field>
+            <field name="res_model">gomart.server.api</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- GoMart Server Menu below the -->
+        <menuitem id="main_gomart_server_menuitem" name="GoMart API"
+            parent="base.menu_custom" sequence="10"/>
+        <menuitem action="action_gomart_server"
+            id="gomart_server_menuitem" name="API URL" parent="main_gomart_server_menuitem"/>
+    </data>
+</odoo>

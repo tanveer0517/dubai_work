@@ -1,0 +1,468 @@
+// const definition
+@odoo-color-light    : #76bc21;
+@odoo-color-dark     : #282c35;
+@odoo-color-white    : #FFF;
+@odoo-color-tree     : #F0F4C3;
+@odoo-color-off-white : #fcfcfc;
+@odoo-color-border-grey: #dbdbdb;
+
+// tweak start ...
+@odoo-brand-optional     : @odoo-color-light;
+@odoo-color-pink         : @odoo-color-dark;
+@odoo-brand-secondary    : @odoo-color-white;
+
+body {
+    color   :   @odoo-color-dark;
+    background-color    : @odoo-color-white!important;
+}
+
+.o_web_client > .o_main .o_main_content .o_control_panel,
+.o_control_panel .breadcrumb{
+    background-color       : @odoo-color-tree!important;
+}
+
+.o_web_client > .o_main .o_main_content .o_content{
+    background-color       : @odoo-color-white;
+}
+
+.breadcrumb > .active{
+    color : @odoo-color-dark!important;
+}
+
+.o_form_view .o_form_sheet_bg{
+    background:  @odoo-color-white!important;
+}
+
+.o_form_view > header{
+    border-bottom: 1px solid #ccc !important;
+    background-color: @odoo-color-white!important;
+    background-image: none;
+    padding-bottom: 8px;
+}
+
+.navbar-inverse {
+  background-color       : @odoo-color-light;
+  border-color           : @odoo-color-light;
+
+  .navbar-nav > li > a {
+    color                : @odoo-color-white;
+    transition           : 0.4s;
+  }
+
+  .navbar-nav > li > a:hover, .navbar-nav > .active > a {
+    color: @odoo-color-white;
+    background-color: @odoo-color-dark;
+    border-color: @odoo-color-dark!important;
+    }
+
+  .navbar-nav > .active > a:hover{
+    background-color: @odoo-color-dark;
+  }
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover{
+    color : @odoo-color-dark;
+    background : @odoo-color-tree!important;
+}
+
+.nav-tabs > li > a:hover, .nav-tabs > li > a:focus{
+    background : @odoo-color-tree!important;
+}
+
+.oe_secondary_submenu > li > a:hover, .oe_secondary_submenu > li > a:focus {
+    background-color: @odoo-color-dark !important;
+    color: @odoo-color-white !important;
+    transition: 0.2s;
+  }
+
+
+.modal-dialog {
+  .modal-header {
+    background-color: @odoo-color-dark;
+
+    .close {
+      color: @odoo-color-white;
+      opacity: 1;
+    }
+  }
+
+  .modal-title {
+    color: @odoo-color-white;
+  }
+}
+
+.o_form_view .oe_button_box .oe_stat_button .o_button_icon,
+.o_form_view .o_form_required .o_form_input,
+/*.pos .pos-topheader, .pos .leftpane .pads,
+.pos .mode-button.selected-mode:hover,
+.pos .product .price-tag,*/
+{
+    color: @odoo-color-light!important;
+}
+
+.o_calendar_container .o_calendar_sidebar_container .ui-datepicker table .ui-state-active {
+    background-color: @odoo-color-light!important;
+}
+
+.o_dashboards .o_website_dashboard div.o_box h2,
+//.pos .oe_icon.oe_green, .pos .order-button.square,
+{
+    color: @odoo-color-dark;
+}
+
+/*.pos .order-button.square {
+color: @odoo-color-white;
+}*/
+
+.o_form_view .o_form_required.o_form_input{
+    background-color : @odoo-color-light;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd),
+.o_mail_thread .o_thread_message .o_thread_message_core.o_mail_note{
+    background-color: @odoo-color-tree;
+}
+
+.o_list_view thead {
+    color: @odoo-color-white;
+    background-color: @odoo-color-light;
+}
+
+.o_list_view tfoot{
+    color: @odoo-color-white;
+    background-color: transparent;
+    border-top: transparent;
+    border-bottom: transparent;
+}
+.o_mail_chat .o_mail_chat_sidebar {
+    background-color: @odoo-color-dark;
+    color: @odoo-color-white;
+}
+.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item.o_active {
+    background-color: @odoo-color-light;
+    color: @odoo-color-dark;
+}
+.o_searchview .o_searchview_autocomplete li.o-selection-focus{
+    background-color: @odoo-color-light;
+}
+
+.btn-icon {
+    color: @odoo-color-dark;
+    background-color: @odoo-color-light;
+    border-color: @odoo-color-dark;
+}
+
+.btn-icon:hover, .btn-icon:focus {
+    color: @odoo-color-dark;
+    background-color: @odoo-color-tree;
+    border-color: @odoo-color-dark;
+}
+
+.btn-icon.active{
+    color: @odoo-color-white;
+    background-color: @odoo-color-dark;
+    border-color: @odoo-color-dark;
+}
+
+.btn:hover, .btn-primary:hover, i:hover{
+    transition: 0.3s;
+    color: @odoo-color-white;
+    background-color: @odoo-color-dark;
+    border-color: @odoo-color-dark;
+}
+
+.o_kanban_view .o_column_quick_create{
+    background-color: @odoo-color-tree;
+}
+
+.o_form_view .oe_button_box .oe_stat_button:hover,
+.o_form_view .oe_button_box .oe_stat_button:focus{
+    background : @odoo-color-tree;
+    color: @odoo-color-dark;
+}
+
+.o_searchview .o_searchview_facet {
+    border: transparent;
+    background: @odoo-color-light;
+    color: @odoo-color-white;
+}
+
+.o_searchview .o_searchview_facet .o_searchview_facet_label {
+    background-color: @odoo-color-dark;
+}
+
+.o_searchview .o_searchview_facet .o_facet_remove {
+    color: @odoo-color-dark !important;
+}
+
+.o_kanban_view .o_kanban_group .o_kanban_header{
+    color: @odoo-color-dark !important;
+}
+
+.o_search_options .o_filters_menu li > a,{
+    color : @odoo-color-dark !important;
+}
+
+.o_dropdown_toggler_btn {
+    color: #ffffff;
+    background-color: @odoo-color-light;
+    border-color: @odoo-color-light;
+}
+
+.o_dropdown_toggler_btn:hover, .o_dropdown_toggler_btn:active,
+.o_dropdown_toggler_btn.active .open > .dropdown-toggle.o_dropdown_toggler_btn,
+.open > .dropdown-toggle.o_dropdown_toggler_btn:hover,
+.open > .dropdown-toggle.o_dropdown_toggler_btn:focus,
+.o_form_view > header > button:not(.btn-primary):not(.btn-link):not(.oe_highlight):hover,
+.oe_highlight:hover, .oe_highlight:focus
+ {
+    color: @odoo-color-white;
+    background-color: @odoo-color-dark;
+    border-color: @odoo-color-dark;
+}
+
+.o_kanban_view .o_kanban_group .o_kanban_header,
+.o_kanban_view .o_kanban_group .o_kanban_header .o_kanban_quick_add i,
+.o_kanban_view .o_kanban_group .o_kanban_header .o_kanban_config i{
+    color:@odoo-color-dark !important;
+}
+
+.o_kanban_view .o_kanban_group .o_kanban_header .o_kanban_quick_add i:hover
+{
+    background-color : @odoo-color-dark !important;
+}
+
+.o_kanban_view .o_kanban_group .o_kanban_header .o_kanban_config i:hover{
+    background-color : @odoo-color-dark !important;
+    color: @odoo-color-white !important;
+}
+
+.o_kanban_view .o_kanban_group:nth-child(odd){
+    background-color : @odoo-color-tree !important;
+}
+
+.o_kanban_view .o_kanban_group{
+    background-color : @odoo-color-white !important;
+}
+
+.o_form_view > header > button:not(.btn-primary):not(.btn-link):not(.oe_highlight) {
+    color: @odoo-color-dark;
+    background-color: @odoo-color-white;
+    border-color: @odoo-color-light;
+}
+
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section{
+    color   :   @odoo-color-dark;
+}
+.o_web_client > .o_main .o_sub_menu{
+   background : @odoo-color-dark;
+}
+
+.o_form_field_many2manytags .o_tag_color_10{
+    background : @odoo-color-light;
+}
+
+o_m2o_dropdown_option ui-menu-item ui-state-focus{
+    background : @odoo-color-tree;
+}
+
+.o_form_view .o_form_required .o_form_input{
+    background : @odoo-color-tree;
+}
+.o_content::-webkit-scrollbar-track,
+.o_sub_menu_content::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: @odoo-color-tree;
+}
+
+.o_content::-webkit-scrollbar,
+.o_sub_menu_content::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: @odoo-color-tree;
+}
+
+.o_content::-webkit-scrollbar-thumb,
+.o_sub_menu_content::-webkit-scrollbar-thumb
+{
+	background-color: @odoo-color-dark;
+}
+
+.o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped .o_kanban_card_content
+.o_kanban_primary_bottom{
+    background-color : @odoo-color-dark!important;
+}
+
+.o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped .o_kanban_card_header{
+    background-color : @odoo-color-dark!important;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.o_form_view ul.oe_form_status li.oe_active,
+.o_form_view ul.oe_form_status li.oe_active > .arrow span,
+.o_form_view ul.oe_form_status_clickable li.oe_active{
+   background-color : @odoo-color-dark!important;
+   background-image: none;
+     border-radius: 4px;
+}
+
+.o_form_view ul.oe_form_status li.oe_active > .label, .o_form_view ul.oe_form_status_clickable li.oe_active > .label{
+    text-shadow: none;
+}
+
+.btn-default.disabled{
+    background  :   @odoo-color-light;
+    border-color :  @odoo-color-light;
+    color   :   @odoo-color-dark!important;
+}
+
+.btn-default.disabled:hover,
+.btn-default.disabled:focus,
+.btn-default.disabled:active,{
+    background  :   @odoo-color-dark;
+    border-color :  @odoo-color-dark;
+    color   :   @odoo-color-white!important;
+}
+
+.o_mail_chat .o_mail_chat_sidebar .o_mail_chat_channel_item:hover
+{
+    background  :   @odoo-color-light;
+}
+
+.o_dashboards .o_website_dashboard{
+    background : @odoo-color-white!important;
+}
+
+.o_dashboards .o_website_dashboard div.o_box h2{
+    color : @odoo-color-dark!important;
+}
+
+
+
+/* Overridding CSS (06 sept 2018)*/
+
+
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu > li:not(.active) > a{
+	color: @odoo-color-white;
+}
+
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_menu_section{
+	color: @odoo-color-light;
+}
+
+.o_web_client > .o_main .o_sub_menu .o_sub_menu_content .oe_secondary_submenu .oe_menu_toggler:before{
+	border-left: 4px solid @odoo-color-white;;
+}
+
+.o_web_client > .o_main .o_main_content .o_control_panel{
+	box-shadow: 0px 1px 12px -3px rgba(0, 0, 0, 0.2);
+    border-bottom: transparent;
+    margin-bottom: 10px;
+}
+
+.o_web_client > .o_main .o_main_content .o_control_panel, .o_control_panel .breadcrumb{
+	background: @odoo-color-white !important;
+}
+.o_web_client > .o_main .o_main_content .o_content .o_view_manager_content{
+    left: 15px;
+    right: 15px;
+}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td{
+	border-top: 1px solid @odoo-color-border-grey;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd), .o_mail_thread .o_thread_message .o_thread_message_core.o_mail_note{
+	background: @odoo-color-white;
+}
+
+.table > thead > tr > th{
+	border-bottom: 1px solid @odoo-color-border-grey;
+	font-weight: 400;
+}
+
+.o_searchview{
+	    border: 1px solid @odoo-color-border-grey;
+    border-radius: 25px;
+        padding: 2px 25px 3px 5px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, .1);
+}
+
+.o_searchview .o_searchview_facet{
+	padding: 2px 2px;
+    border-radius: 25px;
+}
+
+.o_searchview .o_searchview_facet .o_searchview_facet_label{
+	color: @odoo-color-white;
+	    padding: 0;
+    padding-left: 5px;
+        background-color: transparent;
+}
+
+.o_searchview .o_searchview_input{
+        padding-left: 10px;
+}
+
+.o_searchview .o_searchview_facet .o_facet_values{
+	    margin-top: 3px;
+	        padding: 0 22px 0 5px;
+}
+.o_searchview .o_searchview_facet .o_facet_remove{
+	padding-right: 5px;
+}
+.o_searchview .o_searchview_more{
+	top: 6px;
+    right: 10px;
+}
+
+.o_control_panel .o_cp_left, .o_control_panel .o_cp_right{
+	margin-top: 20px;
+}
+.o_list_view.table tbody td, .o_list_view.table thead th{
+	    border: 1px solid #dbdbdb;
+}
+.o_list_view .o_list_record_selector{
+	    padding: 8px;
+}
+div.o_checkbox{
+	    line-height: 10px;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > .active > a{
+    border-radius: 25px;
+}
+.navbar{
+	min-height: 30px;
+	border-top: 1px solid @odoo-color-dark;
+    padding-top: 1px;
+}
+.o_web_client .navbar li > a{
+	    margin-top: 1px;
+}
+
+.o_kanban_view.o_kanban_dashboard.o_kanban_ungrouped .o_kanban_card_header .o_kanban_card_header_title .o_primary, .o_kanban_view.o_kanban_dashboard.o_kanban_grouped .o_kanban_card_header .o_kanban_card_header_title .o_primary{
+	color: @odoo-color-white !important;
+}
+
+.o_kanban_view .o_kanban_record{
+	box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1) !important;
+	border-radius: 4px;
+}
+
+.o_kanban_manage_button_section a{
+	color: @odoo-color-white;
+}
+.o_kanban_manage_button_section.oe_kanban_color_0 a{
+	color: @odoo-color-light;
+}
+
+.o_form_view .o_form_sheet_bg .o_form_sheet{
+    border: none;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 4px;
+}
+
+.btn-icon{
+        border-color: #fff;
+}

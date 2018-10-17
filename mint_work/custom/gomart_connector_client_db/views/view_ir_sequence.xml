@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--   Schedular for the Sync GoMart Store Product  -->
+    <record id="ir_cron_sync_store_product" model="ir.cron">
+        <field name="name">GoMart Store Product Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">product.template</field>
+        <field name="function">ir_sync_store_products</field>
+    </record>
+    <!--   Schedular for the Sync GoMart Store Product Range  -->
+    <record id="ir_cron_sync_store_product_range" model="ir.cron">
+        <field name="name">GoMart Store Product Range Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">product.template</field>
+        <field name="function">ir_sync_store_product_range</field>
+    </record>
+    <!--     Schedular for the Customer  -->
+    <record id="ir_cron_sync_res_partner" model="ir.cron">
+        <field name="name">GoMart Customer Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">res.partner</field>
+        <field name="function">ir_sync_res_partner</field>
+    </record>
+</odoo>

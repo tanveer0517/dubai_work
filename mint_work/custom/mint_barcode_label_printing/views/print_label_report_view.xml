@@ -1,0 +1,83 @@
+<odoo>
+    <data>
+        <record id="paperformat_product_barcode" model="report.paperformat">
+            <field name="name">European A4 Custom Barcode Format</field>
+            <field name="default" eval="True"/>
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">25</field>
+            <field name="margin_bottom">15</field>
+            <field name="margin_left">7</field>
+            <field name="margin_right">7</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">20</field>
+            <field name="dpi">90</field>
+        </record>
+
+        <report
+                id="report_product_label"
+                model="barcode.label.printing"
+                string="Barcode Report"
+                report_type="qweb-pdf"
+                name="mint_barcode_label_printing.report_barcode_label_printing"
+                file="mint_barcode_label_printing.report_barcode_label_printing"
+                menu="False"
+                paperformat="mint_barcode_label_printing.paperformat_product_barcode"
+        />
+
+        <template id="report_barcode_label_printing">
+            <t t-call="report.html_container">
+                <div class="page">
+                    <t t-foreach="docs" t-as="product">
+                        <t t-set="qty" t-value="1"/>
+                        <t t-set="position_row" t-value="1"/>
+                        <t t-set="position_column" t-value="1"/>
+                        <!--Table Start -->
+                        <table class="table" style="width:100%">
+                            <!--Table Row Start-->
+                            <tbody>
+                                <tr t-foreach="product.rows" t-as="rows" style="margin:5px auto;padding:5px auto;">
+                                    <!--<t t-if="position_row == product.starting_row_position">-->
+                                        <!--Table Column Start-->
+                                        <td t-foreach="product.columns" t-as="columns" style="text-align:center;">
+                                            <!--<t t-if="position_column == product.starting_column_position">-->
+                                                <t t-if="qty &lt;= product.quantity">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 text-center">
+                                                            <t t-if="product.ref_code">
+                                                                [<strong t-esc="product.ref_code"/>]
+                                                            </t>
+                                                            <strong t-if='product.product_name' t-esc="product.product_name"/>
+                                                        </div>
+                                                        <div class="col-xs-12 text-center">
+                                                            <img t-if="product.barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (product.encoding, product.barcode, 600, 150)" style="width:100%;height:20%;"/>
+                                                            <span t-esc="product.barcode"/>
+                                                        </div>
+                                                        <div class="col-xs-12 text-center">
+                                                            <strong t-field="product.template_id.company_id.currency_id.symbol"/>
+                                                            <strong t-esc="product.price"/>
+                                                        </div>
+                                                    </div>
+                                                    <t t-set="qty" t-value="qty + 1"/>
+                                                </t>
+                                            <!--</t>-->
+                                            <t t-set="position_column" t-value="position_column + 1"/>
+                                        </td>
+                                        <!--Table Column Ends-->
+                                    <!--</t>-->
+                                    <t t-set="position_row" t-value="position_row + 1"/>
+                                    <!--Table Column Ends-->
+                                </tr>
+                            </tbody>
+                            <!--Table Rows End-->
+                        </table>
+                        <!--Table Ends-->
+                    </t>
+                </div>
+            </t>
+
+        </template>
+    </data>
+</odoo>

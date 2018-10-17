@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="group_bss_nobody" model="res.groups">
+            <field name="name">Nobody (to disable or hide features)</field>
+            <field name="category_id" eval="None" />
+            <field name="users" eval="[(6, 0, [])]" />
+            <field name="implied_ids" eval="[(6, 0, [])]" />
+        </record>
+
+    </data>
+</odoo>

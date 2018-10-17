@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Saas Client Registration Template View-->
+        <template id="registration_form" name="Registration">
+            <t t-call="website.layout">
+                <div class="container-fluid registration_body wow fadeIn" data-wow-offset="50"
+                     data-wow-delay="0.9s" >
+                    <div class="col-xs-12 col-md-7 reg_form_container">
+                        <div class="panel reg_form_panel">
+                            <div class="panel-heading text-center"><h3><i class="fa fa-user-plus" aria-hidden="true"></i><strong>  Merchant Registration</strong></h3></div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" enctype="multipart/form-data" t-attf-action="/process{{ '?debug' if debug else '' }}" method="post" onsubmit="this.action = this.action + location.hash" id="registration_form_val">
+                                    <fieldset>
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                        <h4><strong>Company and Contact Details</strong></h4>
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Merchant Name *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            <input name="full_name" id="full_name" placeholder="Enter Your Full Name" t-att-value="full_name" class="form-control" style="text-transform:capitalize" type="text" required="True"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12 ">
+                                                <div class="form-group">
+                                                    <label class="control-label">E-Mail *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                                            <input id="email" name="email" placeholder="Enter your E-mail" class="form-control" t-att-value="email" type="text" required="True"/>
+                                                        </div>
+                                                    </div>
+                                                    <small id="email_check" class="help-block" style="color:#a94442;"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Company Name *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                            <input  name="company_name" t-att-value="company_name" placeholder="Company Name" class="form-control one" style="text-transform:capitalize" type="text"  required="True"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Company Website *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-building"></i></span>
+                                                            <input  name="company_website" t-att-value="company_website" placeholder="www.yourcomany.com" class="form-control" type="text"  required="True"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12 ">
+                                                <div class="form-group">
+                                                    <label class="control-label">Store Domain *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <input id="domain" name="base_saas_domain_name" t-att-value="base_saas_domain_name" placeholder="Domain Name" class="form-control two"  type="text"  required="True"/>
+                                                            <span class="input-group-addon">.<t t-raw="base_saas_domain"/></span>
+                                                            <input id="base_saas_domain" type="hidden" name="base_saas_domain" t-att-value="base_saas_domain"/>
+                                                        </div>
+                                                    </div>
+                                                    <small id="domain_check" class="help-block" style="color:#a94442;"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4><strong>Business Details</strong></h4>
+
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-6 ">
+                                                <div class="form-group">
+                                                    <label class="control-label">Address 1*</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                            <input name="street1" placeholder="Address 1" t-att-value="street1" class="form-control" style="text-transform:capitalize" type="text" required="True"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-6 ">
+                                                <div class="form-group">
+                                                    <label class="control-label">Address 2 *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                            <input name="street2" placeholder="Address 2" t-att-value="street2" class="form-control" style="text-transform:capitalize" type="text"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Country *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                                                            <select id="countries_phone1" class="form-control bfh-countries" data-country="AE" name="country"></select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label">State *</label>-->
+                                                    <!--<div class="inputGroupContainer">-->
+                                                        <!--<div class="input-group">-->
+                                                            <!--<span class="input-group-addon"><i class="fa fa-list"></i></span>-->
+                                                            <!--<select class="form-control bfh-states" data-country="countries_phone1" data-state="AZ" name="state"/>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="col-xs-12 col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">City *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                                                            <input type="text" class="form-control" t-att-value="city" placeholder="City" name="city" style="text-transform:capitalize"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <!--<div class="col-xs-12 col-md-6">-->
+                                                <!--<div class="form-group">-->
+                                                    <!--<label class="control-label">Zip Code *</label>-->
+                                                    <!--<div class="inputGroupContainer">-->
+                                                        <!--<div class="input-group">-->
+                                                            <!--<span class="input-group-addon"><i class="fa fa-file-text"></i></span>-->
+                                                            <!--<input id="txtNumber" name="zip" onkeypress="return isNumberKey(event)" t-att-value="zip_code" maxlength="6" placeholder="Zip Code" class="form-control" type="text" required="True"/>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="col-xs-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Mobile No. *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
+                                                            <input type="text" class="form-control bfh-phone" data-country="countries_phone1" name="contact_no"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Landline No. *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-phone-square"></i></span>
+                                                            <input id="landline_no" type="text" class="form-control bfh-phone" data-country="countries_phone1" name="landline_no"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Business Type (Hold CTRL/Shift key and select the Business Type) *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                                                            <select name="business_type" class="form-control selectpicker" required="True" multiple="multiple">
+                                                                <!--<option value="" selected="selected">Select Brands to Sell</option>-->
+                                                                <t t-foreach="business_rec" t-as="business_rec">
+                                                                    <option name="business_type1" t-if="business_rec.id" t-att-value="business_rec.id"><t t-esc="business_rec.name"/></option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h4><strong>Bank Details</strong></h4>
+
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Bank Name *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-list"></i></span>
+                                                            <select id="bank_name" name="bank_rec_id" class="form-control selectpicker" required="True">
+                                                                <option value="" selected="selected">Select Your Bank</option>
+                                                                <t t-foreach="bank_rec" t-as="bank">
+                                                                    <option name="bank_names" t-if="bank.id" t-att-value="bank.id"><t t-esc="bank.name"/></option>
+                                                                </t>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Account Number *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-file-text"></i></span>
+                                                            <input  name="account_num" t-att-value="account_num" placeholder="eg: 1000234452333223" class="form-control one" style="text-transform:capitalize" type="number"  required="True"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Bank IBAN *</label>
+                                                    <div class="inputGroupContainer">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><i class="fa fa-file-text"></i></span>
+                                                            <input id="bank_iban" name="bank_iban" t-att-value="bank_iban" placeholder="eg: AE07 0331 2345 6789 0123 456" class="form-control one" style="text-transform:capitalize" type="text" required="True"/>
+                                                        </div>
+                                                    </div>
+                                                    <small id="bank_iban_missing" class="help-block" style="color:#a94442;"></small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <input type="hidden" name="plan_id" t-att-value="plan_id"/>
+                                            <input type="hidden" name="uid" t-att-value="uid"/>
+                                            <input type="hidden" name="plan_type_rec" t-att-value="plan_type"/>
+                                            <input type="hidden" name="portal_company" t-att-value="portal_company"/>
+                                            <input type="hidden" id="country_name" name="country_name"/>
+                                            <!--<input type="hidden" id="state_name" name="state_name" value="Abu Dhabi"/>-->
+                                            <!-- Success message -->
+                                            <div class="alert alert-success" role="alert" id="success_message">Success <i class="fa fa-thumbs-up"></i> Success!.</div>
+
+                                            <div class="form-group text-center">
+                                                <label class="control-label"></label>
+                                                <div class="col-md-12">
+                                                    <!--<label><input name="terms" class="agree_terms" type="checkbox" required="True"/> I Agree Terms And Conditions <a href="https://drive.google.com/file/d/0BxDfN7PXO6RDdmJIOUJDVjJDMHM/view?usp=sharing" target="_blank">Company Policy</a></label>-->
+                                                    <label><input name="terms" class="agree_terms" type="checkbox" required="True"/> I Agree Terms And Conditions <a  class="a" data-toggle="modal" data-target="#server_term_condition" t-att-data-plan_id="plan_id">Company Policy</a></label>
+                                                </div>
+                                            </div>
+
+                                            <script src="/saas_login_registration/static/src/js/server_terms_conditions.js" type="text/javascript"/>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="server_term_condition" role="dialog">
+                                                <div class="modal-dialog modal-lg">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal">&amp;times;</button>
+                                                            <h4 class="modal-title">Terms &amp; Condtions</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div id="terms_conditions">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <a class="btn btn-warning close_modal"
+                                                               data-dismiss="modal">Close</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group last col-xs-10">
+                                                <p class="alert alert-danger" t-if="error">
+                                                    <span t-if="error" t-esc="error" name="error"/>
+                                                </p>
+                                            </div>
+                                            <input type="hidden" name="redirect" t-att-value="redirect"/>
+
+                                            <!-- Button -->
+                                            <div class="form-group text-center">
+                                                <button type="submit" style="width:50%; float:none; margin:0 auto;" disabled="True" data-loading-text="Creating Account...." class="btn btn-danger submit">Create Your Account</button>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
+                            <div class="panel-footer text-center text-muted">
+                                <h4><strong><t t-if="portal_company"><t t-esc="portal_company"/></t></strong></h4><br/>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- /.container -->
+            </t>
+        </template>
+        <!--Saas Client Registration Template View Ends Here-->
+    </data>
+</odoo>

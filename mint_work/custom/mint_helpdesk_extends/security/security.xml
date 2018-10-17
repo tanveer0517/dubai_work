@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="helpdesk_project_case_rule" model="ir.rule">
+            <field name="name">project case record rule</field>
+            <field name="model_id" ref="project_case.model_project_case"/>
+            <field name="global" eval="1" />
+            <field name="domain_force">[('case_task_ids.assigned_to','in',[user.id])]</field>
+            <field name="perm_read" eval="True" />
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="protected" eval="True" />
+        </record>
+    </data>
+</openerp>

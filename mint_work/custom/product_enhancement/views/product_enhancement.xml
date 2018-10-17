@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_group_form" model="ir.ui.view">
+        <field name="name">view.product.group.form</field>
+        <field name="model">product.group</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                         <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object"
+                                    class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button"
+                                    options='{"terminology": "archive"}'/>
+                            </button>
+                         </div>
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Group Name"/>
+                            <h1><field name="name" placeholder="Group Name" required="1"/></h1>
+                        </div>
+                        <br/>
+                        <br/>
+                        <group>
+                            <field name="attributs_id" context="{'default_group_id':active_id}" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_product_group_tree" model="ir.ui.view">
+        <field name="name">view.product.group.tree</field>
+        <field name="model">product.group</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name" required="1"/>
+                    <field name="attributs_id" widget="many2many_tags"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_group_action">
+            <field name="name">Product Group</field>
+            <field name="res_model">product.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="main_product_group" name="Product Group" parent="point_of_sale.menu_point_of_sale" sequence="14" action="product_group_action" />
+
+
+
+        <!-- Added field group id in the Point Of Sale category -->
+        <record id="view_inherite_product_category" model="ir.ui.view">
+        <field name="name">view.product.category</field>
+        <field name="model">pos.category</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="group_id"/>
+                </field>
+            </field>
+        </record>
+
+
+        <!-- Product brand added at the product.template -->
+        <record id="view_pos_product_brand" model="ir.ui.view">
+        <field name="name">view.pos.product.brand</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="barcode" position="after">
+                    <field name="brand_id"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Product brand added at the product.template -->
+        <record id="view_product_brand" model="ir.ui.view">
+        <field name="name">view.product.brand</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="barcode" position="after">
+                    <field name="brand_id"/>
+                    <field name="server_id" attrs="{'required': ['|',('sale_ok', '=', True),('purchase_ok', '=', True)], 'invisible': [('is_subscription', '=', True)]}"/>
+                </field>
+                <field name="default_code" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+                <field name="list_price" position="after">
+                    <field name="mrp_price"/>
+                    <field name="mop_price"/>
+                </field>
+                <page name="variants" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="product_template_form_view_pos" model="ir.ui.view">
+        <field name="name">product.template.common.form.pos</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <page name="sales" position="after" >
+                    <page string="Group attributes" name="group_attributes" invisible="context.get('subscription_product', False)">
+                        <field name="attributes_id" nolabel="1">
+                            <tree string="Group Attributes" editable="bottom">
+                                <field name="attribute_id"/>
+                                <field name="attribute_value"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+       <record id="product_category_form_view_inherit" model="ir.ui.view">
+            <field name="name">product.category.form.inherit</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="product.product_category_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@class='oe_title']" position="inside">
+                    <div>
+                        <field name="allow_product"/>
+                        <label for="allow_product"/>
+                    </div>
+                    <div>
+                        <field name="is_subscription" invisible="1"/>
+                        <label for="is_subscription" invisible="1"/>
+                    </div>
+                </xpath>
+                <field name="type" position="after">
+                    <field name="category_id" required="1" invisible="1"/>
+                    <!--<field name="allow_product"/>-->
+                    <!--<field name="is_subscription"/>-->
+                </field>
+                <xpath expr="//form/sheet/group/field[@name='type']" position="before">
+                    <field name="server_id" attrs="{'required': [('is_subscription', '=', False)],'invisible': [('is_subscription', '=', True)]}"/>
+                </xpath>
+                 <xpath expr="//form/sheet/group/field[@name='parent_id']" position="attributes">
+                    <attribute name="domain">[('server_id','=',server_id)]</attribute>
+                 </xpath>
+            </field>
+       </record>
+
+
+        <!-- Product brand Form view -->
+        <record id="view_product_brand_form" model="ir.ui.view">
+        <field name="name">product.brand.form</field>
+        <field name="model">product.brand</field>
+            <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object"
+                                class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button"
+                                options='{"terminology": "archive"}'/>
+                        </button>
+                    </div>
+                    <field name="brand_img" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Brand Name"/>
+                        <h1><field name="name" placeholder="Brand Name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="server_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+
+        <!-- Product brand tree view -->
+        <record id="view_product_brand_tree" model="ir.ui.view">
+        <field name="name">product.brand.tree</field>
+        <field name="model">product.brand</field>
+            <field name="arch" type="xml">
+              <tree>
+                <field name="name"/>
+              </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product_brand_action">
+            <field name="name">Product Brands</field>
+            <field name="res_model">product.brand</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Product brand Added in the Sales menu  -->
+        <menuitem id="main_product_brand" name="Brands"
+                  parent="sale.prod_config_main" sequence="1"
+                  action="product_brand_action" />
+
+    </data>
+</odoo>

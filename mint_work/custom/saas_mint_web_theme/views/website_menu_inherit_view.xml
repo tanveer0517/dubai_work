@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="website_menu_list_inherit">
+            <field name="name">website.menu.list.inherit</field>
+            <field name="model">website.menu</field>
+            <field name="inherit_id" ref="website.menu_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="show_menu"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

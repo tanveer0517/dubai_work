@@ -1,0 +1,47 @@
+<odoo>
+    <!-- In the Product Category Form View,Added "go_mart_category_id" and 
+      "allowed_product" -->
+    <record id="view_go_mart_product_category_form_inherit" model="ir.ui.view">
+        <field name="name">product.gomart.category.form</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@class='oe_title']" position="before">
+                <field class="oe_avatar" filename="categ_img_filename"
+                    name="categ_img" required="1" widget="image"/>
+            </xpath>
+            <field name="parent_id" position="after">
+                <field
+                    attrs="{'required': [('is_subscription', '=', False)], 'invisible': [('is_subscription', '=', True)]}" name="group_id"/>
+                <field
+                    attrs="{'invisible':['|','|',('go_mart_sub_category_id','!=',0),('is_subscription', '=', True)]}" name="go_mart_category_id"/>
+                <field
+                    attrs="{'invisible':['|','|',('gomart_alllow_product','=',True),('go_mart_category_id','!=',0),('is_subscription', '=', True)]}" name="go_mart_sub_category_id"/>
+                <field name="categ_img_filename" readonly="0" attrs="{'required': [('is_subscription', '=', False)], 'invisible': [('is_subscription', '=', True)]}"/>
+                <field
+                    attrs="{'required': [('is_subscription', '=', False)],'invisible':['|','|',('go_mart_sub_category_id','!=',0),('is_subscription', '=', True)]}"
+                    default="0" name="gomart_alllow_product"/>
+                <field name="is_active" attrs="{'required': [('is_subscription', '=', False)], 'invisible': [('is_subscription', '=', True)]}"/>
+            </field>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="attrs">{'invisible':['|',('gomart_alllow_product','=',True),('go_mart_category_id','!=',0)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+    <!-- Added GoMart Category and SubCategory ID,Product Category Tree View -->
+    <record id="view_go_mart_product_category_tree_inherit" model="ir.ui.view">
+        <field name="name">product.gomart.category.tree</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="arch" type="xml">
+            <field name="display_name" position="before">
+                <field name="go_mart_category_id"/>
+                <field name="go_mart_sub_category_id"/>
+            </field>
+            <field name="display_name" position="after">
+                <field name="gomart_alllow_product"/>
+                <field name="is_active"/>
+            </field>
+        </field>
+    </record>
+</odoo>

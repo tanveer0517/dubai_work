@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_pos_category_form_view_inherit_mint" model="ir.ui.view">
+        <field name="name">pos.category.form.inherit.mint</field>
+        <field name="model">pos.category</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after">
+                <field name="category_id"/>
+                <field name="client_allow_product"/>
+                <field name="active"/>
+            </field>
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_pos_category_tree_view_inherit_mint" model="ir.ui.view">
+        <field name="name">pos.category.tree.inherit.mint</field>
+        <field name="model">pos.category</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_template_form_view_mint_client" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.mint.client</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pos_categ_id']" position="attributes">
+                <attribute name="domain">[('client_allow_product', '=', True)]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

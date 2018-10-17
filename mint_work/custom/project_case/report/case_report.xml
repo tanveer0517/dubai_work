@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="case_report" name="Service Report">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="project_case.case_layout_letter">
+                    <div class="page">
+                        <div style="border-bottom: 1px solid black;"></div>
+                        <h4>
+                            <b>Project Information:</b>
+                        </h4>
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+
+                            <tr>
+                                <td width="10%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Customer Name</b>
+                                </td>
+                                                                   
+                                <td width="55%" style="border: 1px solid #000;"><span t-field="o.partner_id"/></td>
+                                <td width="5%"> </td>
+                            </tr>
+                            <tr>
+                                <td width="10%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Project Code/Name</b>
+                                </td>
+                                <td width="55%" style="border: 1px solid #000;"><span t-field="o.analytic_id"/></td>
+                                <td width="5%"> </td>
+                            </tr>
+                        </table>
+				
+
+                        <h4>
+                            <b>Call Information:</b>
+                        </h4>
+
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+                            <tr>
+                                <td width="10%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+
+                                    <table>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <b>Type of Request</b>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                                <td width="55%" style="border: 1px solid #000;">
+                                    <table>
+                                        <tr>
+                                            <td width="18%" class="text-center" style="border: 1px solid #000; border-bottom: 1px solid #000;">
+                                                <b>Maintenance(PM)</b>
+                                            </td>
+                                            <td width="18%" class="text-center" style="border: 1px solid #000; border-bottom: 1px solid #000;">
+                                                <b>Problem Fixing</b>
+                                            </td>
+                                            <td width="19%" class="text-center" style="border: 1px solid #000; border-bottom: 1px solid #000;">
+                                                <b>Configuration</b>
+                                            </td>
+                                        </tr>
+	
+                                        <tr>
+                                            <td class="text-center">
+                                                <b>Other:</b>
+                                            </td>
+                                        </tr>
+                                    </table>
+					
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+                        </table>
+		
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+
+                            <tr>
+                                <td width="10%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Call Received From Customer</b>
+                                </td>
+                                <td width="18%" class="text-center" style="border: 1px solid #000;">
+                                    <b>Date    / /  </b>
+                                </td>
+                                <td width="18%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Time</b>
+                                </td>
+                                <td width="19%" class="text-center" style="border: 1px solid #000;">
+                                    <b>............</b>
+                                </td>
+
+                                <td width="5%"> </td>
+                            </tr>
+
+                            <tr>
+                                <td width="10%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Engineer Arrived Onsite</b>
+                                </td>
+                                <td width="18%" class="text-center" style="border: 1px solid #000;">
+                                    <b>Date    / /  </b>
+                                </td>
+                                <td width="18%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Time</b>
+                                </td>
+                                <td width="19%" class="text-center" style="border: 1px solid #000;">
+                                    <b>............</b>
+                                </td>
+
+                                <td width="5%"> </td>
+                            </tr>
+
+                            <tr>
+                                <td width="10%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Engineer departure from onsite</b>
+                                </td>
+                                <td width="18%" class="text-center" style="border: 1px solid #000;">
+                                    <b>Date    / /  </b>
+                                </td>
+                                <td width="18%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Time</b>
+                                </td>
+                                <td width="19%" class="text-center" style="border: 1px solid #000;">
+                                    <b>............</b>
+                                </td>
+
+                                <td width="5%"> </td>
+                            </tr>
+                        </table>
+
+                        <h4>
+                            <b>Call Description:</b>
+                        </h4>
+
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+                            <tr>
+                                <td width="10%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <table>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <b>Description</b>
+                                            </td>
+                                        </tr>
+                                    </table>		
+							
+
+                                </td>
+                                <td width="55%" style="border: 1px solid #000;">
+                                    <table>
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <b>* -------------------------------------------------</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+	
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <b>---------------------------------------------------</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <b>* -------------------------------------------------</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+	
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <b>---------------------------------------------------</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                    </table>
+					
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+                        </table>
+
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+                            <tr>
+                                <td width="10%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <table>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="30%" class="text-center">
+                                                <b>Action Taken</b>
+                                            </td>
+                                        </tr>
+                                    </table>		
+							
+
+                                </td>
+                                <td width="55%" style="border: 1px solid #000;">
+                                    <table>
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <b>* -------------------------------------------------</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+	
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <b>---------------------------------------------------</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <b>* -------------------------------------------------</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+	
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <b>---------------------------------------------------</b>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td width="55%" class="text-center">
+                                                <br></br>
+                                            </td>
+                                        </tr>
+                                    </table>
+					
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+                        </table>
+
+
+
+                        <br/>
+                        <br/>
+				
+				
+                        <table width="100%">
+
+                            <tr>
+                                <td width="80%" style="font-size:15px; text-align:left;">
+                                    <b>Customer's Name:_______________Engineer's Name:_______________</b>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                        <br></br>
+
+                        <table width="100%">
+
+                            <tr>
+                                <td width="80%" style="font-size:15px; text-align:left;">
+                                    <b>Signature:_______________Signature:_______________</b>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <br></br>
+
+                        <table width="100%">
+
+                            <tr>
+						
+                                <td width="20%" style="font-size:13px; text-align:left;">
+                                    <b>Date:___/___/_________</b>
+                                </td>
+                                <td width="10%"></td>
+                                <td width="30%" style="font-size:13px; text-align:left;">
+                                    <b>Date:___/___/_________</b>
+                                </td>
+                                <td width="20%"></td>
+                                <td width="20%"></td>
+                            </tr>
+                        </table>
+                        <br/>
+                        <div style="border-bottom: 1px solid black;"></div>
+                    </div>
+                 
+                </t>
+            </t>
+        </template>
+
+
+        <!--<template id="case_report">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'project_case.report_project_case_new')"/>
+                </t>
+            </t>
+        </template>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <!-- New Client -->
+        <record id="view_client_rejection_tree" model="ir.ui.view">
+            <field name="name">client.rejection.tree</field>
+            <field name="model">new.client.rejection</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="Client Rejection">
+                    <field name="client_id"/>
+                    <field name="name"/>
+                    <field name="document"/>
+                    <field name="file_name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_client_rejection_form" model="ir.ui.view">
+            <field name="name">client.rejection.form</field>
+            <field name="model">new.client.rejection</field>
+            <field name="arch" type="xml">
+                <form string="Rejection">
+                    <sheet>
+                        <group name="Client Rejection">
+                            <field name="client_id"/>
+                            <field name="name"/>
+                            <field name="document"/>
+                            <field name="file_name"/>
+                            <field name="state"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_client_rejection" model="ir.actions.act_window">
+            <field name="name">Client Rejection</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">new.client.rejection</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

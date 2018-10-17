@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit client form for update log information -->
+    <record id="view_clients_logs_form" model="ir.ui.view">
+            <field name="name">saas_server.clients.form</field>
+            <field name="model">saas_server.client</field>
+            <field name="inherit_id" ref="saas_server.view_clients_form"/>
+            <field name="arch" type="xml">
+           <field name="expiration_datetime" position="after" >
+               <field name="client_type"/>
+               <field name="user_log_ids">
+                   <tree string="User Logs">
+                       <field name="name"/>
+                       <field name="login_date"/>
+                   </tree>
+               </field>
+           </field>
+            </field>
+        </record>
+</odoo>

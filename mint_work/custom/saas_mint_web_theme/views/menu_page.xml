@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="website.submenu" name="Submenu">
+            <li t-if="not submenu.child_id and submenu.show_menu" t-att-class="'active' if submenu.url and submenu.url != '/' and request.httprequest.path == submenu.url.replace('/page/website.', '/page/') else None">
+                <a t-att-href="(website.menu_id.child_id[0] == submenu) and '/' or submenu.url" t-ignore="true" t-att-target="'_blank' if submenu.new_window else None">
+                    <span t-field="submenu.name"/>
+                </a>
+            </li>
+            <li t-if="submenu.child_id and submenu.show_menu"
+                t-attf-class="dropdown #{(submenu.url and submenu.url != '/' and any([request.httprequest.path == child.url.replace('/page/website.', '/page/') for child in submenu.child_id if child.url]) or (submenu.url and request.httprequest.path == submenu.url.replace('/page/website.', '/page/'))) and 'active' }">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <span t-field="submenu.name"/> <span class="caret" t-ignore="true"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <t t-foreach="submenu.child_id" t-as="submenu">
+                        <t t-call="website.submenu"/>
+                    </t>
+                </ul>
+            </li>
+
+        </template>
+
+
+        <template id="custom_sign_in" inherit_id="website.show_sign_in">
+            <xpath expr="//li[@class='divider']" position="replace"></xpath>
+        </template>
+        <template id="mint_custom_header_menu" inherit_id="website.layout">
+            <xpath expr="//ul[@id='top_menu']/li[@class='divider']" position="replace"></xpath>
+            <xpath expr="//ul[@id='top_menu']/li[@class='dropdown']/a/b/span[@class='caret']" position="replace">
+                <span class="fa fa-chevron-circle-down"></span>
+            </xpath>
+            <xpath expr="//header" position="before">
+                <div id="top">
+                    <!-- start preloader -->
+                    <div class="preloader">
+                        <div class="sk-spinner sk-spinner-wave">
+                            <div class="sk-rect1"></div>
+                            <div class="sk-rect2"></div>
+                            <div class="sk-rect3"></div>
+                            <div class="sk-rect4"></div>
+                            <div class="sk-rect5"></div>
+                        </div>
+                    </div>
+                    <!-- end preloader -->
+                </div>
+            </xpath>
+            <xpath expr="//header/div[@class='navbar navbar-default navbar-static-top']" position="before">
+                <div id="top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-12 col-xs-12">
+                                <p><i class="fa fa-phone"></i><span> Phone</span>+971 4 346 7786</p>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12">
+                                <p><i class="fa fa-envelope-o"></i><span>
+                                    Email</span><a href="#">media@themint.ae</a></p>
+                            </div>
+                            <div class="col-md-5 col-sm-12 col-xs-12">
+                                <ul class="social-icon">
+                                    <li><span>Meet us on</span></li>
+                                    <li><a href="#" class="fa fa-facebook"></a></li>
+                                    <li><a href="#" class="fa fa-twitter"></a></li>
+                                    <li><a href="#" class="fa fa-instagram"></a></li>
+                                    <li><a href="#" class="fa fa-apple"></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="mint_custom_submenu" inherit_id="website.submenu">
+            <xpath expr="//a[@class='dropdown-toggle']/span[@class='caret']" position="replace">
+                <span class="fa fa-chevron-circle-down"></span>
+            </xpath>
+        </template>
+
+        <!--<template id="add_menu_pages" inherit_id="website.layout">-->
+        <!--<xpath expr="//ul[@id='top_menu']/li[last()]" position="before">-->
+        <!--<li class="dropdown">-->
+        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
+        <!--<b>Servers</b>-->
+        <!--</a>-->
+        <!--<ul class="dropdown-menu js_usermenu" role="menu">-->
+        <!--<t t-foreach="servers" t-as="server">-->
+        <!--<t t-if="server">-->
+        <!--<li>-->
+        <!--<a t-attf-href="/web/server/#{server.id}" role="menuitem">-->
+        <!--<b><span t-esc="server['name']"/></b>-->
+        <!--</a>-->
+        <!--</li>-->
+        <!--</t>-->
+        <!--<t t-if="not server">-->
+        <!--<li>-->
+        <!--<b>No Servers are Available</b>-->
+        <!--</li>-->
+        <!--</t>-->
+        <!--</t>-->
+        <!--</ul>-->
+        <!--</li>-->
+        <!--</xpath>-->
+        <!--</template>-->
+    </data>
+</odoo>

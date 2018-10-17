@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <!-- Assets Backend -->
+        <template id="assets_backend" name="Validate Database Name with Alphabets and Space only"
+                  inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script src="/mint_plan_enhancement/static/src/js/validation.js"></script>
+            </xpath>
+        </template>
+
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="mint_plan_enhancement.form">
+            <field name="name">mint_plan_enhancement.form</field>
+            <field name="model">saas_portal.plan</field>
+            <field name="inherit_id" ref="saas_portal.view_plans_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header/button[5]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='template_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='server_id']" position="attributes">
+                    <attribute name="required">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='dbname_template']" position="replace">
+                    <field name="db_name" required="1" class="database_name"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="default_focus">1</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

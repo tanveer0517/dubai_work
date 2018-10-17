@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <!-- Email template for reset password -->
+        <record id="action_client_request_rejected" model="mail.template">
+            <field name="name">Request Rejected: Your Request for Instance is Rejected</field>
+            <field name="model_id" ref="saas_portal_enhancement.model_saas_portal_new_client"/>
+            <field name="email_from">${(user.email)|safe}</field>
+            <field name="email_to">${object.client_id.login|safe}</field>
+            <field name="subject">Your Request for Instance is Rejected</field>
+            <field name="body_html"><![CDATA[
+
+            <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="wrap no22" style="border-collapse: collapse;width: 100%;margin: 0 auto;">
+            <tbody>
+                <tr>
+                    <td width="100%" align="center" valign="top" background="/saas_portal_enhancement/static/src/img/background.jpg" class="wrap wrapimg"
+                        style="-webkit-background-size: cover; width: 100%; margin: 0px auto; background-image: url(/saas_portal_enhancement/static/src/img/background.jpg);
+                        background-color: #3e3e3e; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;">
+
+                        <div>
+                            <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="row600" style="border-collapse: collapse;margin-top:50px;">
+                            <!--start logo img-->
+                                <tbody>
+                                    <tr align="center" valign="top" background="/saas_portal_enhancement/static/src/img/header_background_1.jpg" class="wrap wrapimg"
+                                            style="-webkit-background-size: cover; width: 100%;background-color: #3e3e3e; background-size: cover; background-position: 50% 50%; background-repeat: no-repeat;">
+                                        <td align="center">
+                                            <div style="padding:0px;width:100%;margin:auto;color:#fff">
+                                                <table cellspacing="0" cellpadding="0" style="width:100%;border-collapse:collapse;background:inherit;color:inherit">
+                                                    <tbody><tr>
+                                                        <td valign="center" align="center" width="100%" style="padding:10px 10px 10px 5px;font-size: 12px">
+                                                            <img src="/logo.png" style="padding: 0px; margin:3px 0px; height: auto; width: 200px;" alt="${user.company_id.name}">
+                                                        </td>
+                                                    </tr></tbody>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <!--end logo img-->
+                                    <tr>
+                                        <td align="center" class="h2 semibold white padding-td20 colorbg-blue" style="font-family: 'Expletus Sans', Tahoma;font-weight: 600;color: #F0F4C3;font-size: 30px;line-height: 30px;padding: 33px 0px 28px;background-color: #2b5e21;">
+                                            <singleline label="text1">REQUEST REJECTED FOR INSTANCE</singleline>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center" class="forecolor" style="background-image: none; background-color: #F0F4C3;">
+                                            <table width="490" align="center" border="0" cellspacing="0" cellpadding="0" class="row" style="border-collapse: collapse;"><tbody>
+                                                <tr>
+                                                    <td height="30">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="left" class="content b2" style="font-family: Lato, Arial; font-weight: 400; font-size: 15px; line-height: 24px; color: #0c0b0c; -webkit-font-smoothing: antialiased;">
+                                                        <h3 style="font-family: 'Expletus Sans', Tahoma;color: #000000;">Dear ${object.client_id.name},</h3>
+                                                        <p style="font-family: 'Expletus Sans', Tahoma;color: #444;">
+                                                            <h3>Your Registered Request for Instance is Rejected By ${user.name} </h1>
+                                                        </P>
+                                                        <p>
+                                                            <b>Rejection Reason:</b><br/>
+                                                                -> ${object.client_rejection_note}
+                                                        </p>
+                                                        <p>
+                                                            For More Details please contact the System Admin.
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="20">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="1" class="small-img line2" style="font-size: 0px;line-height: 0px;border-collapse: collapse;background-color: #dadada;">
+                                                        <img src="http://digith.com/exito-notification/exito-notification/demo/notification/images/spacer.gif" width="1" height="1" style="border: 0;display: block;-ms-interpolation-mode: bicubic;"/>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td height="15">
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="center" class="content b2 semibold padding-td4" style="font-family: Lato, Arial;font-weight: 600;font-size: 15px;line-height: 24px;color: #0c0b0c;/* -webkit-font-smoothing: antialiased; *//* padding: 0px 40px; */">
+                                                        <div style="/* padding:0px; *//* width:600px; *//* margin:auto; *//* margin-top: 10px; *//* color:#777777; */font-family: 'Expletus Sans', Tahoma;color: #444;">
+                                                            ${user.signature | safe}
+                                                            <p style="/* font-size: 11px; *//* margin-top: 10px; */">
+                                                                <strong>Sent by <a href="${user.company_id.website}" style="text-decoration:none; color: #2b5e21;">${user.company_id.name}</a></strong>
+                                                            </p>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <!--end content-->
+                                                <tr>
+                                                    <td height="20">
+                                                    </td>
+                                                </tr>
+                                                <!--start social icon-->
+                                                <tr>
+                                                    <td align="center">
+                                                        <table align="center" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;"><tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <table width="36" align="center" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;"><tbody>
+                                                                        <tr>
+                                                                            <td align="center" class="iconbg1 radius padding-td7" style="background-color: #325c94;padding: 7px;-moz-border-radius: 200px;border-radius: 200px;">
+                                                                                <a href="${user.company_id.website}" style="color: #f0f0f0;text-decoration: none;outline: none;">
+                                                                                    <img src="/saas_portal_enhancement/static/src/img/icon-22-1.png" width="22" height="22" alt="icon" class="icon22"  editable="true" label="icon1" style="border: 0;display: block;-ms-interpolation-mode: bicubic;width: 22px;height: auto;max-width: 22px;max-height: 22px;"/>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr></tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td width="15">
+                                                                </td>
+                                                                <td>
+                                                                    <table width="36" align="center" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;"><tbody>
+                                                                        <tr>
+                                                                            <td align="center" class="iconbg2 radius padding-td7" style="background-color: #00abdc;padding: 7px;-moz-border-radius: 200px;border-radius: 200px;">
+                                                                                <a href="${user.company_id.website}" style="color: #f0f0f0;text-decoration: none;outline: none;">
+                                                                                    <img src="/saas_portal_enhancement/static/src/img/icon-22-2.png" width="22" height="22" alt="icon" class="icon22" editable="true" label="icon2" style="border: 0;display: block;-ms-interpolation-mode: bicubic;width: 22px;height: auto;max-width: 22px;max-height: 22px;"/>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr></tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td width="15">
+                                                                </td>
+                                                                <td>
+                                                                    <table width="36" align="center" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;"><tbody>
+                                                                        <tr>
+                                                                            <td align="center" class="iconbg3 radius padding-td7" style="background-color: #0073b2;padding: 7px;-moz-border-radius: 200px;border-radius: 200px;">
+                                                                                <a href="${user.company_id.website}" style="color: #f0f0f0;text-decoration: none;outline: none;">
+                                                                                    <img src="/saas_portal_enhancement/static/src/img/icon-22-3.png" width="22" height="22" alt="icon" class="icon22" editable="true" label="icon3" style="border: 0;display: block;-ms-interpolation-mode: bicubic;width: 22px;height: auto;max-width: 22px;max-height: 22px;"/>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr></tbody>
+                                                                    </table>
+                                                                </td>
+                                                                <td width="15">
+                                                                </td>
+                                                                <td>
+                                                                    <table width="36" align="center" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;"><tbody>
+                                                                        <tr>
+                                                                            <td align="center" class="iconbg4 radius padding-td7" style="background-color: #ea3032;padding: 7px;-moz-border-radius: 200px;border-radius: 200px;">
+                                                                                <a href="${user.company_id.website}" style="color: #f0f0f0;text-decoration: none;outline: none;">
+                                                                                    <img src="/saas_portal_enhancement/static/src/img/icon-22-4.png" width="22" height="22" alt="icon" class="icon22" editable="true" label="icon4" style="border: 0;display: block;-ms-interpolation-mode: bicubic;width: 22px;height: auto;max-width: 22px;max-height: 22px;"/>
+                                                                                </a>
+                                                                            </td>
+                                                                        </tr></tbody>
+                                                                    </table>
+                                                                </td>
+                                                            </tr></tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                <!--end social icon-->
+                                                <tr>
+                                                    <td height="50">
+                                                    </td>
+                                                </tr></tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="75">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+]]></field>
+            <field name="user_signature" eval="False"/>
+        </record>
+    </data>
+</odoo>

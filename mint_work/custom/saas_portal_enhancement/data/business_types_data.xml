@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <!-- Initial Merchant Record To be Created on Installation -->
+        <record id="importer" model="business.type">
+            <field name="name">Importer</field>
+        </record>
+
+        <record id="distributor" model="business.type">
+            <field name="name">Distributor</field>
+        </record>
+
+        <!-- Initial Store Record To be Created on Installation -->
+        <record id="retailor" model="business.type">
+            <field name="name">Retailor</field>
+        </record>
+
+        <record id="manufactures" model="business.type">
+            <field name="name">Manufactures</field>
+        </record>
+
+        <!-- Initial Merchant Record To be Created on Installation -->
+        <record id="brand_owner" model="business.type">
+            <field name="name">Brand Owner</field>
+        </record>
+
+        <record id="franchise" model="business.type">
+            <field name="name">Franchise</field>
+        </record>
+
+        <!-- Initial Store Record To be Created on Installation -->
+        <record id="others" model="business.type">
+            <field name="name">Others</field>
+        </record>
+    </data>
+</odoo>

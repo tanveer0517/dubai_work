@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Saas Paasword Reset Message for mail template-->
+        <template id="server_plan" name="Server Plans Page">
+            <t t-call="website.layout">
+                <div id="generic_price_table">
+                    <section id="Generic_price_table">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">SERVER <span>INFORMATION</span></h2>
+                                    <hr class="gline bounceIn" data-wow-offset="50" data-wow-delay="0.1s"/>
+                                </div>
+                                <div class="col-xs-12 wow fadeInDown"
+                                     data-wow-offset="50" data-wow-delay="0.2s">
+                                    <div class="media">
+                                        <div class="media-heading-wrapper">
+                                            <div class="media-object pull-left">
+                                                <i class="fa fa-server fa-4x"></i>
+                                            </div>
+                                            <h3 class="media-heading"><t t-if="server" t-esc="server.server_name"/></h3>
+                                        </div>
+                                        <div class="media-body text-justify">
+                                            <div class="col-xs-12 col-md-8 col-lg-8">
+                                                <p>
+                                                    <t t-if="server" t-raw="server.description"/>
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-12 col-md-4 col-lg-4 text-right">
+                                                <t t-foreach="templates" t-as="tmpl">
+                                                    <t t-if="tmpl['plan_type'] == 'trial'">
+                                                        <form class="form-horizontal" t-attf-action="/registration{{ '?debug' if debug else '' }}" method="post" onsubmit="this.action = this.action + location.hash" id="plan_trial_form">
+                                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                            <button type="submit" class="btn btn-default demo_btn wow fadeInUp" data-wow-offset="50" data-wow-delay="0.6s">GET FREE TRIAL</button>
+                                                            <input type="hidden" name="plan_id" t-att-value="tmpl['id']"/>
+                                                            <input type="hidden" name="uid" t-att-value="uid"/>
+                                                            <input type="hidden" name="plan_type" t-if="tmpl['plan_type'] == 'trial'" t-att-value="tmpl['plan_type']"/>
+                                                        </form>
+                                                    </t>
+                                                </t>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <t t-if="no_template_found">
+                                    <div class="col-md-12">
+                                        <h2 class="wow bounceIn"
+                                            data-wow-offset="50"
+                                            data-wow-delay="0.5s">SORRY!!
+                                            <span><t t-esc="no_template_found"/></span></h2>
+                                    </div>
+                                </t>
+                                <div class="col-md-12">
+                                    <t t-if="templates">
+                                        <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><t t-if="server" t-esc="server.server_name"/> <span>PRICING TABLE</span></h2>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <!--BLOCK ROW START-->
+                            <div class="row">
+                                <t t-if="templates">
+                                    <div class="col-md-12 plan-slider">
+                                        <div class="carousel slide multi-item-carousel" id="theCarousel">
+                                            <div class="carousel-inner">
+                                                <t t-foreach="templates.filtered(lambda x:x.plan_type !='trial')" t-as="tmpl">
+                                                    <div t-att-class="'item active' if tmpl_index == 0 else 'item'">
+                                                        <form class="form-horizontal" t-attf-action="/registration{{ '?debug' if debug else '' }}" method="post" onsubmit="this.action = this.action + location.hash" id="plan_order_form">
+                                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                                                <!--PRICE CONTENT START-->
+                                                                <div class="generic_content clearfix">
+                                                                    <!--HEAD PRICE DETAIL START-->
+                                                                    <div class="generic_head_price clearfix">
+                                                                        <!--HEAD CONTENT START-->
+                                                                        <div class="generic_head_content clearfix">
+                                                                            <!--HEAD START-->
+                                                                            <div class="head_bg"></div>
+                                                                            <div class="head">
+                                                                                <span><t t-esc="tmpl['name']"/></span>
+                                                                            </div>
+                                                                            <!--//HEAD END-->
+                                                                        </div>
+                                                                        <!--//HEAD CONTENT END-->
+                                                                        <!--PRICE START-->
+                                                                        <div class="generic_price_tag clearfix">
+                                                                            <span class="price">
+                                                                                <span class="sign"><t t-esc="company.currency_id.name"/></span>
+                                                                                <span class="currency"><t t-esc="tmpl['plan_price'] or '00'"/></span>
+                                                                                <!--<span class="cent">.00</span>-->
+                                                                                <span class="month"><t t-esc="tmpl['sub_period']"/></span>
+                                                                            </span>
+                                                                            <input type="hidden" name="plan_id" t-att-value="tmpl['id']"/>
+                                                                            <input type="hidden" name="uid" t-att-value="uid"/>
+                                                                            <input type="hidden" name="plan_type" t-att-value="tmpl['plan_type']"/>
+                                                                        </div>
+                                                                        <!--//PRICE END-->
+                                                                    </div>
+                                                                    <!--//HEAD PRICE DETAIL END-->
+                                                                    <!--FEATURE LIST START-->
+                                                                    <div class="generic_feature_list">
+                                                                        <ul>
+                                                                            <li><span>Desc: </span><t t-esc="tmpl['summary'] or 'None'"/></li>
+                                                                            <li><span>UNLIMITED</span> Bandwidth</li>
+                                                                            <li><span><t t-esc="tmpl['total_storage_limit']"/>MB</span> Storage</li>
+                                                                            <li><span><t t-esc="tmpl['max_users']"/></span> Accounts</li>
+                                                                            <li><span><t t-esc="tmpl['maximum_allowed_trial_dbs_per_partner']"/></span> Host Domain</li>
+                                                                            <li><span>24/7</span> Support</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                    <!--//FEATURE LIST END-->
+                                                                    <!--BUTTON START-->
+                                                                    <div class="generic_price_btn clearfix">
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12">
+                                                                                <a  class="a"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#planinfo"
+                                                                                    t-att-data-tmpl_id="tmpl['id']">Features
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-xs-12">
+                                                                                <button type="submit" class="submit a">Sign up</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <!--//BUTTON END-->
+                                                                </div>
+                                                                <!--//PRICE CONTENT END-->
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </t>
+                                            </div>
+                                            <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="fa fa-chevron-left fa-2x" aria-hidden="true"/></a>
+                                            <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="fa fa-chevron-right fa-2x" aria-hidden="true"/></a>
+                                        </div>
+                                    </div>
+                                    <script src="/saas_mint_web_theme/static/src/js/plan_description.js" type="text/javascript"/>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="planinfo" role="dialog">
+                                        <div class="modal-dialog modal-md">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">&amp;times;</button>
+                                                    <h4 class="modal-title">Plan Details</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <h4 class="text-center text-muted plan_description">
+                                                        <ul id="searchListUl" style="list-style: none;"></ul>
+                                                    </h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <a class="btn btn-warning close_modal"
+                                                       data-dismiss="modal">Close</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

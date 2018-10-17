@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Saas Custom Error Handling Template View -->
+        <template id="client_portal_access_error" name="Portal Access Not Allowed.">
+            <t t-call="website.layout">
+                <div id="block_error">
+                    <div class="col-xs-12 text-center">
+                        <h2>SORRY!! YOU ARE NOT ALLOWED.</h2>
+                        <h3>ONLY PORTAL USERS ARE ALLOWED TO ACCESS THE PORTAL.</h3>
+                        <p class="error_p">
+                            It apperrs that Either you are not a portal user.<br /><br/>
+                            This website is temporarily unable to service your request as it has not found you as portal user.
+                        </p>
+                        <p class="error_p">
+                            If you have any questions, please contact our System Admin Department.
+                        </p>
+                        <p class="error_p">
+                            <a href="/">Back To Home</a>
+                        </p>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <!--Saas Custom Error Handling Template End's Here-->
+    </data>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="standard" model="sla.main.mast">
+            <field name="name">Standard</field>
+        </record>
+
+        <record id="premium" model="sla.main.mast">
+            <field name="name">Premium</field>
+        </record>
+
+        <record id="special" model="sla.main.mast">
+            <field name="name">Special</field>
+        </record>
+
+		<!-- Sub SLA -->
+
+        <record id="std_p1" model="sub.sla">
+            <field name="name">P1</field>
+			<field name="sla_id" ref="project_case.standard"/>
+			<field name="code">P1</field>
+			<field name="deadline_hrs">4</field>
+        </record>
+
+        <record id="std_p2" model="sub.sla">
+            <field name="name">P2</field>
+			<field name="sla_id" ref="project_case.standard"/>
+			<field name="code">P2</field>
+			<field name="deadline_hrs">8</field>
+        </record>
+
+        <record id="std_p3" model="sub.sla">
+            <field name="name">P3</field>
+			<field name="sla_id" ref="project_case.standard"/>
+			<field name="code">P3</field>
+			<field name="deadline_hrs">24</field>
+        </record>
+
+        <record id="std_p4" model="sub.sla">
+            <field name="name">P4</field>
+			<field name="sla_id" ref="project_case.standard"/>
+			<field name="code">P4</field>
+        </record>
+
+
+        <record id="prem_p1" model="sub.sla">
+            <field name="name">P1</field>
+			<field name="sla_id" ref="project_case.premium"/>
+			<field name="code">P1</field>
+			<field name="deadline_hrs">2</field>
+        </record>
+
+        <record id="prem_p2" model="sub.sla">
+            <field name="name">P2</field>
+			<field name="sla_id" ref="project_case.premium"/>
+			<field name="code">P2</field>
+			<field name="deadline_hrs">4</field>
+        </record>
+
+        <record id="prem_p3" model="sub.sla">
+            <field name="name">P3</field>
+			<field name="sla_id" ref="project_case.premium"/>
+			<field name="code">P3</field>
+			<field name="deadline_hrs">8</field>
+        </record>
+
+        <record id="prem_p4" model="sub.sla">
+            <field name="name">P4</field>
+			<field name="sla_id" ref="project_case.premium"/>
+			<field name="code">P4</field>
+        </record>
+
+
+
+        <record id="spec_p1" model="sub.sla">
+            <field name="name">P1</field>
+			<field name="sla_id" ref="project_case.special"/>
+			<field name="code">P1</field>
+        </record>
+
+        <record id="spec_p2" model="sub.sla">
+            <field name="name">P2</field>
+			<field name="sla_id" ref="project_case.special"/>
+			<field name="code">P2</field>
+        </record>
+
+        <record id="spec_p3" model="sub.sla">
+            <field name="name">P3</field>
+			<field name="sla_id" ref="project_case.special"/>
+			<field name="code">P3</field>
+        </record>
+
+        <record id="spec_p4" model="sub.sla">
+            <field name="name">P4</field>
+			<field name="sla_id" ref="project_case.special"/>
+			<field name="code">P4</field>
+        </record>
+
+
+
+
+    </data>
+</odoo>

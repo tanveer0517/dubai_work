@@ -1,0 +1,797 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+    <menuitem name="Helpdesk"
+        id="menu_help_desk"
+        groups="sales_team.group_sale_salesman,sales_team.group_sale_manager"
+		sequence="20" />
+
+
+		<menuitem  id="menu_project_case" name="Cases" parent="menu_help_desk" sequence="1"/>
+        <menuitem  id="menu_project_confi" name="Configuration" parent="menu_help_desk" sequence="2"/>
+
+
+        <record id="ir_model_access_ticket_group" model="ir.model.access">
+        <field name="name">Ticket.Group</field>
+        <field name="model_id" ref="project_case.model_ticket_group"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+        <record id="view_form_ticket_group_form" model="ir.ui.view">
+            <field name="name">Ticket Group</field>
+            <field name="model">ticket.group</field>
+            <field name="arch" type="xml">
+                <form string="Ticket Group">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_tree_ticket_group" model="ir.ui.view">
+            <field name="name">Ticket Group</field>
+            <field name="model">ticket.group</field>
+            <field name="arch" type="xml">
+                <tree string="Ticket Group">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_view_ticket_group" model="ir.actions.act_window">
+            <field name="name">Ticket Group</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">ticket.group</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Create Ticket Groups Here...
+              </p>
+            </field>
+        </record>
+
+
+        <menuitem name="Ticket Groups" id="portal_ticket_groups" parent="project_case.menu_project_confi" action="action_view_ticket_group" sequence="25"/>
+
+
+        <record model="ir.ui.view" id="project_case_version_search_view">
+            <field name="name">Case Version</field>
+            <field name="model">project.case.version</field>
+            <field name="arch" type="xml">
+                <search string="Case Version">
+                    <field name="name" string="Case Version"/>
+                    <field name="active"/>
+                </search>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="project_case_version_form_view">
+            <field name="name">Case Version</field>
+            <field name="model">project.case.version</field>
+            <field name="arch" type="xml">
+                <form string="Case Version">
+                    <group col="2">
+                        <field name="name"/>
+                        <field name="active"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="project_case_version_action" model="ir.actions.act_window">
+            <field name="name">Versions</field>
+            <field name="res_model">project.case.version</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to add a new version.
+              </p><p>
+                Define here the different versions of your products on which
+                you can work on cases.
+              </p>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="project_case_form_view">
+            <field name="name">Project Case Tracker Form</field>
+            <field name="model">project.case</field>
+            <field name="arch" type="xml">
+                <form string="Case">
+                <header>
+                    <field name="stage_id" clickable="True" widget="statusbar" on_change="on_change_state(stage_id)"/>
+                    <button name="send_mail" string="Send Mail" type="object" class="oe_highlight" attrs="{'invisible':[('stage_id','!=', 'done')]}"/>
+                </header>
+                <sheet string="Case">
+                     <div class="oe_right">
+                        <!--<field name="kanban_state" class="oe_inline" widget="kanban_state_selection"/>-->
+                     </div> 
+                    <label for="case_name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="case_name" class="oe_inline"/>
+                    </h1>
+                    <label for="categ_ids" class="oe_edit_only"/>
+                    <field name="categ_ids" widget="many2many_tags"/> 
+                    <group>
+                        <group>
+                             field name="user_id"
+                                context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'project.group_project_user']}"/ 
+                            <field name="partner_id" domain="[('customer','=',True)]" on_change="on_change_partner(partner_id)"/>
+                            <label for="analytic_id"/>
+                            <div>
+                                <field name="analytic_id" required="1"
+                                       on_change="on_change_project(analytic_id)"
+                                       class="oe_inline"
+                                       context="{'default_use_cases':1}"/>
+                            </div>
+                            <field name="make_green" invisible="1"/>
+                            <field name="make_red" invisible="1"/>
+                            <field name="contact_id"
+                                   domain="[('parent_id','=',partner_id), ('is_company','=',False)]"
+                                   on_change="onchange_contact_id(contact_id)"
+                                   required="1" />
+                            <field name="email_from"/>
+
+                            <field name="call_received"/>
+                            <field name="call_attended"/>
+                            <field name="call_closed"/>
+                            <field name="call_deadline"/>
+                        </group>
+                        <group>
+                            <field name="id"/>
+                             <field name="version_id" groups="base.group_user"/>
+                            <field name="priority" groups="base.group_user" widget="priority"/>
+                            <field name="sla_id" required="1"/>
+                            <field name="sub_sla_id" domain="[('sla_id','=',sla_id)]" required="1"/>
+                            <field name="case_origin"/>
+                            <field name="reported_by_id"/>
+                            <field name="call_type"/>
+                            <field name="ticket_group"/>
+                             <label for="task_id" groups="base.group_user"/>
+                            <div groups="base.group_user">
+                                <field name="task_id" class="oe_inline"/>
+                                <field name="progress" widget="progressbar" attrs="{'invisible':[('task_id','=',False)]}" class="oe_inline"/>
+                            </div>
+                        </group>
+                    </group>
+                    <notebook>
+
+                        <page string="Description">
+                            <field name="description" placeholder="Add an internal note..." groups="base.group_user"/>
+                        </page>
+
+                        <page string="Tasks">
+                            <field name="case_task_ids" groups="base.group_user">
+                                <tree>
+                                    <field name="assigned_to"/>
+                                    <field name="department_id"/>
+                                    <field name="hours_spent" sum = "total"/>
+									
+                                    <button name="create_task"
+                                                            string="Create Tasks" type="object"
+                                                            class="oe_highlight"
+                                                            icon="terp-gtk-jump-to-ltr"
+                                    />
+
+                                </tree>
+                            </field>
+                        </page><!--
+
+
+-->                        <page string="Action Taken">
+                            <field name="action_taken" placeholder="Add an internal note..." groups="base.group_user"/>
+                        </page><!--
+
+-->                        <page string="Re-open">
+                            <field name="re_open" attrs="{'readonly': [('stage_id','!=', 'reopen')]}" placeholder="Add an internal note..." groups="base.group_user"/>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="project_case_tree_view">
+            <field name="name">Project Case Tracker Tree</field>
+            <field name="model">project.case</field>
+            <field name="arch" type="xml">
+                <tree string="Case Tracker Tree" colors="green:make_green==True; red:make_red==True" fonts="bold:message_unread==True">
+
+                    <field name="message_unread" invisible="1"/>
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="analytic_id"/>
+					<field name="make_green" invisible="1"/>
+					<field name="make_red" invisible="1"/>
+                    <!-- field name="priority" string="Priority" groups="base.group_user"/ -->
+                    <!-- field name="version_id" widget="selection"/ -->
+                    <field name="stage_id" widget="selection" readonly="1"/>
+                    <field name="categ_ids" invisible="1"/>
+                    <field name="task_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_project_case_filter" model="ir.ui.view">
+            <field name="name">Project Case Tracker Search</field>
+            <field name="model">project.case</field>
+            <field name="arch" type="xml">
+                <search string="Case Tracker Search">
+                    <field name="name" string="Case" filter_domain="['|', '|', '|', ('partner_id','child_of',self), ('description','ilike',self),('email_from','ilike',self),('name','ilike',self)]"/>
+                    <field name="id"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="user_id"/>
+                    <field name="project_id"/>
+                    <field name="categ_ids"/>
+                    <field name="stage_id" domain="[]"/>
+                    <filter string="My Cases" domain="[('user_id','=',uid)]"/>
+                    <filter string="Unassigned" name="unassigned" domain="[('user_id', '=', False)]"/>
+                    <separator/>
+                    <filter string="New" name="draft" domain="[('stage_id.sequence', '=', 1)]"/>
+                    <separator/>
+                    <filter string="New Mail" name="message_unread" domain="[('message_unread','=',True)]"/>
+                    <group expand="0" string="Group By" >
+                        <filter string="Assigned to" name="Responsible" context="{'group_by':'user_id'}" />
+                        <filter string="Project" name="project" context="{'group_by':'project_id'}" />
+                        <filter string="Task" context="{'group_by':'task_id'}"/>
+                        <!-- filter string="Priority" context="{'group_by':'priority'}" / -->
+                        <filter string="Stage" context="{'group_by':'stage_id'}"/>
+                        <filter string="Company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                        <separator/>
+                        <filter string="Create Day" context="{'group_by':'create_date:day'}" help="Create Date"/>
+                        <filter string="Last Message" name="group_message_last_post" context="{'group_by':'message_last_post:week'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="project_case_calendar_view">
+            <field name="name">Project Case Tracker Calendar</field>
+            <field name="model">project.case</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Cases" date_start="create_date" color="user_id" date_delay="duration">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                </calendar>
+            </field>
+        </record>
+
+
+		<!-- Sequences for case-->
+<!--		        <record id="seq_type_case" model="ir.sequence.type">
+		            <field name="name">name</field>
+		            <field name="code">case</field>
+		        </record>
+		-->
+		        <record id="seq_vendor" model="ir.sequence">
+		            <field name="name">name</field>
+		            <field name="code">case</field>
+		            <field name="prefix">C</field>
+		            <field name="padding">5</field>
+		        </record>
+
+
+        <!-- Project Case Kanban View-->
+
+        <record model="ir.ui.view" id="project_case_kanban_view">
+            <field name="name">Project Case Kanban</field>
+            <field name="model">project.case</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="stage_id">
+                    <field name="stage_id"/>
+                    <field name="color"/>
+                    <field name="user_email"/>
+                    <field name="user_id"/>
+                    <field name="date_deadline"/>
+                    <field name="kanban_state"/>
+                    <field name="message_summary"/>
+                    <templates>
+                        <t t-name="kanban-tooltip">
+                           <ul class="oe_kanban_tooltip">
+                              <li><b>Project:</b> <field name="project_id"/></li>
+                              <li><b>Category:</b> <field name="categ_ids"/></li>
+                           </ul>
+                        </t>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click oe_semantic_html_override">
+                                <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
+                                    <span class="oe_e"></span>
+                                    <ul class="oe_dropdown_menu">
+                                        <t><li><a type="edit">Edit...</a></li></t>
+                                        <t><li><a type="delete">Delete</a></li></t>
+                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                    </ul>
+                                </div>
+                                <div class="oe_kanban_content" tooltip="kanban-tooltip">
+                                    <div>
+                                        <b><field name="name"/></b> <br/>
+                                        <field name="partner_id"/> <br/>
+                                        <field name="call_received"/>
+                                        <!-- field name="version_id"/ -->
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <img t-att-src="kanban_image('res.users', 'image_small', record.user_id.raw_value)" t-att-title="record.user_id.value" width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                        <div class="pull-left" groups="base.group_user">
+                                            <!--<field name="kanban_state" widget="kanban_state_selection"/>-->
+                                            <!-- field name="priority" widget="priority"/ -->
+                                        </div>
+                                    </div>
+                                    <!--<div class="oe_kanban_footer_left">-->
+                                        <!--<field name="categ_ids"/>-->
+                                        <!--<t t-raw="record.message_summary.raw_value"/>-->
+                                    <!--</div>-->
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="project_case_graph_view">
+            <field name="name">Project Case Tracker Graph</field>
+            <field name="model">project.case</field>
+            <field name="arch" type="xml">
+                <graph string="Project Cases" type="bar">
+                    <field name="project_id" type="row"/>
+                    <field name="create_date" interval="month" type="col"/>
+                </graph>
+            </field>
+        </record>
+
+
+        <!-- Feature Requests -->
+        <record model="ir.ui.view" id="project_feature_tree_view">
+            <field name="name">Project Case- Feature Tracker Tree</field>
+            <field name="model">project.case</field>
+            <field name="arch" type="xml">
+                <tree string="Feature Tracker Tree" fonts="bold:message_unread==True">
+                    <field name="id"/>
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name" string="Feature description"/>
+                    <field name="partner_id"/>
+                    <!-- field name="priority" string="Priority"/ -->
+                    <!-- field name="version_id"/ -->
+                    <field name="user_id"/>
+                    <field name="stage_id" widget="selection" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="act_project_project_2_project_case_all" model="ir.actions.act_window">
+            <field name="res_model">project.case</field>
+            <field name="view_type">form</field>
+            <field name="name">Cases</field>
+            <field name="view_mode">kanban,tree,form,calendar,graph</field>
+            <field name="context">{
+                    'search_default_project_id': [active_id],
+                    'default_project_id': active_id,
+                }
+            </field>
+            <field name="help" type="html">
+                <p>
+                    The Odoo cases tacker allows you to efficiantly manage things
+                    like internal requests, software development bugs, customer
+                    complaints, project troubles, material breakdowns, etc.
+                </p>
+            </field>
+        </record>
+
+        <!-- Project -->
+        <record id="view_project_form_inherited" model="ir.ui.view">
+            <field name="name">project.project.form.inherited</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr='//div[@name="options_active"]' position='inside'>
+                    <field name="use_cases" class="oe_inline"
+                            on_change="on_change_use_tasks_or_cases(use_tasks, use_cases)"/>
+                    <label for="use_cases"/>
+                </xpath>
+                <!-- <xpath expr='//div[@name="buttons"]' position='inside'>
+                    <button class="oe_inline oe_stat_button" type="action" attrs="{'invisible':[('use_cases','=', 0)]}"
+                        name="%(act_project_project_2_project_case_all)d" icon="fa-bug">
+                        <field string="Cases" name="case_count" widget="statinfo"/>
+                    </button>
+                </xpath> -->
+<!--                <xpath expr='//page[@name="project_stages"]' position="attributes">
+                    <attribute name="attrs">{'invisible': [('use_tasks', '=', False),('use_cases','=',False)]}</attribute>
+                </xpath>-->
+                <xpath expr='//field[@name="use_tasks"]' position="attributes">
+                    <attribute name="attrs">{'on_change': 'on_change_use_tasks_or_cases(use_tasks, use_cases)'}</attribute>
+                </xpath>
+                <field name="sequence" position="before">
+                    <field name="project_escalation_id"/>
+                </field>
+            </field>
+       </record>
+
+        <record id="view_project_kanban_inherited" model="ir.ui.view">
+            <field name="name">project.project.kanban.inherited</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project_kanban"/>
+            <field name="arch" type="xml">
+                <field name="use_tasks" position="after">
+                    <field name="use_cases"/>
+                    <field name="case_ids" invisible="1"/>
+                </field>
+<!--                <xpath expr="//div[contains(@class, 'oe_kanban_project_list')]" position="inside">
+                    <a t-if="record.use_cases.raw_value" style="margin-right: 10px"
+                        name="%(act_project_project_2_project_case_all)d" type="action">
+                        <t t-raw="record.case_ids.raw_value.length"/> Cases
+                    </a>
+                </xpath>-->
+            </field>
+        </record>
+
+        <record id="analytic_account_inherited_case_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.case.form.inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field eval="18" name="priority"/>
+            <field name="arch" type="xml">
+		
+
+
+
+                <xpath expr='//div[@name="project"]' position='inside'>
+                    <field name="use_cases"/>
+                    <label for="use_cases"/>
+                </xpath>
+		
+				<xpath expr='//div[@name="button_box"]' position='inside'>
+                    <button class="oe_inline oe_stat_button" type="action" attrs="{'invisible':[('use_cases','=', 0)]}"
+                        name="%(act_project_project_2_project_case_all)d" icon="fa-bug">
+                        <field string="Cases" name="case_count" widget="statinfo"/>
+                    </button>
+				</xpath>
+
+            </field>
+        </record>
+
+        <record id="action_view_cases" model="ir.actions.act_window">
+            <field name="res_model">project.case</field>
+            <field name="view_type">form</field>
+            <field name="name">Cases</field>
+            <field name="view_mode">kanban,tree,form,calendar,graph</field>
+            <field name="help" type="html">
+                <p>
+                    The Odoo cases tacker allows you to efficiantly manage things
+                    like internal requests, software development bugs, customer
+                    complaints, project troubles, material breakdowns, etc.
+                </p>
+            </field>
+        </record>
+
+        <!-- res.partner -->
+        <record model="ir.ui.view" id="res_partner_cases_button_view">
+            <field name="name">res.partner.cases.button.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="50"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_inline oe_stat_button" type="action" name="%(action_view_cases)d"
+                        context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
+                        attrs="{'invisible': [('customer', '=', False)]}"
+                        icon="fa-bug" groups="project.group_project_user">
+                        <field  string="Cases" name="case_count" widget="statinfo"/>
+                    </button>
+
+
+                </xpath>
+            </field>
+        </record>
+
+
+
+	<!-- record id="action_case_type" model="ir.actions.act_window">
+            <field name="name">Case Type</field>
+            <field name="res_model">case.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_assign_to_new_user":1}</field>
+            <field name="view_mode">tree,form</field>
+	</record>
+	 
+            
+  	<menuitem action="action_case_type" id="menu_case_type"  parent="menu_project_confi" sequence="6" />
+
+
+    <record id="view_case_type_tree" model="ir.ui.view">
+        <field name="name">case.type.tree</field>
+        <field name="model">case.type</field>
+        <field name="arch" type="xml">
+            <tree string="Case Type">
+				<field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_case_type_form" model="ir.ui.view">
+        <field name="name">case.type.form</field>
+        <field name="model">case.type</field>
+        <field name="arch" type="xml">
+            <form string="Case Type">
+				<group>
+					<group>
+						<field name="name"/>
+					</group>
+				</group>
+            </form>
+        </field>
+    </record 
+
+
+
+	<record id="action_case_sla" model="ir.actions.act_window">
+            <field name="name">Case SLA</field>
+            <field name="res_model">case.sla</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_assign_to_new_user":1}</field>
+            <field name="view_mode">tree,form</field>
+	</record>
+	 
+            
+  	<menuitem action="action_case_sla" id="menu_case_sla"  parent="menu_project_confi" sequence="6" />
+
+
+    <record id="view_case_sla_tree" model="ir.ui.view">
+        <field name="name">case.sla.tree</field>
+        <field name="model">case.sla</field>
+        <field name="arch" type="xml">
+            <tree string="Case SLA">
+				<field name="name"/>
+				<field name="code"/>
+				<field name="deadline_hrs"/>
+				<field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_case_sla_form" model="ir.ui.view">
+        <field name="name">case.sla.form</field>
+        <field name="model">case.sla</field>
+        <field name="arch" type="xml">
+            <form string="Case SLA">
+				<group>
+					<group>
+						<field name="name"/>
+						<field name="code"/>
+						<field name="deadline_hrs"/>
+						<field name="description"/>
+					</group>
+				</group>
+            </form>
+        </field>
+    </record  -->
+<!--
+        <record id="view_account_analytic_account_form" model="ir.ui.view">
+            <field name="name">account.analytic.account.form</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="openware.account_analytic_account_project_inherit"/>
+            <field name="arch" type="xml">
+                <field name="code" position='after'>
+                    <field name="sla_id"/>
+                </field>
+            </field>
+        </record>-->
+
+
+
+
+
+	<record id="action_case_task_mast" model="ir.actions.act_window">
+            <field name="name">Case Task</field>
+            <field name="res_model">case.task.mast</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="context">{"search_default_assign_to_new_user":1}</field>
+            <field name="view_mode">tree,form</field>
+	</record>
+	 
+            
+  	<menuitem action="action_case_task_mast" id="menu_case_task_mast"  parent="menu_project_confi" sequence="6" />
+
+
+    <record id="view_case_task_mast_tree" model="ir.ui.view">
+        <field name="name">case.task.mast.tree</field>
+        <field name="model">case.task.mast</field>
+        <field name="arch" type="xml">
+            <tree string="Case Task">
+				<field name="assigned_to"/>
+				<field name="department_id"/>
+
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_case_task_mast_form" model="ir.ui.view">
+        <field name="name">case.task.mast.form</field>
+        <field name="model">case.task.mast</field>
+        <field name="arch" type="xml">
+            <form string="Case Task">
+				<group>
+					<group>
+						<field name="assigned_to" on_change="on_change_user(assigned_to)"/>
+						<field name="hours_spent"/>
+					</group>
+					<group>
+						<field name="department_id"/>
+						<field name="case_id"/>
+					</group>
+				</group>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="project_task_form_inherit" model="ir.ui.view">
+        <field name="name">project.task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field name="case_mast_id" invisible="1"/>
+            </field>
+
+<!--            <field name="work_ids" position="replace">
+                <field name="work_ids" groups="project.group_tasks_work_on_tasks">
+                    <tree string="Task Work" editable="bottom">
+                        <field name="name"/>
+                        <field name="hours" widget="float_time" sum="Spent Hours"/>
+                        <field name="date"/>
+                        <field name="user_id" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'project.group_project_user']}"/>
+                    </tree>
+                </field>
+            </field>-->
+
+        </field>
+    </record>
+
+
+    <record id="sla_main_mast_tree" model="ir.ui.view">
+        <field name="name">sla.main.mast.tree</field>
+        <field name="model">sla.main.mast</field>
+        <field name="arch" type="xml">
+            <tree string="SLA">
+				<field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sla_main_mast_form" model="ir.ui.view">
+        <field name="name">sla.main.mast.form</field>
+        <field name="model">sla.main.mast</field>
+        <field name="arch" type="xml">
+            <form string="SLA">
+				<group>
+					<group>
+						<field name="name"/>
+					</group>
+				</group>
+            </form>
+        </field>
+    </record> 
+
+        <record id="action_sla_main" model="ir.actions.act_window">
+            <field name="name">SLA</field>
+            <field name="res_model">sla.main.mast</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_sla_main"
+            id="menu_sla_main"
+            groups="base.group_no_one"
+            name="SLA"
+            parent="menu_project_confi"/>
+
+
+    <record id="ir_model_access_sub_sla" model="ir.model.access">
+        <field name="name">Sub.Sla</field>
+        <field name="model_id" ref="project_case.model_sub_sla"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+
+
+        <record id="ir_model_access_sla_main_mast" model="ir.model.access">
+        <field name="name">sla.main.mast</field>
+        <field name="model_id" ref="project_case.model_sla_main_mast"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+        <!--sla.main.mast-->
+
+    <record id="sub_sla_tree" model="ir.ui.view">
+        <field name="name">sub.sla.tree</field>
+        <field name="model">sub.sla</field>
+        <field name="arch" type="xml">
+            <tree string="Sub SLA">
+				<field name="name"/>
+				<field name="sla_id"/>
+				<field name="code"/>
+				<field name="deadline_hrs"/>
+				<field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sub_sla_form" model="ir.ui.view">
+        <field name="name">sub.sla.form</field>
+        <field name="model">sub.sla</field>
+        <field name="arch" type="xml">
+            <form string="Sub SLA">
+				<group>
+					<group>
+						<field name="name"/>
+						<field name="code"/>
+						<field name="deadline_hrs"/>
+						<field name="description"/>
+					</group>
+
+					<group>
+						<field name="sla_id"/>
+					</group>
+
+				</group>
+            </form>
+        </field>
+    </record> 
+
+        <record id="action_sub_sla" model="ir.actions.act_window">
+            <field name="name">Sub SLA</field>
+            <field name="res_model">sub.sla</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="email_template_task" model="mail.template">
+            <field name="name">Task Email</field>
+            <field name="report_name">task_email</field>
+            <field name="email_from">${user.email}</field>
+            <field name="subject">Task Email</field>
+            <field name="email_to">${(object.partner_id.email)}</field>
+            <field name="model_id" ref="project_case.model_case_task_mast"/>
+            <field name="auto_delete" eval="True"/>
+
+            <field name="body_html">
+            	<![CDATA[
+					<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); ">
+						<p>Hello ${(object.assigned_to.name)},</p>
+						<p>This is test mail</p>
+					</div>
+            	]]>
+            </field>
+        </record>
+
+        <menuitem action="action_sub_sla"
+            id="menu_sub_sla"
+            groups="base.group_no_one"
+            name="Sub SLA"
+            parent="menu_project_confi"/>
+
+
+    </data>
+</odoo>

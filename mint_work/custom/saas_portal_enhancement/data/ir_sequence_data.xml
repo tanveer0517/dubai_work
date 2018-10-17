@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Sequences for sale.order -->
+        <record id="seq_new_client_request" model="ir.sequence">
+            <field name="name">Request Client</field>
+            <field name="code">saas_portal.new.client</field>
+            <field name="prefix">RN</field>
+            <field name="padding">3</field>
+        </record>
+
+        <record id="seq_new_tax" model="ir.sequence">
+            <field name="name">Tax Indentification</field>
+            <field name="code">account.tax</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
+    </data>
+</odoo>

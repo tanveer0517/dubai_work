@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="inherit_saas_client_form" model="ir.ui.view" >
+            <field name="name">saas_portal.client.form.inherit</field>
+            <field name="model">saas_portal.client</field>
+            <field name="inherit_id" ref="saas_portal.view_clients_form"/>
+            <field name="arch" type="xml">
+                <button name="%(saas_portal.action_rename_database)d" position="after">
+                    <button name="%(mint_plan_upgrade.action_view_plan_changed)d" string="Plan Upgrade"
+                            type="action"
+                            context="{'default_exist_plan_id':plan_id,'default_plan_changed':'is_upgrade', 'default_plan_type':plan_type}" />
+                </button>
+                <xpath expr="//notebook" position="inside">
+                    <page name="installed_module" string="Installed Module">
+                        <group name="installed_module"  cols="4">
+                            <field name="installed_client_module_ids" nolabel="1" widget="one2many_list" options="{'limit':20}" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_plans_form_inherit" model="ir.ui.view">
+            <field name="name">saas_portal.plans.form.inherit</field>
+            <field name="model">saas_portal.plan</field>
+            <field name="inherit_id" ref="saas_portal.view_plans_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='template_id']" position="after">
+                    <field name="plan_wages"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

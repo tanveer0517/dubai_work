@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data noupdate="0">
+
+                <menuitem  id="project_case.menu_project_confi"
+                           name="Configuration"
+                           parent="project_case.menu_help_desk"
+                           sequence="2" groups = "group_helpdesk_manager"/>
+
+                 <!--  admin incoming tickets menu -->
+                <menuitem
+                    name="New"
+                    id="menu_project_case_new"
+                    parent="project_case.menu_project_case"
+                    action="action_project_case_new"
+                    sequence="2"
+                />
+               <!--  Open tickets -->
+                <menuitem
+                    name="Open"
+                     parent="project_case.menu_project_case"
+                    id="menu_helpdesk_case_open"
+                    action="action_project_case_open"
+                    sequence="3"
+                />
+                <!-- Archived tickets -->
+                <menuitem
+                    name="Inprogress"
+                    parent="project_case.menu_project_case"
+                    id="menu_project_case_inprogress"
+                    action="action_project_case_inprogress"
+                    sequence="4"/>
+
+                <menuitem
+                    name="Support Category"
+                    parent="project_case.menu_project_confi"
+                    id="menu_helpdesk_category"
+                    action="action_ticket_category"
+                    sequence="1"
+                    groups = "group_helpdesk_manager"
+                />      
+
+               <menuitem
+                    name="Call Type"
+                    parent="project_case.menu_project_confi"
+                    id="menu_helpdesk_call_type"
+                    action="action_ticket_call_type"
+                    sequence="1"
+                    groups = "group_helpdesk_manager"
+                />
+
+                <menuitem
+                    name="Deadlines"
+                   parent="project_case.menu_project_confi"
+                    id="menu_helpdesk_deadline"
+                    action="action_ticket_deadline" sequence="2"  groups = "group_helpdesk_manager"/>
+                    <!--groups="group_helpdesk_manager"-->
+
+
+                <!--<menuitem-->
+                    <!--name="Priorities"-->
+                    <!--parent="menu_ibs_helpdesk_configuration"-->
+                    <!--id="menu_ibs_helpdesk_priority"-->
+                    <!--action="action_ibs_ticket_priority"-->
+                    <!--groups="group_ibs_helpdesk_manager"-->
+                    <!--sequence="3"-->
+                <!--/>-->
+
+                <!--<menuitem-->
+                    <!--name="Sources"-->
+                    <!--parent="menu_ibs_helpdesk_configuration"-->
+                    <!--id="menu_ibs_helpdesk_source"-->
+                    <!--action="action_ibs_ticket_source"-->
+                    <!--groups="group_ibs_helpdesk_manager"-->
+                    <!--sequence="4"-->
+                <!--/>-->
+    </data>
+</openerp>

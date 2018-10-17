@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="add_to_product_wizard_view_form" model="ir.ui.view">
+            <field name="name">Add To Product</field>
+            <field name="model">product.template.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Batch delete">
+                    <sheet>
+                        <div>
+                            <p class="oe_view_nocontent_create">
+                Are you sure you want to add this product at the GoMart?
+              </p>
+                        </div>
+                    </sheet>
+                    <footer>
+                        <button confirm="Are you sure?"
+                            name="add_list_product_to_gomart"
+                            string="Add To Product" type="object"/>
+                        <button class="btn-default" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window 
+            id="action_product_add_gomart_view"
+            name="Add product to GoMart" 
+            res_model="product.template.wizard" 
+            src_model="product.template"
+            key2="client_action_multi"
+            view_mode="form" target="new" view_type="form"
+            />
+    </data>
+</odoo>

@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="bista_mint_homepage" inherit_id="website.homepage">
+            <xpath expr="//div" position="inside">
+                <div id="top">
+                    <!-- start home -->
+                    <section id="home">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6">
+                                    <h1 class="wow fadeIn"
+                                        data-wow-offset="50"
+                                        data-wow-delay="0.2s">Enabling retailers with
+                                        POS, Inventory Management,
+                                        Financials, CRM and ecommerce</h1>
+                                    <div class="element">
+                                        <div class="sub-element">Hello,Welcome to Our Online Market Solution</div>
+                                        <div class="sub-element">Awesome Solutions are provided by Mint.com website for everyone</div>
+                                        <div class="sub-element">Get your free trial Now and get Started.</div>
+                                    </div>
+                                    <a href="/page/services"
+                                       class="btn btn-default wow fadeInUp"
+                                       data-wow-offset="50"
+                                       data-wow-delay="0.4s">JOIN US</a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- end home -->
+
+                    <!-- start about -->
+                    <section id="about">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-12">
+                                    <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.2s">WHO <span>WE ARE</span></h2>
+                                    <hr class="gline bounceIn" data-wow-offset="50" data-wow-delay="0.2s"/>
+                                </div>
+                                <div class="col-xs-12 wow fadeInDown" data-wow-offset="50" data-wow-delay="0.2s">
+                                    <div class="media">
+                                        <div class="media-heading-wrapper">
+                                            <div class="media-object pull-left">
+                                                <i class="fa fa-comment-o"></i>
+                                            </div>
+                                            <h3 class="media-heading">COMPANY OVERVIEW</h3>
+                                        </div>
+                                        <div class="media-body text-justify">
+                                            <p>
+                                                Established in 2009, Mint is one of the leading vertically-integrated payment solutions providers with its own distribution channels, state of the art technology platform, and data center in UAE, offering a complete payment suite and value added services to provide enterprise solutions seamlessly.
+
+                                                The Mint Group is operating through three entities: Mint Middle East for different Card Management Programs including payroll cards under WPS programs, Mint Gateway for secured transaction processing of Acquiring and Issuing and Mint Electronic Payment Services for bill payments and merchant acquisitions.
+
+                                                Mint group of companies has two major shareholders: The Mint Corporation, a company publicly listed on the Toronto Stock Exchange in Canada; and Global Business Services and Multimedia, an Abu Dhabi-based establishment since 2000
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.3s">
+                                    <div class="media">
+                                        <div class="media-heading-wrapper">
+                                            <div class="media-object pull-left">
+                                                <i class="fa fa-mobile"></i>
+                                            </div>
+                                            <h3 class="media-heading">FULLY RESPONSIVE</h3>
+                                        </div>
+                                        <div class="media-body">
+                                            <p>Awesome responsive template is provided by <a rel="nofollow" href="http://www.templatemo.com" target="_parent">templatemo</a> website. This is Bootstrap v3.3.2 layout built on HTML5 CSS3. You can use this for any purpose. Please tell your friends about it.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 wow fadeInUp" data-wow-offset="50" data-wow-delay="0.4s">
+                                    <div class="media">
+                                        <div class="media-heading-wrapper">
+                                            <div class="media-object pull-left">
+                                                <i class="fa fa-comment-o"></i>
+                                            </div>
+                                            <h3 class="media-heading">FREE SUPPORT</h3>
+                                        </div>
+                                        <div class="media-body">
+                                            <p>Credits go to <a rel="nofollow" href="http://pixabay.com">Pixabay</a> for homepage image and <a rel="nofollow" href="http://unsplash.com">Unsplash</a> for portfolio images. Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-sm-4 col-xs-12 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.5s">
+                                    <div class="media">
+                                        <div class="media-heading-wrapper">
+                                            <div class="media-object pull-left">
+                                                <i class="fa fa-html5"></i>
+                                            </div>
+                                            <h3 class="media-heading">HTML5
+                                                &amp; CSS3</h3>
+                                        </div>
+                                        <div class="media-body">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris eget. Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- end about -->
+
+                    <!-- start technologies -->
+                    <section id="technology">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="wow fadeIn" data-wow-offset="50" data-wow-delay="0.2s"><span>OUR </span> TECHNOLOGY</h2>
+                                    <hr class="gline bounceIn" data-wow-offset="50" data-wow-delay="0.3s"/>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.5s">
+                                    <div class="technology-wrapper">
+                                        <img src="/saas_mint_web_theme/static/src/images/technologies/compliant.png" class="img-responsive" alt="Compliant"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6">
+                                    <div class="technology-wrapper">
+                                        <img src="/saas_mint_web_theme/static/src/images/technologies/hostedprocessing.png" class="img-responsive" alt="Hosted processing"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.7s">
+                                    <div class="technology-wrapper">
+                                        <img src="/saas_mint_web_theme/static/src/images/technologies/integratedsystems.png" class="img-responsive" alt="Integrated System"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.8s">
+                                    <div class="technology-wrapper">
+                                        <img src="/saas_mint_web_theme/static/src/images/technologies/multipleapps.png" class="img-responsive" alt="Multiple Apps"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
+                                    <div class="technology-wrapper">
+                                        <img src="/saas_mint_web_theme/static/src/images/technologies/nfccontactless.png" class="img-responsive" alt="NFC Connectionless"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-sm-4 col-xs-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.10s">
+                                    <div class="technology-wrapper">
+                                        <img src="/saas_mint_web_theme/static/src/images/technologies/personalizationsupport.png" class="img-responsive" alt="Personalization Support"/>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                    <!-- end technologies -->
+
+                    <!--&lt;!&ndash; start team &ndash;&gt;-->
+                    <!--<section id="team">-->
+                    <!--<div class="container">-->
+                    <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                    <!--<h2 class="wow fadeIn" data-wow-offset="50" data-wow-delay="0.3s"><span>OUR</span> TEAM</h2>-->
+                    <!--<hr class="gline bounceIn" data-wow-offset="50" data-wow-delay="0.3s"/>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.3s">-->
+                    <!--<div class="team-wrapper">-->
+                    <!--<img src="/saas_mint_web_theme/static/src/images/team-img1.jpg"-->
+                    <!--class="img-responsive" alt="team img 1"/>-->
+                    <!--<div class="team-des">-->
+                    <!--<h4>TRACY</h4>-->
+                    <!--<span>Designer</span>-->
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molest.</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">-->
+                    <!--<div class="team-wrapper">-->
+                    <!--<img src="/saas_mint_web_theme/static/src/images/team-img2.jpg"-->
+                    <!--class="img-responsive" alt="team img 2"/>-->
+                    <!--<div class="team-des">-->
+                    <!--<h4>MARY</h4>-->
+                    <!--<span>Developer</span>-->
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molest.</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.3s">-->
+                    <!--<div class="team-wrapper">-->
+                    <!--<img src="/saas_mint_web_theme/static/src/images/team-img3.jpg"-->
+                    <!--class="img-responsive" alt="team img 3"/>-->
+                    <!--<div class="team-des">-->
+                    <!--<h4>JULIA</h4>-->
+                    <!--<span>Director</span>-->
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molest.</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="1.6s">-->
+                    <!--<div class="team-wrapper">-->
+                    <!--<img src="/saas_mint_web_theme/static/src/images/team-img4.jpg"-->
+                    <!--class="img-responsive" alt="team img 4"/>-->
+                    <!--<div class="team-des">-->
+                    <!--<h4>LINDA</h4>-->
+                    <!--<span>Manager</span>-->
+                    <!--<p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molest.</p>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</section>-->
+                    <!--&lt;!&ndash; end team &ndash;&gt;-->
+
+                    <!-- start service -->
+                    <section id="service">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">OUR <span>THINGS</span></h2>
+                                    <hr class="gline bounceIn" data-wow-offset="50" data-wow-delay="0.3s"/>
+                                </div>
+                                <div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.4s">
+                                    <i class="fa fa-laptop"></i>
+                                    <h4>Web Design</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris eget. Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</p>
+                                </div>
+                                <div class="col-md-4 active wow fadeIn" data-wow-offset="50" data-wow-delay="0.5s">
+                                    <i class="fa fa-cloud"></i>
+                                    <h4>Cloud Computing</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris eget. Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</p>
+                                </div>
+                                <div class="col-md-4 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <i class="fa fa-cog"></i>
+                                    <h4>UX Design</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie. Adipiscing vitae vel quam proin eget mauris eget. Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget diam et laoreet phasellus ut nisi id leo molestie.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- end servie -->
+
+                    <!-- start portfolio -->
+                    <section id="portfolio">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s"><span>OUR</span> PORTFOLIO</h2>
+                                    <hr class="gline bounceIn" data-wow-offset="50" data-wow-delay="0.3s"/>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <div class="portfolio-thumb">
+                                        <img src="/saas_mint_web_theme/static/src/images/portfolio-img1.jpg"
+                                             class="img-responsive" alt="portfolio img 1"/>
+                                        <div class="portfolio-overlay">
+                                            <h4>Project One</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                                            <a href="#" class="btn btn-default">DETAIL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <div class="portfolio-thumb">
+                                        <img src="/saas_mint_web_theme/static/src/images/portfolio-img2.jpg"
+                                             class="img-responsive" alt="portfolio img 2"/>
+                                        <div class="portfolio-overlay">
+                                            <h4>Project Two</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                                            <a href="#" class="btn btn-default">DETAIL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <div class="portfolio-thumb">
+                                        <img src="/saas_mint_web_theme/static/src/images/portfolio-img3.jpg"
+                                             class="img-responsive" alt="portfolio img 3"/>
+                                        <div class="portfolio-overlay">
+                                            <h4>Project Three</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                                            <a href="#" class="btn btn-default">DETAIL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <div class="portfolio-thumb">
+                                        <img src="/saas_mint_web_theme/static/src/images/portfolio-img4.jpg"
+                                             class="img-responsive" alt="portfolio img 4"/>
+                                        <div class="portfolio-overlay">
+                                            <h4>Project Four</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                                            <a href="#" class="btn btn-default">DETAIL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <div class="portfolio-thumb">
+                                        <img src="/saas_mint_web_theme/static/src/images/portfolio-img3.jpg"
+                                             class="img-responsive" alt="portfolio img 3"/>
+                                        <div class="portfolio-overlay">
+                                            <h4>Project Five</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                                            <a href="#" class="btn btn-default">DETAIL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <div class="portfolio-thumb">
+                                        <img src="/saas_mint_web_theme/static/src/images/portfolio-img4.jpg"
+                                             class="img-responsive" alt="portfolio img 4"/>
+                                        <div class="portfolio-overlay">
+                                            <h4>Project Six</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                                            <a href="#" class="btn btn-default">DETAIL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <div class="portfolio-thumb">
+                                        <img src="/saas_mint_web_theme/static/src/images/portfolio-img1.jpg"
+                                             class="img-responsive" alt="portfolio img 1"/>
+                                        <div class="portfolio-overlay">
+                                            <h4>Project Seven</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                                            <a href="#" class="btn btn-default">DETAIL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6 col-xs-12 wow fadeIn" data-wow-offset="50" data-wow-delay="0.6s">
+                                    <div class="portfolio-thumb">
+                                        <img src="/saas_mint_web_theme/static/src/images/portfolio-img2.jpg"
+                                             class="img-responsive" alt="portfolio img 2"/>
+                                        <div class="portfolio-overlay">
+                                            <h4>Project Eight</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elitquisque tempus ac eget dia.</p>
+                                            <a href="#" class="btn btn-default">DETAIL</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- end portfolio -->
+
+                    <!--&lt;!&ndash; start contact &ndash;&gt;-->
+                    <!--<section id="contact">-->
+                    <!--<div class="container">-->
+                    <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                    <!--<h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">CONTACT <span>US</span></h2>-->
+                    <!--<hr class="gline bounceIn" data-wow-offset="50" data-wow-delay="0.3s"/>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.9s">-->
+                    <!--<form action="#" method="post">-->
+                    <!--<label>NAME</label>-->
+                    <!--<input name="fullname" type="text"-->
+                    <!--class="form-control" id="fullname"/>-->
+
+                    <!--<label>EMAIL</label>-->
+                    <!--<input name="email" type="email"-->
+                    <!--class="form-control" id="email"/>-->
+
+                    <!--<label>MESSAGE</label>-->
+                    <!--<textarea name="message" rows="4" class="form-control" id="message"></textarea>-->
+
+                    <!--<input type="submit"-->
+                    <!--class="form-control"/>-->
+                    <!--</form>-->
+                    <!--<hr/>-->
+                    <!--<ul class="social-icon">-->
+                    <!--<li><h4>WE ARE SOCIAL</h4></li>-->
+                    <!--<li><a href="#" class="fa fa-facebook"></a></li>-->
+                    <!--<li><a href="#" class="fa fa-twitter"></a></li>-->
+                    <!--<li><a href="#" class="fa fa-instagram"></a></li>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-6 col-sm-6 col-xs-12 wow fadeInRight" data-wow-offset="50" data-wow-delay="0.6s">-->
+                    <!--<address>-->
+                    <!--<p class="address-title">Media Contacts</p>-->
+                    <!--<span>If you’re a member of the media and want to find out more about us, Please contact:</span>-->
+                    <!--<p><i class="fa fa-phone"></i> +971 4 346 7786</p>-->
+                    <!--<p><i class="fa fa-envelope-o"></i> media@themint.ae</p>-->
+                    <!--<p><i class="fa fa-map-marker"></i>MINT GROUP-->
+                    <!--Office No. G02, Ground Floor-->
+                    <!--Commercial Bank of Dubai Building-->
+                    <!--Next to Dubai Garden Center-->
+                    <!--Sheikh Zayed Road,-->
+                    <!--P.O. Box: 114056-->
+                    <!--Dubai, United Arab Emirates</p>-->
+                    <!--</address>-->
+                    <!--<address>-->
+                    <!--<p class="address-title">Sales &amp; Marketing</p>-->
+                    <!--<span>If you are interested in learning more about Mint or have interest in our products and services, please email our sales</span>-->
+                    <!--<p><i class="fa fa-envelope-o"></i>  sales@themint.ae</p>-->
+                    <!--</address>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</section>-->
+                    <!--&lt;!&ndash; end contact &ndash;&gt;-->
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+        <!-- Initial Merchant Record To be Created on Installation -->
+        <record id="merchant_data" model="merchant.master">
+            <field name="name">Grocery</field>
+        </record>
+
+        <record id="merchant_data_2" model="merchant.master">
+            <field name="name">Restaurant</field>
+        </record>
+
+        <!-- Initial Store Record To be Created on Installation -->
+        <record id="store_data" model="store.master">
+            <field name="store_name">Single Store</field>
+        </record>
+
+        <record id="store_data_2" model="store.master">
+            <field name="store_name">Chained Store</field>
+        </record>
+
+        <!-- Initial Merchant Record To be Created on Installation -->
+        <record id="company_type_data_1" model="company.type">
+            <field name="name">B2B</field>
+        </record>
+
+        <record id="company_type_data_2" model="company.type">
+            <field name="name">B2C</field>
+        </record>
+
+        <!-- Initial Store Record To be Created on Installation -->
+        <record id="ecommerce_type_1" model="ecommerce.platform">
+            <field name="name">Amazon</field>
+        </record>
+
+        <record id="ecommerce_type_2" model="ecommerce.platform">
+            <field name="name">Flipkart</field>
+        </record>
+    </data>
+</odoo>

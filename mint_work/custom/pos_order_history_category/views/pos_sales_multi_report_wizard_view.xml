@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- POS Order Wizard -->
+        <record id="view_pos_sales_report_history_category" model="ir.ui.view">
+            <field name="name">view.pos.sales.report.category.wizard</field>
+            <field name="model">pos.sales.report.category</field>
+            <field name="arch" type="xml">
+                <form string="Order History Product Type">
+                    <group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="categ_id"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Print" type="object" name="sales_order_report_category" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <!--action window for Product Type Menu Wizard for Product Type Report printing-->
+        <!--  POS Order Form view -->
+        <record id="action_view_sales_category_report_wizard" model="ir.actions.act_window">
+            <field name="name">Sales Order Report by Product Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.sales.report.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="point_of_sale.view_report_pos_order_search"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- POS order Menu -->
+        <menuitem id="menu_sales_porduct_category_report" action="action_view_sales_category_report_wizard" parent="point_of_sale.menu_point_rep" sequence="9"/>
+
+    </data>
+</odoo>

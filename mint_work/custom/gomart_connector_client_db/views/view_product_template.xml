@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_product_small_descpt_inherit_form" model="ir.ui.view">
+        <field name="name">view.product.small.desc.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="add_to_catelog_gomart"
+                    string="Add to Catelog" type="object"/>
+                <button name="add_to_store_product_range_gomart"
+                    string="Add to Product Range" type="object"/>
+                <button name="inventory_stock"
+                    string="Maintain stock inventory" type="object"/>
+            </header>
+            <xpath expr="//page[@name='sales']" position="after">
+                <page string="GoMart Product">
+                    <group>
+                        <field name="gomart_store_product_range_id"/>
+                        <field
+                            attrs="{'invisible': ['|',('unlimited','=', True)]}" name="qty_available"/>
+                        <field name="unlimited"/>
+                        <field name="limited_qty"/>
+                        <field name="out_of_stock"/>
+                        <field name="gomart_low_stock"/>
+                        <!-- <field name="user_id"/> -->
+                        <!-- <field name="company_id" required="1"/> -->
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_product_form_template_inherite" model="ir.ui.view">
+        <field name="name">view.product.template.form.inherite</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <field name="gomart_store_product_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

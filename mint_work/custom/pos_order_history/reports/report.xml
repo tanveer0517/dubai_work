@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="order_history_report" model="ir.actions.report.xml">
+            <field name="name">Order History</field>
+            <field name="model">pos.order.history</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pos_order_history.report_order_history</field>
+        </record>
+
+    </data>
+</odoo>

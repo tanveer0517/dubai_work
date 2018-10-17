@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Loads javascript file in pos assets-->
+        <template id="assets" inherit_id="point_of_sale.assets" name="pos multi barcode assets">
+            <xpath expr="." position="inside">
+               <script type="text/javascript" src="/mint_pos_multi_barcode/static/src/js/pos_multi_barcode.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

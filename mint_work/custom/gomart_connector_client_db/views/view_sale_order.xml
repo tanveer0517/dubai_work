@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Add Sale Order Form View -->
+    <record id="view_go_mart_sale_order_form_inherit" model="ir.ui.view">
+        <field name="name">go.mart.sale.order.form.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <header>
+                <button name="Master_field_SO" string="Master field SO" type="object"/>
+                <button name="Read_SO" string="Read SO" type="object"/>
+            </header>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="go_mart_order_id"/>
+                <field name="go_mart_order_status" readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

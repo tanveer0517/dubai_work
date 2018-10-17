@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- GoMart config wizard -->
+    <record id="view_gomart_config_settings" model="ir.ui.view">
+        <field name="name">gomart settings</field>
+        <field name="model">gomart.config.settings</field>
+        <field name="arch" type="xml">
+            <form class="oe_form_configuration"
+                name="gomart_config_form" string="Configure gomart">
+                <header>
+                    <button class="oe_highlight" name="gomart_sync"
+                        string="Sync to GoMart" type="object"/>
+                    <button class="oe_link" name="cancel"
+                        special="cancel" string="Cancel" type="object"/>
+                </header>
+                <div id="main" position="inside">
+                    <group string="Product">
+                        <field name="product"/>
+                    </group>
+                    <group string="Product Category">
+                        <field name="product_category"/>
+                    </group>
+                    <group string="Product Unit">
+                        <field name="product_uom"/>
+                    </group>
+                    <group string="Account Tax">
+                        <field name="account_tax"/>
+                    </group>
+                    <group string="Product Brand">
+                        <field name="product_brand"/>
+                    </group>
+                    <group string="Product Group">
+                        <field name="product_group"/>
+                    </group>
+                    <group string="Product Attribute">
+                        <field name="product_attribute"/>
+                    </group>
+                    <group string="City">
+                        <field name="city"/>
+                    </group>
+                    <group string="Area">
+                        <field name="location"/>
+                    </group>
+                    <group string="State">
+                        <field name="state"/>
+                    </group>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="action_gomart_config" model="ir.actions.act_window">
+        <field name="name">Configure gomart</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gomart.config.settings</field>
+        <field name="view_id" ref="view_gomart_config_settings"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+    </record>
+    <menuitem action="action_gomart_config" groups="base.group_system"
+        id="menu_gomart_sync_settings" name="GoMart Sync Settings" parent="saas_portal_enhancement.menu_configuration"/>
+</odoo>

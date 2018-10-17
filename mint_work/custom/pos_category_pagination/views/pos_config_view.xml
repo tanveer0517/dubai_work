@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_pos_config_form_inherit_product_category_view" model="ir.ui.view">
+        <field name="name">pos.config.form.view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Product Category Configuration" name="product_category_configuration">
+                    <field name="default_show_no_of_category"/>
+                    <field name="is_category_button"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

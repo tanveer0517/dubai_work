@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="report_order_history">
+            <t t-call="report.html_container">
+                <!--<t t-call="report.external_layout">-->
+                <t t-call="pos_order_history.pos_sales_order_report_header_footer">
+                    <div class="page col-xs-12" style="font-size: 17px;">
+                        <div class="row oe_right" style="color: black">
+                            <div class="row text-center">
+                                <h2>POS Order History</h2>
+                            </div>
+                            <br/>
+                            <!-- Customer Address -->
+                            <div class="row">
+                                <div class="col-xs-2" t-if="partner_name">
+                                    <b>Address : </b>
+                                </div>
+                                <div class="col-xs-10" t-if="partner_name">
+                                    <t t-if="partner_name"><t t-esc="partner_name"/></t><br/>
+                                    <t t-if="street"><t t-esc="street"/>, </t><t t-if="street2"><t t-esc="street2"/>,</t><br/>
+                                    <t t-if="city"><t t-esc="city"/>, </t><t t-if="state"><t t-esc="state"/>,</t><br/>
+                                    <t t-if="country"><t t-esc="country"/>, </t><t t-if="zip"><t t-esc="zip"/>.</t><br/>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <!-- From Date -->
+                                <div class="col-xs-12" t-if="start_date">
+                                    <div class="col-xs-2"><strong>From Date: </strong></div><div class="col-xs-2"><span t-esc='start_date' t-options='{"widget": "date"}'/></div>
+                                </div>
+                                <!-- To Date -->
+                                <div class="col-xs-12" t-if="end_date">
+                                    <div class="col-xs-2"><strong>To Date: </strong></div><div class="col-xs-2"><span t-esc='end_date' t-options='{"widget": "date"}'/></div>
+                                </div>
+                            </div>
+                            <br/>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Order Ref</th>
+                                        <th>Item</th>
+                                        <th>Barcode</th>
+                                        <th class="hidden">Source Document</th>
+                                        <th class="text-right">Quantity</th>
+                                        <th class="text-right">Unit Price</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr t-foreach="lines" t-as="t">
+                                        <t t-if="t['qty'] > 0">
+                                            <td><span t-esc="t['order']"/></td>
+                                            <td><span t-esc="t['name']"/></td>
+                                            <td><span t-esc="t['barcode']"/></td>
+                                            <td class="text-right"><span t-esc="t['qty']"/></td>
+                                            <td class="text-right"><span t-esc="t['price_unit']"/></td>
+                                        </t>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="pos_sales_order_report_header_footer">
+            <t t-call="pos_order_history.pos_sales_order_report_header"/>
+            <t t-raw="0"/>
+            <t t-call="pos_order_history.pos_sales_order_report_footer"/>
+        </template>
+
+        <template id="pos_sales_order_report_header">
+            <div class="header">
+                <div class="row text-center">
+                    <div class="col-xs-3 text-center" style="float:none;margin:5px auto;">
+                        <img t-if="company_logo" t-att-src="'data:image/png;base64,%s' % company_logo" style="max-height:60px;width:100%;"/>
+                    </div>
+                </div>
+                <div class="row zero_min_height">
+                    <div class="col-xs-12">
+                        <div style="border-bottom: 1px solid black;"></div>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <t t-if="company_name"><span t-esc="company_name"/>, </t><t t-if="company_street"><span t-esc="company_street"/>, </t><t t-if="company_street2"><span t-esc="company_street2"/>, </t><t t-if="company_city"><span t-esc="company_city"/>, </t><t t-if="company_state_id"><span t-esc="company_state_id"/>, </t><t t-if="company_country_id"><span t-esc="company_country_id"/>, </t><t t-if="company_zip"><span t-esc="company_zip"/></t>
+                </div>
+                <div class="row text-center">
+                    <t t-if="company_phone"><span t-esc="company_phone"/>, </t><t t-if="company_mobile"><span t-esc="company_mobile"/>, </t><t t-if="company_fax"><span t-esc="company_fax"/>, </t>
+                </div>
+                <div class="row text-center">
+                    <t t-if="company_email"><span t-esc="company_email"/>, </t><t t-if="company_website"><span t-esc="company_website"/> .</t>
+                </div>
+            </div>
+        </template>
+
+        <template id="pos_sales_order_report_footer">
+            <div class="footer">
+                <div class="container-fluid text-center"
+                     style="border-top:1px solid black;">
+                    <span>Page</span>
+                    <span class="page"/>
+                    of
+                    <span class="topage"/>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

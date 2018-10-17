@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="point_of_sale.template" xml:space="preserve">
+    <t t-extend="PosTicket">
+        <t t-jquery='.pos-sale-ticket' t-operation='replace'>
+            <div class="pos-sale-ticket">
+                <div class="container-fluid">
+                    <div class="col-xs-12 pos-center-align">
+                        <div>
+                            <t t-if='widget.pos.company.name'>
+                                <div class="emph"><b><t t-esc='widget.pos.company.name'/></b></div>
+                            </t>
+                            <!-- <div>Jumairah, No.5 Opp, Balsam, Pharmacy, Dubai, UAE.</div> -->
+                            <t t-if='company_address'>
+                                <div><t t-esc='company_address' /></div>
+                            </t>
+                            <t t-if='widget.pos.company.phone'>
+                                <div>Call:<t t-esc='receipt.company.phone' /></div>
+                            </t>
+                            <t t-if='receipt.company.website'>
+                                <div><t t-esc='receipt.company.website' /></div>
+                            </t>
+                            <t t-if='receipt.header_xml'>
+                                <t t-raw='receipt.header_xml' />
+                            </t>
+                            <t t-if='!receipt.header_xml and receipt.header'>
+                                <div><t t-esc='receipt.header' /></div>
+                            </t>
+                            <t t-if='receipt.cashier'>
+                                <div class='cashier'>
+                                    <div>----------------------------------------</div>
+                                    <div>Served by <t t-esc='receipt.cashier' /></div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="pos-left-align">
+                        <b><div>Order Number: <t t-esc="order.name"/></div></b>
+                    </div>
+                    <t t-if='order.formatted_validation_date'>
+                        <div class="pos-left-align">
+                            <b><div>Date and Time: <t t-esc="order.formatted_validation_date"/></div></b>
+                        </div>
+                    </t>
+                    <br/>
+                    <div class="col-xs-12 pos-left-align">
+                        <t t-if="order.get_order_id()">
+                            <hr/>
+                            <br/>
+                            <t t-if="order.get_client()">
+                                <div>Name: <t t-esc="order.get_client().name"/></div><br/>
+                                <t t-if="order.get_client().phone" ><div>Phone: <t t-esc="order.get_client().phone"/></div><br/></t>
+                                <t t-if="order.get_client().mobile"><div>Mobile: <t t-esc="order.get_client().mobile"/></div><br/></t>
+                                <div>Address: <t t-esc="order.get_shipping_address_text()"/></div><br/>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+                <table class='receipt-orderlines'>
+                    <colgroup>
+                        <col width='40%'/>
+                        <col width='25%'/>
+                        <col width='35%'/>
+                    </colgroup>
+                    <tr style="border: 1px dashed;">
+                        <td/><td/><td/>
+                    </tr>
+                    <tr>
+                        <th class="pos-left-align" style="padding: 5px;">Name</th>
+                        <th class="pos-left-align">QTY</th>
+                        <th class="pos-right-align">Price</th>
+                    </tr>
+                    <tr style="border: 1px dashed;">
+                        <td/><td/><td/>
+                    </tr>
+                    <tr t-foreach="orderlines" t-as="orderline">
+                        <td>
+                            <t t-esc="orderline.get_product().display_name"/>
+                             <t t-if="orderline.get_discount() > 0">
+                                <div class="pos-disc-font">
+                                    With a <t t-esc="orderline.get_discount()"/>% discount
+                                </div>
+                            </t>
+                        </td>
+                        <td>
+                            <t t-esc="orderline.get_quantity_str_with_unit()"/>
+                        </td>
+                        <td>
+                            <t t-set="a" t-value="orderline.quantityStr"></t>
+                            <t t-set="b" t-value="orderline.get_display_price()"></t>
+                            <t t-set="c" t-value="b/a"></t>
+                            <t t-esc="c"/>
+                        </td>
+                        <td style='text-align:right'>
+                            <t t-esc="widget.format_currency(orderline.get_display_price())"/>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <hr style="border: 1px dashed;" />
+                <table class='receipt-total'>
+                    <tr>
+                        <td>Sub Total</td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(order.get_total_without_tax())"/>
+                        </td>
+                    </tr>
+                </table>
+                <hr style="border: 1px dashed;" t-if="order.get_total_discount() > 0"/>
+                <table t-if="order.get_total_discount() > 0" class='receipt-total'>
+                    <tr>
+                        <t>
+                            <td>Discount Amount</td>
+                            <td class="pos-right-align">
+                                <t t-esc="widget.format_currency(order.get_total_discount())"/>
+                            </td>
+                        </t>
+                    </tr>
+                </table>
+                <hr style="border: 1px dashed;" />
+                <table class='receipt-total'>
+                    <tr>
+                        <t t-foreach="order.get_tax_details()" t-as="taxdetail">
+                            <tr>
+                                <td><t t-esc="taxdetail.name" /></td>
+                                <td class="pos-right-align">
+                                    <t t-esc="widget.format_currency(taxdetail.amount)" />
+                                </td>
+                            </tr>
+                        </t>
+                    </tr>
+                </table>
+                <hr style="border: 1px dashed;" />
+                <table class='receipt-total' style="font-size: 17px;">
+                    <tr>
+                        <td><b>Amount AED</b></td>
+                        <td class="pos-right-align">
+                            <b><t t-esc="widget.format_currency(order.get_total_with_tax())"/></b>
+                        </td>
+                    </tr>
+                </table>
+                <br/>
+                <table class='receipt-paymentlines'>
+                    <colgroup>
+                        <col width='38%' />
+                        <col width='20%' />
+                        <col width='13%' />
+                        <col width='29%' />
+                    </colgroup>
+                    <t t-foreach="paymentlines" t-as="line">
+                      <tr>
+                          <td>
+                              <t t-esc="line.name"/>
+                          </td>
+                          <td>
+                          </td>
+                          <td>
+                          </td>
+                          <td class="pos-right-align">
+                              <t t-esc="widget.format_currency(line.get_amount())"/>
+                          </td>
+                      </tr>
+                    </t>
+                </table>
+                <br/>
+                <hr style="border: 1px dashed;"/>
+                <table class='receipt-change' style="font-size: 16px;line-height:24px;">
+                    <colgroup>
+                        <col width='40%' />
+                        <col width='15%' />
+                        <col width='15%' />
+                        <col width='30%' />
+                    </colgroup>
+                    <tr>
+                        <td style="padding: 5px;"><b>Change:</b></td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+                        <td class="pos-right-align" style="padding: 5px;">
+                            <b><t t-esc="widget.format_currency(order.get_change())"/></b>
+                        </td>
+                    </tr>
+                </table>
+                <hr style="border: 1px dashed;" />
+                <br/>
+                <div class="col-xs-12 pos-center-align">
+                    <div style="font-size:30px"><b>THANK YOU!</b></div>
+                </div>
+                <t t-if="receipt.footer">
+                    <div class="pos-center-align">
+                        <pre><t t-esc="receipt.footer" /></pre>
+                    </div>
+                </t>
+                <div class="col-xs-12 pos-center-align">
+                    <div>
+                        <div style="margin-bottom: 8px;">----------------------------------------</div>
+                        <div class="pos-center-align" style="padding: 5px;">
+                            <div>POWERED BY</div>
+                        </div>
+                        <t t-if='widget.pos.config.enable_receipt_image'>
+                            <div class="pos-center-align">
+                                <img t-att-src='widget.pos.receipt_logo_base64'
+                                    style="width: 100px;margin-left: 16px;"/>
+                            </div>
+                        </t>
+                        <t t-if='!widget.pos.config.enable_receipt_image'>
+                            <t t-if='widget.pos.config.image'>
+                                <div class="pos-center-align">
+                                    <img t-att-src="widget.pos.config_logo_base64"
+                                        style="width: 100px;margin-left: 16px;"/>
+                                </div>
+                            </t>
+                            <t t-if='!widget.pos.config.image'>
+                            <div class="pos-center-align">
+                                <img src="/point_of_sale/static/src/img/logo.png"
+                                    style="width: 100px;margin-left: 16px;"/>
+                                </div>
+                            </t>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</templates>

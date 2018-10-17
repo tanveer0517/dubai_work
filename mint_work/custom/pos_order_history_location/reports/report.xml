@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="order_sales_report_location" model="ir.actions.report.xml">
+            <field name="name">Multi Sales Report By Location</field>
+            <field name="model">pos.sales.report.location</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pos_order_history_location.report_sale_orders_location</field>
+        </record>
+
+    </data>
+</odoo>

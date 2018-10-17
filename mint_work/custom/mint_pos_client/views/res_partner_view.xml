@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <!-- res.partner for making phone,email and red mandatory -->
+        <record model="ir.ui.view" id="res_partner_sync_mandatory_field_view">
+            <field name="name">res.partner.sync.mandatory.field.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="50"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="attrs">{'required':True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="attributes">
+                    <attribute name="attrs">{'required':True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="attributes">
+                    <attribute name="attrs">{'required':True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='street']" position="attributes">
+                    <attribute name="attrs">{'required':True}</attribute>
+                </xpath>
+                  <xpath expr="//field[@name='street2']" position="attributes">
+                    <attribute name="attrs">{'required':True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

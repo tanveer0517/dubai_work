@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <record id="add_to_catalog_wizard_view_form" model="ir.ui.view">
+      <field name="name">Add To Catalog</field>
+      <field name="model">add.to.catalog.wizard</field>
+      <field name="arch" type="xml">
+        <form string="Batch delete">
+          <sheet>
+            <div>
+              <p class="oe_view_nocontent_create">
+                Are you sure you want to add these products ?
+              </p>
+            </div>
+          </sheet>
+          <footer>
+            <button name="add_to_catalog" string="Add To Catalog" type="object"
+              confirm="Are you sure?"/>
+            <button string="Cancel" class="btn-default" special="cancel"/>
+          </footer>
+        </form>
+      </field>
+    </record>
+
+    <!--<record id="add_to_catalog_wizard_view_form" model="ir.ui.view">-->
+      <!--<field name="name">Add To Catalog</field>-->
+      <!--<field name="model">add.to.catalog.wizard</field>-->
+      <!--<field name="arch" type="xml">-->
+        <!--<form string="Import a csv file">-->
+          <!--<group name="main">-->
+            <!--<field name="csv_file" />-->
+          <!--</group>-->
+
+          <!--<footer>-->
+                <!--<button name="import_csv" type="object"-->
+                        <!--string="Import" class="oe_highlight"/>-->
+                <!--<button special="cancel" string="Cancel"/>-->
+              <!--</footer>-->
+
+        <!--</form>-->
+      <!--</field>-->
+    <!--</record>-->
+
+      <!--<record id="your_wizard_action" model="ir.actions.act_window">-->
+        <!--<field name="name">Import a csv file</field>-->
+        <!--<field name="res_model">add.to.catalog.wizard</field>-->
+        <!--<field name="view_mode">form</field>-->
+        <!--<field name="target">new</field>-->
+    <!--</record>-->
+
+  </data>
+</openerp>

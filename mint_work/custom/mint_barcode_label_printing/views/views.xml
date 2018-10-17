@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record model="ir.values" id="ir_values_product_template">
+            <field name="key2" eval="'client_print_multi'"/>
+            <field name="model" eval="'product.template'"/>
+            <field name="name">Print Multi Barcode</field>
+            <field name="value" eval="'ir.actions.act_window,%d'%action_view_product_barcode_label_wizard"/>
+        </record>
+    </data>
+</odoo>

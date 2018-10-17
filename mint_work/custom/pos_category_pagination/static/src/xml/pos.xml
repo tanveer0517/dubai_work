@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+	<t t-extend="CategoryButton">
+		<t t-jquery=".category-name" t-operation="replace">
+			<div class="category-name">
+				<t t-esc="widget.display_name(category)"/>
+			</div>
+		</t>
+	</t>
+	<t t-extend="CategorySimpleButton">
+		<t t-jquery="t[t-esc='category.name']" t-operation="replace">
+			<t t-esc="widget.display_name(category)"/></t>
+	</t>
+	<t t-name="CategoryPreviousButton">
+		<span t-att-class="sequence ? 'category-button category-btn js-category-previous-'+sequence  : 'category-button category-btn js-category-previous'" t-att-id="sequence ? 'cat_previous_'+sequence  : 'simplecat'" t-att-data-cat-index="sequence ? sequence : -1">
+			<div class="">
+				<i class='fa fa-arrow-left'></i>
+			</div>
+			<div class="category-title">
+                Back
+            </div>
+			<div class="category-dot">
+            	...
+            </div>
+		</span>
+	</t>
+	<t t-name="CategoryNextButton">
+		<span t-att-class="sequence ? 'category-button category-btn js-category-next-'+sequence  : 'category-button category-btn js-category-next'" t-att-id="sequence ? 'cat_next_'+sequence  : 'simplecat'" t-att-data-cat-index="sequence ? sequence : -1">
+			<div class="">
+				<i class='fa fa-arrow-right'></i>
+			</div>
+			<div class="category-title">
+                More
+            </div>
+			<div class="category-dot">
+            	...
+            </div>
+		</span>
+	</t>
+	<t t-name="CategorySimplePreviousButton">
+		<span t-att-class="sequence ? 'category-simple-button js-category-previous-'+sequence  : 'category-simple-button js-category-previous'" t-att-id="sequence ? 'cat_previous_'+sequence  : 'simplecat'" t-att-data-cat-index="sequence ? sequence : -1">
+			<i class='fa fa-arrow-left'></i>
+            Back ...
+        
+		
+		</span>
+	</t>
+	<t t-name="CategorySimpleNextButton">
+		<span t-att-class="sequence ? 'category-simple-button js-category-next-'+sequence  : 'category-simple-button js-category-next'"
+        t-att-id="sequence ? 'cat_next_'+sequence  : 'simplecat'" t-att-data-cat-index="sequence ? sequence : -1">
+            More ...
+            
+			
+			<i class='fa fa-arrow-right'></i>
+		</span>
+	</t>
+	<t t-name='main_cat_list'>
+		<div class="categories">
+			<div class="category-list-scroller touch-scrollable">
+				<div t-att-class="sequence ? 'maincategory-list cat-' + sequence : 'maincategory-list'"></div>
+			</div>
+		</div>
+	</t>
+	<!-- Search bar above category breadcrumb -->
+	<t t-extend="ProductCategoriesWidget">
+		<t t-jquery='t[t-foreach="widget.breadcrumb"]' t-operation='replace'/>
+		<!--t t-jquery='header' t-operation='after'><t t-foreach="widget.breadcrumb" t-as="category"><t t-if="category_last"><span class="breadcrumb"><span class="breadcrumb-button breadcrumb-custom-btn js-category-switch" t-att-data-category-id="category.id"><t t-esc="category.name"/></span></span></t></t></t-->
+		<t t-jquery="header" t-operation="after">
+			<t t-if="widget.maincategories.length > 0">
+				<div class="maincategories">
+					<div class='main-cat-list'/></div>
+			</t>
+		</t>
+		<!--t t-jquery=".searchbox" t-operation="replace"/><t t-jquery=".rightpane-header" t-operation="before"><div class="rightpane-header"><div class="searchbox"><input placeholder="Search Products" /><span class="search-clear"></span></div></div></t-->
+	</t>
+	<!-- Subcategory button -->
+	<t t-name='subcategory_button'>
+		<span class="js-category-switch breadcrumb-button subcategory-btn" t-att-data-category-id="category.id">
+			<div class="category-name">
+				<t t-esc="widget.display_name(category)"/>
+			</div>
+		</span>
+	</t>
+	<t t-name="CatSubPreviousBtn">
+		<span t-att-class="sequence ? 'breadcrumb-button subcategory-btn js-category-previous-'+sequence  : 'breadcrumb-button subcategory-btn js-category-previous'" t-att-id="sequence ? 'cat_previous_'+sequence  : 'simplecat'" t-att-data-cat-index="sequence ? sequence : -1">
+			<i class='fa fa-arrow-left'></i>
+            Back ...
+        
+		
+		</span>
+	</t>
+	<t t-name="CatSubNextBtn">
+		<span t-att-class="sequence ? 'breadcrumb-button subcategory-btn js-category-next-'+sequence  : 'breadcrumb-button subcategory-btn js-category-next'"
+        t-att-id="sequence ? 'cat_next_'+sequence  : 'simplecat'" t-att-data-cat-index="sequence ? sequence : -1">
+            More ...
+            
+			
+			<i class='fa fa-arrow-right'></i>
+		</span>
+	</t>
+</templates>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Saas Paasword Reset Message for mail template-->
+        <template id="password_reset_msg_template" name="Trial Confirmed ">
+            <t t-call="website.layout">
+                <div class="jumbotron text-center jumbotron_email wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
+                    <h1>Your Account is Created Successfully </h1>
+                    <h3>
+                        <p>Activation Mail is Sent to your Registered
+                            Email ID.
+                        </p>
+                        <p>
+                            Please set your password and explore your Free
+                            Trial.
+                        </p>
+                        <p>
+                            You can login into Main Portal with your
+                            Credentials as <br/>
+                            Email : Your Email
+                            Password : Your Email
+
+                        </p>
+                        <p>
+                            Incase any Problem please feel free to contact
+                            our Support System
+                        </p>
+                        <p>
+                            Thank You.
+                        </p>
+                    </h3>
+                </div>
+            </t>
+        </template>
+
+        <!--<template id="user_forbidden_inherit" inherit_id="website.403">-->
+            <!--<xpath expr="//t[@t-call='website.layout']" position="replace">-->
+                 <!--<div id="block_error">-->
+                    <!--<div class="jumbotron text-center jumbotron_email wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">-->
+                        <!--<h1>Error 404. &amp;nbspOops you've have encountered-->
+                            <!--an error</h1>-->
+                        <!--<h3>-->
+                        <!--<p class="error_p">-->
+                            <!--It apperrs that Either something went wrong..<br /><br/>-->
+                            <!--This website is temporarily unable to service your request as it has exceeded it’s resource limit. Please check back shortly.-->
+                        <!--</p>-->
+                        <!--<p class="error_p">-->
+                            <!--If you have any questions, please contact our Technical Support department.-->
+                        <!--</p>-->
+                        <!--<p class="error_p">-->
+                            <!--<a href="/">Back To Home</a>-->
+                        <!--</p>-->
+                        <!--</h3>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</xpath>-->
+        <!--</template>-->
+
+        <!--Saas Paasword Reset Message for mail template-->
+        <template id="client_create_template" name="Confirmed Registration">
+            <t t-call="website.layout">
+                <div class="jumbotron text-center jumbotron_email wow fadeIn" data-wow-offset="50" data-wow-delay="0.9s">
+                    <h1>Your Request has been Registered Successfully </h1>
+                    <h3>
+                        <p>
+                            Please Be in Patiencs as the Process will be
+                            done within Few Hours or a Day
+                        </p>
+                        <p>
+                            You can login into Main Portal with your
+                            Credentials as to check the Status of your
+                            Registration<br/>
+                            Email : Your Email
+                            Password : Your Email
+                        </p>
+                        <p>
+                            If any of the document is not satisfied then you
+                            have to again upload you requirement Document
+                            which may be rejected by the Admin.
+                        </p>
+                        <p>
+                            A confirmation Email will be sent to your
+                            registered Email ID once Admin confirms your
+                            Details and Documents.
+                        </p>
+                        <p>
+                            Thank You.
+                        </p>
+                    </h3>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

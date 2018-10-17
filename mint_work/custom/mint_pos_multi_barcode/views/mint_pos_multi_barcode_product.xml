@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Add Multi barcode field. -->
+    <record id="product_form_view_default_multi_barcode" model="ir.ui.view">
+        <field name="name">product.product.inherit.multi.barcode</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='notes']" position="after">
+                <page string="Multi Barcodes" name="multi_barcode">
+                    <group name="Multi Barcode">
+                        <button type='action' name='%(act_import_barcode)d' string="Import Barcode"></button>
+                        <field name="multi_barcode_ids" colspan="4" nolabel="1">
+                            <tree editable='bottom'>
+                                <field name='lot_id' domain="[('product_id','=', parent.id)]"></field>
+                                <field name='parent_barcode'></field>
+                                <field name='child_barcode'></field>
+                                <field name='qty'></field>
+                                <field name='product_uom_id' readonly='1'></field>
+                            </tree>
+                        </field>
+                    </group>
+                 </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add a child barcode in lot form view. -->
+    <record id="view_production_lot_form_barcode" model="ir.ui.view">
+        <field name="name">stock.production.lot.inherit.form.barcode</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form" />
+        <field name="arch" type="xml">
+            <field name="ref" position="after">
+                <field name="child_barcode"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Add a child barcode in pack operation view -->
+    <record id="view_pack_operation_lot_form" model="ir.ui.view">
+        <field name="name">stock.pack.operation.lots.form.barcode</field>
+        <field name="model">stock.pack.operation</field>
+        <field name="inherit_id" ref="stock.view_pack_operation_lot_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pack_lot_ids']/tree/field[@name='lot_name']" position='after'>
+                <field name='child_barcode'></field>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

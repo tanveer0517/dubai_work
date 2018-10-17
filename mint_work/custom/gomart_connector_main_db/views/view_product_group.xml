@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <!--Added GoMart Group ID,in the Product Group tree view -->
+        <record id="view_product_group_inherit" model="ir.ui.view">
+            <field name="name">product.group.inherit</field>
+            <field name="model">product.group</field>
+            <field name="inherit_id" ref="product_enhancement.view_product_group_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="editable"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="gomart_group_id"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- Added Fields,in the Product attribute Form view -->
+        <record id="view_product_attribute_form_inherit" model="ir.ui.view">
+            <field name="name">product.attribute.form.inherit</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref="product.product_attribute_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="group_id" readonly="1"/>
+                    <field name="field_type" required="1"/>
+                    <field
+                        attrs="{'invisible': ['|',('field_type','=', False),('field_type','in', ('3','4'))]}"
+                        class="oe_edit_only" name="field_data_type"
+                        options="{'horizontal': true}" widget="radio"/>
+                    <field
+                        attrs="{'invisible': ['|','|',('field_type','=', False),('field_type','in', ('3','4')),('field_data_type','=','2')]}"
+                        name="no_charater" placeholder="No. of Charaters"/>
+                    <field
+                        attrs="{'invisible': ['|','|',('field_type','=', False),('field_type','in', ('3','4')),('field_data_type','=','1')]}" name="fixed_field_type"/>
+                    <field
+                        attrs="{'invisible': ['|','|',('field_type','=', False),('field_type','in', ('1','3','4')),('field_data_type','=','2')]}" name="decimal_places"/>
+                    <field
+                        attrs="{'invisible': ['|','|',('field_type','=', False),('field_type','=', '1'),('field_data_type','=','2')]}" name="interval_allowed"/>
+                    <field
+                        attrs="{'invisible': ['|','|',('field_type','=', False),('field_type','!=', '2'),('field_data_type','=','2')]}" name="measure_unit"/>
+                    <field
+                        attrs="{'invisible': ['|','|',('field_type','=', False),('field_type','!=', '5'),('field_data_type','=','2')]}" name="currency_type"/>
+                    <field name="gomart_attribute_id"/>
+                </xpath>
+                <xpath expr="//group[@name='values_ids']" position="attributes">
+                    <attribute name="attrs">{'invisible': ['|','|',('field_type','=', False),('field_type','in', ('3','4')),('field_data_type','=','1')]}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <!--  Added GoMart Attribute, in the Product Attribute -->
+        <record id="view_product_attribute_tree_inherit" model="ir.ui.view">
+            <field name="name">product.attribute.inherit</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref="product.attribute_tree_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="editable"/>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="gomart_attribute_id"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- Form view product.attribute_action -->
+        <record id="product.attribute_action" model="ir.actions.act_window">
+            <field name="name">Attributes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.attribute</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+        </record>
+    </data>
+</odoo>

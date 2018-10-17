@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <!-- New Client -->
+        <record id="view_store_master_tree" model="ir.ui.view">
+            <field name="name">store.master.tree</field>
+            <field name="model">store.master</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="Store">
+                    <field name="store_name"/>
+                    <!--<field name="server_ids"/>-->
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_store_master_form" model="ir.ui.view">
+            <field name="name">store.master.form</field>
+            <field name="model">store.master</field>
+            <field name="arch" type="xml">
+                <form string="Store">
+                    <sheet>
+                        <group name="Store Information">
+                            <field name="store_name"/>
+                            <!--<field name="server_ids" widget="many2many_tags"/>-->
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_store_master" model="ir.actions.act_window">
+            <field name="name">Store Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">store.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem action="action_store_master" id="menu_store_master"
+                  parent="saas_portal_enhancement.menu_business_config"
+                  sequence="36"/>
+    </data>
+</odoo>

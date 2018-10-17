@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_res_users_client_manager,access.res.user.client.manager,base.model_res_users,saas_client_manager.saas_client_manager,1,1,1,1
+access_saas_portal_client_log,access_saas_portal_client_log,model_saas_portal_client_log,saas_client_manager.saas_client_manager,1,1,1,1

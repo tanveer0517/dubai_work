@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="template_view_wastage_report">
+        <t t-call="report.html_container">
+            <!--<t t-foreach="docs" t-as="o">-->
+            <t t-call="mint_wastage_report.wastage_report_header_footer">
+                <div class="page">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2>Waste Logbook: _____________________________</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4><b>From Date : <t t-esc="calculate_wastage_line_report(docs)[0][4]" t-options='{"widget": "date"}'/></b></h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h4><b>To Date : <t t-esc="calculate_wastage_line_report(docs)[-1][4]" t-options='{"widget": "date"}'/></b></h4>
+                        </div>
+                    </div>
+                    <h4><b>Wastage Details</b></h4>
+                    <table width="100%" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th><h4>Wastage Ref</h4></th>
+                                <th><h4>Product</h4></th>
+                                <th><h4>Qty</h4></th>
+                                <th><h4>Unit of Measure</h4></th>
+                                <th><h4>Wastage Date</h4></th>
+                                <th><h4>Recorded Date</h4></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="calculate_wastage_line_report(docs)" t-as="line_data">
+                                <td>
+                                    <t t-esc="line_data[0]"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line_data[1]"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line_data[2]"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line_data[3]"/>
+                                </td>
+                                <td>
+                                    <t t-esc="line_data[4]" t-options='{"widget": "date"}'/>
+                                </td>
+                                <td>
+                                    <t t-esc="line_data[5]" t-options='{"widget": "date"}'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+            <!--</t>-->
+        </t>
+    </template>
+
+    <template id="wastage_report_header_footer">
+        <t t-call="mint_wastage_report.wastage_report_header"/>
+        <t t-raw="0"/>
+        <t t-call="mint_wastage_report.wastage_report_footer"/>
+    </template>
+
+    <template id="wastage_report_header">
+        <div class="header">
+            <div class="row text-center">
+                <div class="col-xs-3 text-center" style="float:none;margin:5px auto;">
+                    <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:60px;width:100%;"/>
+                </div>
+            </div>
+            <div class="row zero_min_height">
+                <div class="col-xs-12">
+                    <div style="border-bottom: 1px solid black;"></div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <t t-if="company.partner_id.name"><span t-field="company.partner_id.name"/>, </t><t t-if="company.partner_id.street"><span t-field="company.partner_id.street"/>, </t><t t-if="company.partner_id.street2"><span t-field="company.partner_id.street2"/>, </t><t t-if="company.partner_id.city"><span t-field="company.partner_id.city"/>, </t><t t-if="company.partner_id.state_id.name"><span t-field="company.partner_id.state_id.name"/>, </t><t t-if="company.partner_id.zip"><span t-field="company.partner_id.zip"/>, </t><t t-if="company.partner_id.country_id.name"><span t-field="company.partner_id.country_id.name"/></t>
+            </div>
+        </div>
+    </template>
+
+    <template id="wastage_report_footer">
+        <div class="footer">
+            <div class="container-fluid"
+                 style="border-top:1px solid black;">
+                <div class="row text-center">
+                    <span>Page</span>
+                    <span class="page"/>
+                    of
+                    <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+</odoo>

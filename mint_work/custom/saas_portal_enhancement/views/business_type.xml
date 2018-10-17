@@ -1,0 +1,47 @@
+<odoo>
+    <data>
+        <!-- New Client -->
+        <record id="view_business_master_tree" model="ir.ui.view">
+            <field name="name">business.master.tree</field>
+            <field name="model">business.type</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="business">
+                    <field name="name"/>
+                    <!--<field name="server_ids"/>-->
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_business_master_form" model="ir.ui.view">
+            <field name="name">business.master.form</field>
+            <field name="model">business.type</field>
+            <field name="arch" type="xml">
+                <form string="business">
+                    <sheet>
+                        <group name="Company Type Information">
+                            <field name="name"/>
+                            <!--<field name="server_ids" widget="many2many_tags"/>-->
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_business_master" model="ir.actions.act_window">
+            <field name="name">Business Type Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">business.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem action="action_business_master" id="menu_business_master"
+                  parent="saas_portal_enhancement.menu_business_config"
+                  sequence="38" name="Business Types"/>
+    </data>
+</odoo>

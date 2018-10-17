@@ -1,0 +1,224 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="saas_portal_view_server_tree_inherit">
+            <field name="name">saas.portal.view.server.tree.inherit</field>
+            <field name="model">saas_portal.server</field>
+            <field name="inherit_id" ref="saas_portal.view_server_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="server_name"/>
+                </xpath>
+                <field name="odoo_version" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_clients_tree_inherit">
+            <field name="name">saas.portal.view.client.tree.inherit</field>
+            <field name="model">saas_portal.client</field>
+            <field name="inherit_id" ref="saas_portal.view_clients_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="partner_id"/>
+                </xpath>
+                <xpath expr="//field[@name='plan_id']" position="after">
+                    <field name="plan_price"/>
+                    <field name="sub_period"/>
+                    <field name="merchant_id"/>
+                </xpath>
+                <field name="last_connection" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="users_len" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="max_users" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="file_storage" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="db_storage" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="trial" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="expiration_datetime" position='after'>
+                    <field name="state"/>
+                </field>
+                <field name="state" position='attributes'>
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+
+        <!-- explicit Form view definition -->
+        <record model="ir.ui.view" id="saas_portal_view_server_form_inherit">
+            <field name="name">saas.portal.view.server.form.inherit</field>
+            <field name="model">saas_portal.server</field>
+            <field name="inherit_id" ref="saas_portal.view_server_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group" position="before">
+                    <group>
+                        <group string="Server Icon">
+                            <field name="server_image_icon" nolabel="1" widget='image' class="oe_avatar" options='{"preview_image": "server_image_icon"}'/>
+                        </group>
+                        <group string="Server logo">
+                            <field name="server_image" nolabel="1" widget='image' class="oe_avatar" options='{"preview_image": "server_image"}'/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='odoo_version']" position="replace"></xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="server_name" default_focus="1" placeholder="Server Name..."/>
+                    <field name="short_desc" placeholder="eg: Fashion Market/ Grocer Store"/>
+                </xpath>
+                <!--<xpath expr="//field[@name='client_ids']" position="before">-->
+                <!--<group string="Description">-->
+                <!--<field name="description"-->
+                <!--placeholder="Provide Some Description for the Server you are Creating " nolabel="True"/>-->
+                <!--</group>-->
+                <!--<group string="Terms &amp; Conditions">-->
+                <!--<field name="terms_conditons" required="1" style="max-height:200px;overflow:scroll;" placeholder="Provide The Terms and Condition that will be popped up on the registration page in 'Terms and Condition' Section where user will read the Criteria related to this Server " nolabel="True"/>-->
+                <!--</group>-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='name']" position="replace">
+                    <field name="name" placeholder="gomart.mint.com"/>
+                </xpath>
+                <xpath expr="//field[@name='client_ids']" position="replace">
+                    <notebook>
+                        <page string="Description">
+                            <br/>
+                            <field name="description"
+                                   placeholder="Provide Some Description for the Server you are Creating " nolabel="True"/>
+                        </page>
+                        <page string="Terms &amp; Conditions">
+                            <br/>
+                            <field name="terms_conditons" placeholder="Provide The Terms and Condition that will be popped up on the registration page in 'Terms and Condition' Section where user will read the Criteria related to this Server " nolabel="True"/>
+                        </page>
+                        <page string="Features">
+                            <field name="feature_ids">
+                                <tree string="Feature Master" editable="top">
+                                    <!--<field name="server_id" invisible="1"/>-->
+                                    <field name="name" readonly="1"/>
+                                    <field name="feature_list_ids" widget="many2many_tags" readonly="1"/>
+                                    <field name="active" readonly="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Feature Description List">
+                            <field name="features_description_ids">
+                                <tree editable="top">
+                                    <field name="feature_description_id" invisible="1"/>
+                                    <field name="image_icon"/>
+                                    <field name="icon_name"/>
+                                    <field name="name"/>
+                                    <field name="description"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group string="Feature Description">
+                                            <group>
+                                                <field name="feature_description_id" invisible="1"/>
+                                                <field name="image_icon"/>
+                                                <field name="icon_name"/>
+                                                <field name="name"/>
+                                                <field name="description"/>
+                                            </group>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Clients">
+                            <field name="client_ids" readonly="1">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="state"/>
+                                    <field name="users_len"/>
+                                    <field name="file_storage"/>
+                                    <field name="db_storage"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem name="SaaS" id="saas_portal.menu_base_saas" sequence="2" />
+
+        <menuitem action="saas_portal.action_clients" id="saas_portal.menu_clients" parent="saas_portal.menu_saas" sequence="30"/>
+        <menuitem action="saas_portal.action_server" id="saas_portal.menu_server" parent="saas_portal.menu_saas" sequence="10"/>
+        <menuitem action="saas_portal.action_plans" id="saas_portal.menu_plans" parent="saas_portal.menu_saas" sequence="20"/>
+
+        <menuitem id="menu_subscription" parent="saas_portal.menu_base_saas" name="Subscription" sequence="1" />
+
+        <menuitem action="contract.action_account_analytic_overdue_all" name="Subscription" id="menu_saas_contract" sequence="99" parent="menu_subscription"/>
+
+        <record id="product_template_action_custom" model="ir.actions.act_window">
+            <field name="name">Subscription Product</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product.product_template_kanban_view"/>
+            <field name="context">{"sale_purchase_product":1,
+                "default_sale_ok":0,"default_purchase_ok":0,"default_is_subscription":1, "default_type": 'service', 'subscription_product':True}</field>
+            <field name="domain">['|', ('is_package', '=', True),('is_subscription', '=', True),]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product.
+                </p><p>
+                You must define a product for everything you sell, whether it's a physical product, a consumable or a service you offer to customers.
+            </p><p>
+                The product form contains information to simplify the sale process: price, notes in the quotation, accounting data, procurement methods, etc.
+            </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_product" parent="saas_portal.menu_base_saas"
+                  name="Products" sequence="1" />
+
+        <menuitem
+                action="saas_portal_enhancement.product_template_action_custom" name="Product" id="menu_saas_product"
+                sequence="109"
+                parent="menu_product"/>
+
+
+        <record id="product_category_action_for_saas_product_category"
+                model="ir.actions.act_window">
+            <field name="name">Subscription Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.category</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="product.product_category_list_view"/>
+            <field name="context">{'subscription_cate':True, 'default_is_subscription':True}</field>
+            <field name="domain">[('is_subscription', '=', True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to define a new product category for subscription
+                    products.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_product_category_for_subscription_product"
+                  parent="saas_portal_enhancement.menu_configuration"
+                  name="Products" sequence="1" />
+
+        <menuitem
+                name="Product Categories" id="menu_saas_product_categories"
+                sequence="109"
+                parent="saas_portal_enhancement.menu_product_category_for_subscription_product"
+                action="saas_portal_enhancement.product_category_action_for_saas_product_category"/>
+
+
+    </data>
+</odoo>

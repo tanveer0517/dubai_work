@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="order_sales_report_type" model="ir.actions.report.xml">
+            <field name="name">Multi Sales Report Product Type</field>
+            <field name="model">pos.sales.report.type</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">pos_order_history_type.report_sale_orders_type</field>
+        </record>
+
+    </data>
+</odoo>

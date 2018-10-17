@@ -1,0 +1,90 @@
+<odoo>
+    <data>
+        <!-- New Client -->
+        <record id="view_wp_connection_config_tree" model="ir.ui.view">
+            <field name="name">wp_connection.config.tree</field>
+            <field name="model">wp_connection.config</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="WP COnfig">
+                    <field name="name"/>
+                    <field name="host" placeholder="http://&lt;your url&gt;"/>
+                    <field name="db"/>
+                    <field name="connection" readonly="1"/>
+                    <field name="con_active"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_wp_connection_config_form" model="ir.ui.view">
+            <field name="name">wp_connection.config.form</field>
+            <field name="model">wp_connection.config</field>
+            <field name="arch" type="xml">
+                <form string="Configuration">
+                    <sheet>
+                        <group name="WP Configuration">
+                            <group>
+                                <field name="name"/>
+                                <field name="host" placeholder="http://&lt;your url&gt;"/>
+                                <field name="connection" readonly="1"/>
+                                <field name="con_active"/>
+                            </group>
+                            <group>
+                                <field name="db"/>
+                                <field name="port"/>
+                                <field name="user"/>
+                                <field name="password"/>
+                            </group>
+                        </group>
+                        <footer>
+                            <button string="Test Connection" name="test_host" type="object" class="oe_highlight"/>
+                        </footer>
+                        <notebook attrs="{'invisible': ['|',('connection','=','unsuccessfull'),('con_active','=',False)]}">
+                            <page string="Master Data Sync">
+                                <group string="Feature Master and Feature List Sync">
+                                    <group>
+                                        <button type="object" name="sync_data_to_mysql" string="Feature Master Sync"
+                                                context="{'table_name':'saas_portal.server.features'}" class="oe_highlight"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Bank Master Sync">
+                                        <button type="object" name="sync_data_to_mysql" string="Bank Master Sync"
+                                                context="{'table_name':'res.bank'}" class="oe_highlight"/>
+                                    </group>
+                                    <group string="Business Type Sync">
+                                        <button type="object" name="sync_data_to_mysql" string="Business Type Sync"
+                                                context="{'table_name':'business.type'}" class="oe_highlight"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Server Data Sync">
+                                        <button type="object" name="sync_data_to_mysql" string="Server Data Sync"
+                                                context="{'table_name':'saas_portal.server'}" class="oe_highlight"/>
+                                    </group>
+                                    <group string="Plan Data Sync">
+                                        <button type="object" name="sync_data_to_mysql" string="Plan Data Sync"
+                                                context="{'table_name':'saas_portal.plan'}" class="oe_highlight"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wp_connection_config" model="ir.actions.act_window">
+            <field name="name">WP Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wp_connection.config</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_wp_connection_config" id="menu_wp_connection_config"
+                  parent="saas_portal_enhancement.menu_website_configuration"
+                  sequence="88" name="WP Config"/>
+    </data>
+</odoo>

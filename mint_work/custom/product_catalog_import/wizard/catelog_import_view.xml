@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="catalog_import_view_form" model="ir.ui.view">
+            <field name="name">Catalog import</field>
+            <field name="model">catelog.import</field>
+            <field name="arch" type="xml">
+                <form string="Import a csv file">
+                    <group>
+                        <div class="row">
+                            <div class="col-xs-10">
+                                <separator string="Instructions"/>
+                                <br/>
+                                <!--<strong>-->
+                                    <p>
+                                        Download the .CSV file to import the bulk product catelog. The catelog have the following sequence:<br/>
+                                        1. Name<br/>
+                                        2. SKU<br/>
+                                        3. Barcode<br/>
+                                        Make sure you have added the values in the same sequence, System will only accept the correct format .CSV file.<br/>
+                                        Any file other the fixed format will not be accepted during  the import process.<br/>
+                                    </p>
+                                <!--</strong>-->
+                            </div>
+                        </div>
+                    </group>
+                    <group>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <strong>Download Format : </strong>
+                            </div>
+                            <div class="col-xs-4">
+                                <a href="product_catalog_import/static/csv/product_catelog.csv" download="Product Catalog.csv">Download Catalog CSV</a>
+                            </div>
+                        </div>
+                    </group>
+                    <group name="main">
+                        <field name="csv_file"  filename='fname' />
+                        <field name="fname" invisible="1"/>
+                    </group>
+
+                    <footer>
+                        <button name="import_csv" type="object"
+                                string="Import" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="lead_import_action" model="ir.actions.act_window">-->
+        <!--<field name="name">Import a csv file</field>-->
+        <!--<field name="res_model">lead.import</field>-->
+        <!--<field name="view_mode">form</field>-->
+        <!--<field name="target">new</field>-->
+        <!--</record>-->
+
+        <!--<act_window-->
+        <!--id="act_add_to_catalog"-->
+        <!--name="Lead Import"-->
+        <!--res_model="lead.import"-->
+        <!--key2="client_action_multi"-->
+        <!--src_model="crm.lead"-->
+        <!--view_mode="form" target="new" view_type="form" />-->
+
+    </data>
+</odoo>

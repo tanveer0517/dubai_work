@@ -1,0 +1,97 @@
+<odoo>
+    <data>
+        <!-- Feature Mater Tree View -->
+        <record id="view_server_features_tree" model="ir.ui.view">
+            <field name="name">feature.master.tree</field>
+            <field name="model">saas_portal.server.features</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="Feature Master" editable="top">
+                    <!--<field name="server_id" invisible="1"/>-->
+                    <field name="name"/>
+                    <field name="feature_list_ids" widget="many2many_tags"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Feature Mater Form View -->
+        <record id="view_server_features_form" model="ir.ui.view">
+            <field name="name">feature.master.form</field>
+            <field name="model">saas_portal.server.features</field>
+            <field name="arch" type="xml">
+                <form string="Feature Master">
+                    <sheet>
+                        <group name="Feature Master">
+                            <!--<field name="server_id" invisible="1"/>-->
+                            <field name="name"/>
+                            <field name="feature_list_ids" widget="many2many_tags"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Feature Mater Action View -->
+        <record id="action_server_features" model="ir.actions.act_window">
+            <field name="name">Feature Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">saas_portal.server.features</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_website_configuration"
+                  parent="saas_portal.menu_base_saas"
+                  sequence="99" name="Website Configuration"/>
+
+        <!-- Feature Mater Menu -->
+        <menuitem action="action_server_features" id="menu_server_features"
+                  parent="saas_portal_enhancement.menu_website_configuration"
+                  sequence="39" name="Feature master"/>
+
+        <!-- Feature list Tree View -->
+        <record id="view_server_features_list_tree" model="ir.ui.view">
+            <field name="name">feature.master.list.tree</field>
+            <field name="model">server.feature.list</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="Feature List" editable="top">
+                    <field name="name"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Feature list Form View -->
+        <record id="view_server_features_list_form" model="ir.ui.view">
+            <field name="name">feature.master.list.form</field>
+            <field name="model">server.feature.list</field>
+            <field name="arch" type="xml">
+                <form string="Feature List">
+                    <sheet>
+                        <group name="Features List">
+                            <field name="name"/>
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Feature list Action View -->
+        <record id="action_server_features_list" model="ir.actions.act_window">
+            <field name="name">Feature List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">server.feature.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Feature list Menu-->
+        <menuitem action="action_server_features_list" id="menu_server_features_list"
+                  parent="saas_portal_enhancement.menu_website_configuration"
+                  sequence="39" name="Feature Lists"/>
+    </data>
+</odoo>

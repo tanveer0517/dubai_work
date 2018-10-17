@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem name="User Management"
+              id="menu_cleint_administrator" web_icon="saas_client_manager,static/description/user-management.png"
+              sequence="400"/>
+
+    <menuitem  name="Users" id="sub_client_user_managment"
+               parent="menu_cleint_administrator"
+               sequence="0"/>
+
+    <menuitem action="base.action_res_users"
+              id="menu_action_client_user"
+              parent="sub_client_user_managment" />
+</odoo>

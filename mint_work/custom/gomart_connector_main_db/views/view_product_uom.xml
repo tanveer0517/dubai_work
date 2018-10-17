@@ -1,0 +1,28 @@
+<odoo>
+    <!-- Added GoMart Unit ID,in the  unit of measure form view -->
+    <record id="view_product_uom_categ_form_inherit" model="ir.ui.view">
+        <field name="name">product.uom.form</field>
+        <field name="model">product.uom</field>
+        <field name="inherit_id" ref="product.product_uom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="server_id"/>
+                <field name="go_mart_unit_id"/>
+            </field>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="required">0</attribute>
+            </xpath>
+        </field>
+    </record>
+    <!-- Added GoMart Unit ID,in the  unit of measure tree view -->
+    <record id="view_product_uom_categ_tree_inherit" model="ir.ui.view">
+        <field name="name">product.uom.tree</field>
+        <field name="model">product.uom</field>
+        <field name="inherit_id" ref="product.product_uom_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="go_mart_unit_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

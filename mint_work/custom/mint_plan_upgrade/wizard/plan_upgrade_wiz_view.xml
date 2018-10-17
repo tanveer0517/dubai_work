@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_plan_changed" model="ir.ui.view">
+            <field name="name">Plan Changed</field>
+            <field name="model">saas.plan.changed</field>
+            <field name="arch" type="xml">
+                <form string="Plan Upgrade">
+                	<group>
+	                	<field name="exist_plan_id"/>
+						<field name="plan_type" widget="radio" options="{'horizontal': true}" />
+						<field name="plan_changed" widget="radio" options="{'horizontal': true}"/>
+	                	<field name="new_plan_id" widget="many2many_list"/>
+                	</group>
+                	<footer>
+                		<button string="Upgrade" type="object"
+								name="plan_changed_process"
+								class="oe_highlight"
+								attrs="{'invisible':[('plan_changed','!=','is_upgrade')]}"/>
+						<button string="Downgrade" type="object"
+								name="plan_changed_process" class="oe_highlight"
+								attrs="{'invisible':[('plan_changed','!=','is_downgrade')]}" />
+						or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                	</footer>
+                </form>
+            </field>
+        </record>
+
+		<record id="action_view_plan_changed" model="ir.actions.act_window">
+		      <field name="name">Manage Plan</field>
+		      <field name="type">ir.actions.act_window</field>
+		      <field name="res_model">saas.plan.changed</field>
+		      <field name="view_type">form</field>
+		      <field name="view_mode">form</field>
+ 		      <field name="context">{}</field>
+		      <field name="target">new</field>
+	    </record>
+
+    </data>
+</odoo>

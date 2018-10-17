@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- POS Reject Reason View -->
+    <record id="view_reject_reason" model="ir.ui.view">
+        <field name="name">Order Rejection Form</field>
+        <field name="model">pos.order.reject</field>
+        <field name="arch" type="xml">
+            <form string="Point Of Sale Reject">
+                <group>
+                    <field name="reject_reason" required="1"/>
+                </group>
+                <footer>
+                    <button string="Save" type="object" name="reject_reason_pos" class="oe_highlight"/>
+                    <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- POS Reject Reason Action -->
+    <record id="action_view_reject_reason" model="ir.actions.act_window">
+        <field name="name">Pos order reject</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">pos.order.reject</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Inherited POS Order form view to add reject button and reject reason field. -->
+    <record id="view_pos_pos_form_mint" model="ir.ui.view">
+        <field name="name">pos.order.form.mint</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+        <field name="arch" type="xml">
+            <button name="refund" position="after">
+                <button name="%(mint_pos.action_view_reject_reason)d" string="Reject Order"
+                          type="action" attrs="{'invisible':[('state','=','cancel')]}"/>
+            </button>
+            <xpath expr="//notebook/page['extra']/group[2]" position="after">
+                <group string="Reject Reason">
+                    <group>
+                        <field name="reject_reason"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Inherited pos product category -->
+    <record id="product_pos_category_form_view_inherit" model="ir.ui.view">
+        <field name="name">pos.category.form.inherit</field>
+        <field name="model">pos.category</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after">
+                <field name="category_id" required="1"/>
+                <field name="allow_product"/>
+            </field>
+            <field name="parent_id" position="before">
+                <field name="server_id" required="1"/>
+            </field>
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="domain">[('server_id', '=', server_id)]</attribute>
+                 </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited product template form view.-->
+    <record id="product_template_form_view_mint" model="ir.ui.view">
+        <field name="name">product.template.form.inherit.mint</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pos_categ_id']" position="attributes">
+                <attribute name="domain">[('allow_product', '=', True)]</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited pos config form view.-->
+    <record id="view_mint_pos_config_form_inherit_last_nos_day" model="ir.ui.view">
+        <field name="name">pos.config.form.view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form" />
+        <field name="arch" type="xml">
+            <field name="iface_tax_included" position="after">
+                <field name="sale_order_last_days"/>
+                <field name="allow_online_orders"/>
+            </field>
+            <group name="receipt" position="after">
+                <group name="Accept/Reject Mail Template" string='Accept/Reject Mail Template'>
+                    <field name="accept_reason_template_id"/>
+                    <field name="reject_reason_template_id"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <!-- Inherited sale order form view.-->
+    <record id="view_saleorder_form_inherit_sale_mint" model="ir.ui.view">
+            <field name="name">sale.order.form.sale.stock.mint</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="amount_total" position="after">
+                    <field name="amount_due"/>
+                    <field name="payment_status"/>
+                    <field name="is_shipped" invisible='1'/>
+                    <field name="delivery_status" invisible='1'/>
+                    <field name="order_type" invisible='1'/>
+                    <field name="partner_email" invisible='1'/>
+                </field>
+           </field>
+        </record>
+</odoo>

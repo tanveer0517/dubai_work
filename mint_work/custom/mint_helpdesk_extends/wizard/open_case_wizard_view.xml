@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- Open case wizard form -->
+        <record id="open_case_form_wizard" model="ir.ui.view">
+            <field name="name">open.case.form.wizard</field>
+            <field name="model">open.case.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Open Case">
+                    <group>
+                        <group>
+                            <field name="category_id" options="{ 'no_open': True }" />
+                            <!--<field name="client_id" invisible="1" domain="[ '|', ( 'customer', '=', True ), ( 'supplier', '=', True ) ]" />-->
+                           <field name="case_id" />
+                            <field name="department_id" />
+                        </group>
+                        <group>
+                             <field name="support_team_id" />
+                            <field name="sub_team_member"
+                                   options="{ 'no_open': True }" />
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="apply" string="Open" type="object" class="oe_highlight" /> or
+                        <button name="cancel" string="Cancel" special="cancel" class="oe_link" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Open ticket wizard action -->
+        <record id="action_case__open_wizard" model="ir.actions.act_window">
+            <field name="name">Open Case</field>
+            <field name="res_model">open.case.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="open_case_form_wizard" />
+        </record>
+    </data>
+</odoo>

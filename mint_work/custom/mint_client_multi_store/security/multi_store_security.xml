@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="product_catelog_multi_store_rule" model="ir.rule">
+            <field name="name">Product Catelog multi-store</field>
+            <field name="model_id"
+                   ref="mint_client_product_catelog.model_product_catelog"/>
+            <field name="global" eval="False"/>
+            <field name="domain_force">[('company_ids','not in',[user.company_id.id])]</field>
+        </record>
+
+
+        <record id="saas_store_manager" model="res.groups">
+            <field name="name">Store Manager</field>
+            <field name="comment">Manager for client database</field>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="admin_user_hidden" model="ir.rule">
+            <field name="name">Only admin can see admin user</field>
+            <field name="model_id" ref="base.model_res_users"/>
+            <field name="global" eval="1" />
+            <field name="domain_force">[('id', '!=', 1)]</field>
+            <field name="perm_read" eval="True" />
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="protected" eval="True" />
+        </record>
+
+        <record id="admin_partner_hidden" model="ir.rule">
+            <field name="name">Only admin can see admin partner</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="global" eval="1" />
+            <field name="domain_force">[('user_ids', 'not in', [1])]</field>
+            <field name="perm_read" eval="True" />
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="protected" eval="True" />
+        </record>
+
+    </data>
+</openerp>
+

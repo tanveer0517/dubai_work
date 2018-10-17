@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="add_gomart_customer_form" model="ir.ui.view">
+            <field name="name">Add GoMart Customer</field>
+            <field name="model">res.partner.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Batch delete">
+                    <sheet>
+                        <div>
+                            <p class="oe_view_nocontent_create">
+                                Are you sure you want to add these customers at the GoMart?
+                            </p>
+                        </div>
+                    </sheet>
+                    <footer>
+                        <button confirm="Are you sure?"
+                            name="add_customer_gomart"
+                            string="Add customer GoMart" type="object"/>
+                        <button class="btn-default" special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <act_window id="action_gomart_customer"
+            key2="client_action_multi" name="Add GoMart Customer"
+            res_model="res.partner.wizard" src_model="res.partner"
+            target="new" view_mode="form" view_type="form"/>
+    </data>
+</odoo>

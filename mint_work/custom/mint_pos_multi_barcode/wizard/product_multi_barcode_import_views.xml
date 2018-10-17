@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Import multi barcode form view -->
+    <record id="view_product_multi_barcode_import_form" model="ir.ui.view">
+        <field name="name">Import Barcode</field>
+        <field name="model">product.multi.barcode.import</field>
+        <field name="arch" type="xml">
+            <form string="Import Multi Barcode">
+                <group>
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <separator string="Instructions"/>
+                            <br/>
+                            <!--<strong>-->
+                            <p>
+                                Download the .CSV file to import the bulk Multi Barcode. The Multi Barcode have the following sequence:<br/>
+                                1. Parent Barcode<br/>
+                                2. Child Barcode<br/>
+                                3. Quantity<br/>
+                                Make sure you have added the values in the same sequence, System will only accept the correct format .CSV file.<br/>
+                                Any file other the fixed format will not be accepted during  the import process.<br/>
+                            </p>
+                            <!--</strong>-->
+                        </div>
+                    </div>
+                </group>
+                <group>
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <strong>Download Format</strong>
+                        </div>
+                        <div class="col-xs-8">
+                            <a href="/mint_pos_multi_barcode/static/csv/product.multi.barcode.template.csv" download="Multi Barcode.csv">Download Barcode CSV</a>
+                        </div>
+                    </div>
+                </group>
+                <group>
+                    <field name="barcode_file" filename='fname' required="1">
+                    </field>
+                    <field name="fname" invisible="1">
+                    </field>
+                </group>
+                <footer>
+                    <button name="create_barcodes" string="Import" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window name="Import Barcode" id="act_import_barcode"
+                res_model="product.multi.barcode.import"
+                view_mode="form" target="new"/>
+</odoo>

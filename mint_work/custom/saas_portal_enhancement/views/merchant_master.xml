@@ -1,0 +1,55 @@
+<odoo>
+    <data>
+        <!-- New Client -->
+        <record id="view_merchant_master_tree" model="ir.ui.view">
+            <field name="name">merchant.master.tree</field>
+            <field name="model">merchant.master</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="Merchant">
+                    <field name="name"/>
+                    <!--<field name="server_ids"/>-->
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_merchant_master_form" model="ir.ui.view">
+            <field name="name">merchant.master.form</field>
+            <field name="model">merchant.master</field>
+            <field name="arch" type="xml">
+                <form string="Merchant">
+                    <sheet>
+                        <group name="Merchant Information">
+                            <field name="name"/>
+                            <!--<field name="server_ids" widget="many2many_tags"/>-->
+                            <field name="active"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_merchant_master" model="ir.actions.act_window">
+            <field name="name">Merchant Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">merchant.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem id="menu_configuration"
+                  parent="saas_portal.menu_base_saas"
+                  name="Configuration"
+                  sequence="30"/>
+
+        <menuitem id="menu_business_config"
+                  parent="saas_portal_enhancement.menu_configuration"
+                  sequence="35"/>
+        <menuitem action="action_merchant_master" id="menu_merchant_master"
+                  parent="saas_portal_enhancement.menu_business_config"
+                  sequence="35"/>
+    </data>
+</odoo>

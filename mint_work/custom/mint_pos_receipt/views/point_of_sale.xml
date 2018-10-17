@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Inherited pos config form to add receipt configuration -->
+    <record id="view_config_form_extend" model="ir.ui.view">
+        <field name="name">pos.config.form</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="arch" type="xml">
+            <group name="receipt" position="inside">
+                <field name="allow_multi_lang_receipt"/>
+                <field name="print_wise" attrs="{'required': [('allow_multi_lang_receipt', '=', True)], 'invisible': [('allow_multi_lang_receipt', '=', False)]}"/>
+                <field name="first_lang" attrs="{'required': [('allow_multi_lang_receipt', '=', True)],'invisible': [('allow_multi_lang_receipt', '=', False)]}"/>
+                <field name="second_lang" attrs="{'invisible': [('allow_multi_lang_receipt', '=', False)]}"/>
+            </group>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,58 @@
+<odoo>
+    <data>
+        <!-- explicit Form view definition -->
+        <record model="ir.ui.view" id="analytic_contract_form_inherit">
+            <field name="name">analytic.contract.form.inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                     <field name="client_id"  invisible="1"/>
+                 </xpath>
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+
+                    <button class="oe_stat_button" type="action"
+                            name="%(saas_portal.action_clients)d"
+                            icon="fa-star"
+                            context="{'search_default_subscription_id': active_id}" >
+                            <field string="Instances"
+                                   name="instance_count"
+                                   widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+            <!-- Analytic Account search view for subscription -->
+        <record id="view_account_analytic_account_subscription_search"
+                model="ir.ui.view">
+            <field name="name">account.analytic.account.subscription.search</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="client_id"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Next Invoice" domain="[]" context="{'group_by':'recurring_next_date'}"/>
+                    </group>
+                </field>
+
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_tax_form_inherit">
+            <field name="name">account.tax.form.inherit</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="tax_code"/>
+                 </xpath>
+                <xpath expr="//field[@name='type_tax_use']" position="after">
+                    <field name="server_id"/>
+                 </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

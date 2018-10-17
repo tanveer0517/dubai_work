@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="custom_res_country_form" model="ir.ui.view">
+        <field name="name">res.country.form</field>
+        <field name="model">res.country</field>
+        <field name="inherit_id" ref="base.view_country_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form"  position="inside">
+                <header>
+                    <button name="sync_country_marakez" string="Sync" type="object" class="oe_highlight"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='code']" position="after">
+                <field name="language_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="active"/>
+                <field name="is_default"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="custom_city_area_form" model="ir.ui.view">
+        <field name="name">city.area.form</field>
+        <field name="model">city.area</field>
+        <field name="inherit_id" ref="city.view_city_area_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='city_id']" position="after">
+                <field name="latitude"/>
+                <field name="longitude"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

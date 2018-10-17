@@ -1,0 +1,130 @@
+<odoo>
+    <data>
+        <!--Saas Client Subscription template-->
+        <template id="client_subscription_form" name="user_subscription">
+            <t t-call="saas_plan_subscription.portal_layout_changes">
+                <div class="container" style="margin:20px auto; float:none;">
+                    <input type="hidden" t-att-value="user_id.id" name="user_id" id="user_id" />
+                    <div class="row text-center">
+                        <h2>Subscription</h2>
+                        <h4>Subscribe your plan.</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-4">
+                            <div class="col-md-4"><h3>Plan: </h3></div>
+                            <div class="col-md-8">
+                                <form action="/plan_subscription" method="post" class=''>
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                    <select onchange="this.form.submit()" style="margin-top:20px;" name="select_plan_type" id="saas_plan_select" class="form-control selectpicker">
+                                        <t t-foreach="plans" t-as="plan">
+                                            <t t-if="current_selection != plan.id">
+                                                <option id="selected_plan" t-att-value="plan.id">
+                                                    <t t-esc="plan.name"/>
+                                                </option>
+                                            </t>
+                                            <t t-if="current_selection == plan.id">
+                                                <option selected="selected" id="selected_plan" t-att-value="plan.id">
+                                                    <t t-esc="plan.name"/>
+                                                </option>
+                                            </t>
+                                        </t>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-8">
+                            <div class="col-md-3"><h3>Interval: </h3></div>
+                            <div class="col-md-3"><input type="text" style="margin-top:20px;width:100%;" class="form-control text-center" name="interval" t-att-value="1" id="interval"/></div>
+                            <div class="col-md-6">
+                                <select id="interval_units" style="margin-top:20px;"  name="interval_units" class="form-control selectpicker">
+                                    <t t-foreach="price_list" t-as="pl" >
+                                        <option t-att-value="pl.recurring_rule_type"  t-att-data-pl_id = "pl.id">
+                                            <span t-esc="pl.recurring_rule_type"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="row">
+                        <section id="subscription">
+                            <div class="col-md-12">
+                                <table class="table table-condensed" id="price_buy_now">
+                                    <tr class="active">
+                                        <th>Plan</th>
+                                        <th class="text-center">Price</th>
+                                        <th class="text-center">No of Users</th>
+                                        <th class="text-center">Date Start</th>
+                                        <th class="text-center">Date of Next Invoice</th>
+                                        <th class="text-center">Sub Total</th>
+                                    </tr>
+                                    <t t-foreach="subscription" t-as="line" >
+                                        <tr>
+                                            <td width="20%">
+                                                <input type="text" class="form-control subscription_textbox text-left" readonly="True" style="width:100%;"
+                                                       t-att-data-product_id="line.product_id.id"
+                                                       t-att-value="line.product_id.name" name="product_id" id="product_id" />
+                                            </td>
+                                            <td  width="10%" class="text-center">
+                                                <input type="text" class="form-control subscription_textbox text-center" readonly="True"  style="width:100%;"
+                                                       t-att-data-price="price_data[line.product_id.id]"
+                                                       t-att-value="price_data[line.product_id.id]"
+                                                       name="plan_price" />
+                                            </td>
+                                            <td  width="10%" class="text-center">
+                                                <input type="text"
+                                                       class="form-control subscription_textbox text-center num_of_user n_user" style="width:100%;"
+                                                       t-att-data-nuofuser="line.no_of_users"
+                                                       t-att-value="line.no_of_users" name="num_of_user_1" id="num_of_user_1"/>
+                                            </td>
+                                            <td  width="20%" class="text-center">
+                                                <input type="text" readonly="True" id="start_date" style="width:100%;"
+                                                       class="form-control subscription_textbox text-center num_of_user"
+                                                       name="start_date" t-att-value="datetime.datetime.now().strftime('%Y-%m-%d')"/>
+                                            </td>
+                                            <td  width="20%" class="text-center">
+                                                <input type="text"
+                                                       class="form-control subscription_textbox text-center num_of_user" readonly="True" style="width:100%;"
+                                                       name="next_invoice_date" id="next_invoice_date"
+                                                       t-att-value="(datetime.datetime.now() + relativedelta(months=1)).strftime('%Y-%m-%d')" />
+                                            </td>
+                                            <td  width="20%" class="text-center">
+                                                <input type="text" readonly="True" class="form-control subscription_textbox text-center" style="width:100%;"
+                                                       t-att-data-price="price_data[line.product_id.id]"
+                                                       name="sub_total" t-att-value="price_data[line.product_id.id]"/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                    <tr>
+                                        <th colspan="4" class="text-center" width="60%">
+                                            <button form="contact_form" style="text-align:center;" type="submit" class="btn btn-primary confirm_order">
+                                                <i class="fa fa-check" aria-hidden="true"></i><span>Confirm</span>
+                                            </button>
+                                        </th>
+                                        <th class="text-center" width="20%" style="padding-top:13px;">Total</th>
+                                        <th width="20%">
+                                            <input class="form-control subscription_textbox text-center" type="text" name="final_total" readonly="True" style="width:100%;"
+                                                   t-att-value ="final_total" id="final_total" />
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                    <!--</form>-->
+                </div>
+            </t>
+        </template>
+
+
+        <!--After the plan subscription is done it will redirect to this page-->
+        <template id="client_subscription_done" name="user_subscription_done">
+            <t t-call="website_portal.portal_layout">
+                <div class="col-xs-12 text-center" style="vertical-align:center;margin:100px auto;float:none;">
+                    <strong><h3>Your Subscription is Submitted</h3></strong>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,285 @@
+<odoo>
+    <data>
+        <!-- Inherited ticket form for hiding fields -->
+        <record model="ir.ui.view" id="mint_helpdesk_server_inherit">
+            <field name="name">mint.helpdesk.server.inherit</field>
+            <field name="model">project.case</field>
+            <field name="inherit_id" ref="project_case.project_case_form_view"/>
+            <field name="arch" type="xml">
+                <!--<xpath expr="//field[@name='partner_id']"-->
+                <!--position="replace">-->
+                <!--&lt;!&ndash;<field name="partner_id" />&ndash;&gt;-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='email_from']"-->
+                <!--position="before">-->
+                <!--<field name="client_id" />-->
+                <!--</xpath>-->
+                <xpath expr="//field[@name='analytic_id']"
+                       position="attributes">
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='contact_id']"
+                       position="attributes">
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='call_received']"
+                       position="attributes">
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sla_id']"
+                       position="attributes">
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sub_sla_id']"
+                       position="attributes">
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='case_origin']"
+                       position="attributes">
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='call_type']"
+                       position="attributes">
+                    <attribute name="required">False</attribute>
+                </xpath>
+                <xpath expr="//field[@name='id']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='version_id']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sla_id']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='sub_sla_id']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='ticket_group']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='task_id']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='categ_ids']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//label[@for='categ_ids']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='email_from']"
+                       position="after">
+                    <field name="source_id" />
+                </xpath>
+
+                <xpath expr="//field[@name='call_type']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='call_type']"
+                       position="after">
+                    <field name="category" />
+                    <field name="call_type_id" />
+                </xpath>
+                <xpath expr="//field[@name='case_origin']"
+                       position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+
+                <xpath expr="//form/header/field[@name='stage_id']"
+                       position="attributes">
+                    <attribute name="clickable" eval="False"></attribute>
+                </xpath>
+
+
+                <xpath expr="//form/header" position="inside">
+                    <button name="open_case" string="Open Case" type="object"
+                            class="oe_highlight"  attrs="{'invisible':[('stage_id','!=', 'draft')]}" />
+                    <button name="case_inprogress" string="Inprogress"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('stage_id','!=', 'open_task')]}"/>
+                    <button name="case_onhold" string="Onhold"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('stage_id','not in', ('open_task','in_progress'))]}" />
+                    <button name="case_done" string="Done"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('stage_id','not in', ('in_progress'))]}" />
+                    <button name="case_suspended" string="Suspended"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('stage_id','not in', ('open_task','in_progress'))]}"/>
+                    <button name="case_reopen" string="Re-open"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible':[('stage_id','not in', ('done','suspended', 'on_hold'))]}"/>
+                </xpath>
+
+                <xpath expr="//field[@name='case_task_ids']/tree/field[@name='department_id']" position="after">
+                    <field name="support_team_id" />
+                </xpath>
+
+
+                <xpath expr="//field[@name='case_task_ids']/tree/field[@name='hours_spent']" position="after">
+                    <button name="create_task"
+                            string="Create Tasks" type="object"
+                            class="oe_highlight"
+                    />
+                </xpath>
+
+                <xpath expr="//field[@name='action_taken']" position="after">
+                    <field name="timesheet_ids" >
+                        <tree editable="bottom" string="Timesheet Activities" default_order="date">
+                            <field name="date"/>
+                            <field name="user_id" required="1"/>
+                            <field name="name"/>
+                            <field name="unit_amount" string="Duration"
+                                   widget="float_time" sum="total"/>
+                            <field name="project_id" invisible="1"/>
+                        </tree>
+                    </field>
+                </xpath>
+
+                 <xpath expr="//field[@name='action_taken']"
+                        position="attributes">
+                     <attribute name="invisible">1</attribute>
+                 </xpath>
+
+
+            </field>
+        </record>
+
+        <record model="ir.ui.menu" id="project_case.menu_sub_sla">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('mint_helpdesk_extends.make_extra_menu_invisible')])]"/>
+        </record>
+
+        <record model="ir.ui.menu" id="project_case.menu_sla_main">
+            <field name="groups_id"
+                   eval="[(6,0,[ref('mint_helpdesk_extends.make_extra_menu_invisible')])]"/>
+        </record>
+
+        <record id="view_support_team_form" model="ir.ui.view">
+            <field name="name">saas_portal.support_team.form</field>
+            <field name="model">saas_portal.support_team</field>
+            <field name="inherit_id"
+                   ref="saas_portal.view_support_team_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="replace">
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"
+                               string="Support team"/>
+                        <h1>
+                            <field name="name"
+                                   placeholder="Support Team name..."
+                                   required="True"/>
+                        </h1>
+                        <div name="options_active"/>
+                    </div>
+                </xpath>
+                <xpath expr="//sheet" position="inside">
+
+                    <group>
+                        <group name="left">
+                            <field name="user_id" domain="[('share', '=', False)]"/>
+                        </group>
+                        <group name="right">
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="members" string="Team Members">
+                            <field name="member_ids" widget="many2many_kanban" options="{'not_delete': True}">
+                                <kanban quick_create="false" create="true" delete="true">
+                                    <field name="name"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="oe_kanban_global_click" style="position: relative">
+                                                <a t-if="! read_only_mode" type="delete" style="position: absolute; right: 0; padding: 4px; diplay: inline-block">X</a>
+                                                <div class="oe_module_vignette">
+                                                    <img t-att-src="kanban_image('res.users', 'image_small', record.id.value)" class="oe_avatar oe_kanban_avatar_smallbox"/>
+                                                    <div class="oe_module_desc">
+                                                        <field name="name"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_project_case_new">
+            <field name="name">New</field>
+            <field name="res_model">project.case</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form,calendar,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">[ ( "stage_id", "=", "draft" ) ]</field>
+            <field name="context">{"in_new_stage":True}</field>
+            <field name="search_view_id"
+                   ref="project_case.view_project_case_filter"/>
+            <field name="help" type="html">
+                <p>
+                    The Odoo cases tacker allows you to efficiantly manage things
+                    like internal requests, software development bugs, customer
+                    complaints, project troubles, material breakdowns, etc.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_project_case_open">
+            <field name="name">Open</field>
+            <field name="res_model">project.case</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form,calendar,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">[ ( "stage_id", "=", "open_task" ) ]</field>
+            <field name="context">{"in_open_stage":True}</field>
+            <field name="search_view_id"
+                   ref="project_case.view_project_case_filter"/>
+            <field name="help" type="html">
+                <p>
+                    The Odoo cases tacker allows you to efficiantly manage things
+                    like internal requests, software development bugs, customer
+                    complaints, project troubles, material breakdowns, etc.
+                </p>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_project_case_inprogress">
+            <field name="name">Inprogress</field>
+            <field name="res_model">project.case</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form,calendar,graph</field>
+            <field name="view_id" eval="False"/>
+            <field name="domain">[ ( "stage_id", "=", "in_progress" ) ]</field>
+            <field name="context">{"in_progress_stage":True}</field>
+            <field name="search_view_id"
+                   ref="project_case.view_project_case_filter"/>
+            <field name="help" type="html">
+                <p>
+                    The Odoo cases tacker allows you to efficiantly manage things
+                    like internal requests, software development bugs, customer
+                    complaints, project troubles, material breakdowns, etc.
+                </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

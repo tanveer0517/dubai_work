@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_barcode_label_printing_wizard_form" model="ir.ui.view">
+            <field name="name">Barcode.Label.Printing</field>
+            <field name="model">barcode.label.printing</field>
+            <field name="arch" type="xml">
+                <form string="Barcode Label Printing">
+                    <sheet>
+                        <group string="Description">
+                            <group>
+                                <field name="template_id" invisible="1"/>
+                                <field name="product_name" readonly="1"/>
+                                <field name="ref_code" readonly="1"/>
+                                <field name="price"/>
+                            </group>
+                            <group>
+                                <field name="barcode_base" readonly="1"/>
+                                <field name="encoding" readonly="1"/>
+                                <field name="barcode" readonly="1"/>
+                            </group>
+                        </group>
+                        <group string="Provide Quantity(Per Product)">
+                            <field name="quantity"/>
+                        </group>
+                        <group string="Set Position Attributes">
+                            <group>
+                                <field name="columns"/>
+                            </group>
+                            <group>
+                                <field name="rows" readonly="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="define_custom_position"/>
+                        </group>
+                        <group string="Starting Position" attrs="{'invisible': [('define_custom_position','=',False)]}">
+                            <group>
+                                <field name="starting_row_position"/>
+                            </group>
+                            <group>
+                                <field name="starting_column_position"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Print" type="object" name="print_barcode_labels" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_product_barcode_label_wizard" model="ir.actions.act_window">
+            <field name="name">Product Barcode Label Printing</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">barcode.label.printing</field>
+            <field name="src_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="mint_barcode_label_printing.view_barcode_label_printing_wizard_form"/>
+            <field name="context">{}</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

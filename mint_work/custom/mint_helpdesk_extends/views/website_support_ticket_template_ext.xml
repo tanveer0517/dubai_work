@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- inherit web template for adding attachment on ticket -->
+        <template id="website_support_template_extend_for_mint" inherit_id="website_support.support_ticket_view">
+            <xpath expr="//section[@class='page-heading']/div/div/h2"
+                   position="replace">
+                <span > : <t t-esc="support_ticket.case_name"/></span>
+            </xpath>
+            <xpath expr="//div[@class='container mt16 mb16']/div[2]/div/table/t[@t-foreach='support_ticket.conversation_history']"
+                   position="replace">
+            </xpath>
+            <xpath
+                    expr="//div[@class='container mt16 mb16']/div[2]/div/table/tr"
+                    position="replace">
+            </xpath>
+            <xpath expr="//form[@id='myform']" position="replace">
+            </xpath>
+            <xpath
+                    expr="//div[@class='container mt16 mb16']/div[2]/div/table" position="before" >
+                <div class="row mt32">
+                    <div class="col-md-12">
+                        <h4><strong>Message and communication history</strong></h4>
+                    </div>
+                    <div class="col-md-10 col-md-offset-1 mt16">
+                        <t t-call="website_mail.message_thread" >
+                            <t t-set="object" t-value="support_ticket"/>
+                            <t t-set="chatter_mode" t-value="'json'"/>
+                        </t>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@class='container mt16 mb16']/div[2]/div/b[2]"
+                   position="replace">
+            </xpath>
+            <xpath
+                    expr="//div[@class='container mt16 mb16']/div[1]/div[1]"
+                    position="replace">
+                <div class="col-md-6">
+                    <b>Call Type : </b>
+                    <t t-esc="support_ticket.call_type_id.name"/>
+                </div>
+            </xpath>
+
+        </template>
+
+        <template id="mail_extend" inherit_id="website.assets_frontend"
+                  name="Mail Widget Extends">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/mint_helpdesk_extends/static/src/js/message_widget.js"></script>
+            </xpath>
+        </template>
+
+        <template id="inherit_website_mail_message_thred"
+                  inherit_id="website_mail.message_thread" >
+            <xpath expr="//textarea[@name='message']" position="after">
+                <input type="file" id="attachment"
+                       name='attachment' class="form-control"
+                       placeholder="Select File..."
+                       t-att-value="attachment" accept="*"
+                />
+                <input type="hidden" id="attachments"
+                       name='attachments'
+                />
+                <input type="hidden" id="attachment_name"
+                       name='attachment_name'
+                />
+            </xpath>
+        </template>
+
+        <template id="category_template_extends"
+                  inherit_id="website_support.category"
+                  name="Category Template Extends">
+            <xpath expr="//form/table/tr/td/select[@class='form-control']"
+                   position="replace">
+                <select id="category_data_selection"
+                        name="support category"
+                        class="form-control selectpicker">
+                    <t t-foreach="category_data" t-as="cd" >
+                        <option t-att-value="cd.id"
+                                t-att-data-id = "cd.id">
+                            <span t-esc="cd.name"/>
+                        </option>
+                    </t>
+                </select>
+            </xpath>
+        </template>
+
+
+        <template id="support_help_pages_extends"
+                  inherit_id="website_support.support_help_pages"
+                  name="Category List Extends">
+            <xpath expr="//table/t/tr/td[3]" position="replace">
+                <td>
+                    <t t-if="support_ticket.call_type_id">
+                        <t t-esc="support_ticket.call_type_id.name" />
+                    </t>
+                </td>
+            </xpath>
+        </template>
+
+        <template id="support_submit_ticket_extend"
+                  inherit_id="website_support.support_submit_ticket"
+                  name="Category Template Extends">
+            <xpath expr="//t[@t-call='saas_plan_subscription.portal_layout_changes']"
+                   position="replace">
+                <t t-call="saas_plan_subscription.portal_layout_changes">
+                    <!-- Software Support -->
+                    <div id="wrap" class="oe_structure oe_empty">
+                        <section>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h1 class="text-center"><span
+                                                t-esc="category_data.name"/></h1>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <form action="/support/ticket/process" method="POST" class="form-horizontal mt32"
+                              enctype="multipart/form-data">
+
+                            <input type="hidden" name="category_data"
+                                   t-attf-value="#{category_data.id}" class="form-control" />
+
+                            <div t-attf-class="form-group #{error and 'person_name' in error and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="person_name">Name</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="text" class="form-control" name="person_name" required="True"
+                                           t-attf-value="#{person_name or ''}"/>
+                                </div>
+                            </div>
+                            <div name="email_from_container"
+                                 t-attf-class="form-group #{error and 'email' in error and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="email">Email</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="email" class="form-control" name="email" required="True"
+                                           t-attf-value="#{email or ''}" t-attf-readonly="#{email and 'readonly'}"/>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error and 'category' in error and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="name">Call Type</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <!--<select class="form-control" name="category">-->
+                                    <!--<t t-foreach="categories" t-as="category">-->
+                                    <!--<option t-attf-value="#{category.id}">-->
+                                    <!--<t t-esc="category.name"/>-->
+                                    <!--</option>-->
+                                    <!--</t>-->
+                                    <!--</select>-->
+                                    <select id="call_type_selection"
+                                            name="call type"
+                                            class="form-control selectpicker">
+                                        <t t-foreach="call_type_data"
+                                           t-as="ct" >
+                                            <option t-att-value="ct.id"
+                                                    t-att-data-id = "ct.id">
+                                                <span t-esc="ct.name"/>
+                                            </option>
+                                        </t>
+                                    </select>
+                                </div>
+                            </div>
+                            <div name="subject_container"
+                                 t-attf-class="form-group #{error and 'subject' in error and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="subject">Subject</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <input type="subject" class="form-control" name="subject" required="True"/>
+                                </div>
+                            </div>
+                            <div name="file_container"
+                                 t-attf-class="form-group #{error and 'file' in error and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="file">Add Attachment</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <div class="btn btn-default btn-file col-md-12">
+                                        <input name="file" type="file"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div t-attf-class="form-group #{error and 'description' in error and 'has-error' or ''}">
+                                <label class="col-md-3 col-sm-4 control-label" for="description">Description</label>
+                                <div class="col-md-7 col-sm-8">
+                                    <textarea class="form-control" name="description" style="min-height: 120px"
+                                              required="True"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-3 col-sm-offset-4 col-sm-8 col-md-7">
+                                    <button class="btn btn-primary btn-lg">Submit Ticket</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </t>
+
+
+
+            </xpath>
+        </template>
+
+    </data>
+</odoo>

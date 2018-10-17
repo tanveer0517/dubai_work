@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_saas_portal__config_settings_inherit">
+            <field name="name">Saas portal settings Inherit</field>
+            <field name="model">saas_portal.config.settings</field>
+            <field name="inherit_id" ref="saas_portal.view_saas_portal__config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='cancel']" position="after">
+                    <button string="Push to Wordpress" type="object" name="update_config_setting" class="oe_link"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

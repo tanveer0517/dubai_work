@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <!--&lt;!&ndash; explicit list view definition &ndash;&gt;-->
+        <!--<record model="ir.ui.view" id="mint_track_moves_list">-->
+            <!--<field name="name">mint.track.moves.list</field>-->
+            <!--<field name="model">stock.quant</field>-->
+            <!--<field name="inherit_id" ref="stock.view_stock_quant_tree"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='lot_id']" position="after">-->
+                    <!--<field name="quant_parent_barcode"/>-->
+                    <!--&lt;!&ndash;<field name="quant_child_barcode"/>&ndash;&gt;-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--&lt;!&ndash; explicit list view definition &ndash;&gt;-->
+        <!--<record model="ir.ui.view" id="mint_track_moves_form">-->
+            <!--<field name="name">mint.track.moves.form</field>-->
+            <!--<field name="model">stock.quant</field>-->
+            <!--<field name="inherit_id" ref="stock.view_stock_quant_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//field[@name='lot_id']" position="after">-->
+                    <!--<field name="quant_parent_barcode"/>-->
+                    <!--&lt;!&ndash;<field name="quant_child_barcode"/>&ndash;&gt;-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="view_track_stock_quant_tree">-->
+            <!--<field name="name">track.stock.quant.tree</field>-->
+            <!--<field name="model">stock.quant</field>-->
+            <!--<field eval="10" name="priority"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Custom Stock Valuation" create="0" delete="0">-->
+                    <!--<field name="product_id"/>-->
+                    <!--<field name="qty"/>-->
+                    <!--<field name="product_uom_id" groups="product.group_uom"/>-->
+                    <!--<field name="location_id"/>-->
+                    <!--<field name="owner_id" groups="stock.group_tracking_owner"/>-->
+                    <!--<field name="lot_id" groups="stock.group_production_lot"/>-->
+                    <!--<field name="package_id" groups="stock.group_tracking_lot"/>-->
+                    <!--<field name="packaging_type_id" invisible="1"/>-->
+                    <!--<field name="in_date"/>-->
+                    <!--<field name="inventory_value"/>-->
+                    <!--<field name="reservation_id" invisible='1'/>-->
+                    <!--<field name="propagated_from_id" invisible='1'/>-->
+                    <!--<field name='company_id' groups="base.group_multi_company"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+    </data>
+</odoo>

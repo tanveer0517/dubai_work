@@ -1,0 +1,25 @@
+<odoo>
+    <data>
+        <!--&lt;!&ndash; JS, CSS, Validation Scripts&ndash;&gt;-->
+        <template id="login_assets_frontend" name="bista_login assets" inherit_id="web.assets_frontend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/css" href="/saas_login_registration/static/src/css/bootstrapValidator.min.css"/>
+                <link rel="stylesheet" type="text/css" href="/saas_login_registration/static/src/css/style.css"/>
+
+                <!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
+                <link href="/saas_login_registration/static/dist/css/bootstrap-formhelpers.css" rel="stylesheet" media="screen"/>
+
+                <!--&lt;!&ndash; Bootstrap Form Helpers &ndash;&gt;-->
+                <link href="/saas_login_registration/static/dist/css/bootstrap-formhelpers.min.css" rel="stylesheet" media="screen"/>
+
+                <script src="/saas_login_registration/static/src/js/bootstrapvalidator.min.js" type="text/javascript"></script>
+                <script type="text/javascript" src="/saas_login_registration/static/src/js/validate_registration.js"></script>
+                <!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
+                <script src="/saas_login_registration/static/dist/js/bootstrap-formhelpers.js"></script>
+                <!--&lt;!&ndash; Bootstrap Form Helpers &ndash;&gt;-->
+                <!--<script src="/saas_login_registration/static/dist/js/bootstrap-formhelpers.min.js"></script>-->
+            </xpath>
+        </template>
+    </data>
+</odoo>
+

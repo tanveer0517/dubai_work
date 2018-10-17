@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Inherit product template form view for hide create button from
+    product. Adding category domain for allow client product.
+     -->
+    <record id="inherit_view_client_product" model="ir.ui.view">
+        <field name="name">inherit view client product</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="domain">[('client_allow_product', '=', True)]</attribute>
+            </xpath>
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+            <xpath expr="//field[@name='type']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='categ_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//div[@class='oe_button_box']" position="inside">
+                <button name="unload_product" icon="fa-arrow-up"
+                        class="oe_stat_button" string="Unload Product"
+                        type="object" />
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Inherit product template form view for making barcode and defualt
+     code readonly
+   -->
+    <record id="inherit_view_client_product_only_form" model="ir.ui.view">
+        <field name="name">inherit view client product.only.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='default_code']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='barcode']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+            <field name="barcode" position="after">
+                <field name="brand_id"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Inherited product template form view for attrs and domain on pos_Categ_id.-->
+    <record id="product_template_form_view_mint_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.view.mint.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='pos_categ_id']" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit product template kanban view for hide create button
+     -->
+    <record id="client_product_template_kanban_view" model="ir.ui.view">
+        <field name="name">Client.Product.template.product.kanban</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Product brand added at the product.template -->
+    <record id="view_pos_product_brand_for_client" model="ir.ui.view">
+    <field name="name">view.pos.product.brand.for.client</field>
+    <field name="model">product.product</field>
+    <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <field name="brand_id"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Inherit product template tree view for hide create button-->
+    <record id="client_product_template_tree_view" model="ir.ui.view">
+        <field name="name">Client.Product.template.product.tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit product template tree view for hide create button-->
+    <record id="product_category_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field name="master_db_pro_cat_id" invisible="1"/>
+                <field name="category_id" invisible="1"/>
+                <field name="client_allow_product"/>
+            </field>
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit product uom form view for hide create button-->
+    <record id="product_uom_categ_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.uom.categ.form.inherit</field>
+        <field name="model">product.uom.categ</field>
+        <field name="inherit_id" ref="product.product_uom_categ_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit product uom tree view for hide create button-->
+    <record id="product_uom_categ_tree_view" model="ir.ui.view">
+        <field name="name">product.uom.categ.tree</field>
+        <field name="model">product.uom.categ</field>
+        <field name="arch" type="xml">
+            <tree string="Units of Measure Categories" create="false" edit="false">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Inherit product category form view for hide create/edit button-->
+    <record id="product_category_list_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.list.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_list_view"/>
+        <field name="priority">1</field>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="create">false</attribute>
+                <attribute name="edit">false</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Create product catelog form view -->
+    <record id="view_product_catelog_form" model="ir.ui.view">
+        <field name="name">Product Catelog Form</field>
+        <field name="model">product.catelog</field>
+        <field name="arch" type="xml">
+            <form string="Product Catelog" create="false" edit="false">
+                <group>
+                    <field name="default_code"/>
+                    <field name="list_price"/>
+                    <field name="active"/>
+                    <field name="pro_tmpl_ids"/>
+                    <field name="barcode" />
+                    <field name="company_ids"
+                           groups="base.group_multi_company"
+                           widget="many2many_tags"
+                           options="{'no_create': True}"
+                    />
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <!-- Create product catelog tree view -->
+    <record id="view_product_catelog_tree" model="ir.ui.view">
+        <field name="name">Product Catelog Tree</field>
+        <field name="model">product.catelog</field>
+        <field name="arch" type="xml">
+            <tree create="false" edit="false">
+                <field name="default_code"/>
+                <field name="list_price"/>
+                <field name="active"/>
+                <field name="pro_tmpl_ids"/>
+                <field name="barcode" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Create product catelog kanban view. Added Add to cart button on
+    kanban view. Important feature. -->
+    <record id="product_catelog_kanban_view" model="ir.ui.view">
+        <field name="name">Product.catelog.product.kanban</field>
+        <field name="model">product.catelog</field>
+        <field name="arch" type="xml">
+            <kanban create="false" edit="false">
+                <field name="default_code"/>
+                <field name="pro_tmpl_ids"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('product.catelog', 'image', record.id.value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="pro_tmpl_ids"/>
+                                </strong>
+                                <div name="tags"/>
+                                <strong>
+                                    <field name="barcode" />
+                                </strong>
+                                <div name="tags"/>
+                                <a type="button">
+                                    <button name="update_template" type="object" class="oe_highlight">
+                                        <span>Add to Catalog</span>
+                                    </button>
+                                </a>
+                                <div name="tags"/>
+                                <ul>
+                                    <li>Price: <field name="list_price"></field></li>
+                                </ul>
+                                <div name="tags"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Create product catelog search view. Genetic search for defualt
+        code, barcode, name.-->
+    <record id="view_product_catalog_search" model="ir.ui.view">
+        <field name="name">view.product.catalog.search</field>
+        <field name="model">product.catelog</field>
+        <field name="arch" type="xml">
+            <search string="Product Catalog">
+                <field name="name" string="Product"
+                       filter_domain="['|','|',('name', 'ilike', self),('default_code','ilike',self),('barcode','ilike',self)]"/>
+                <field name="categ_id" filter_domain="[('categ_id', 'child_of', self)]"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Default code" domain="[]" context="{'group_by':'default_code'}" />
+                    <filter string="Category" domain="[]" context="{'group_by':'categ_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_product_catelog" model="ir.actions.act_window">
+        <field name="name">Product Catalog</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.catelog</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('active', '=', True)]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Create a Product Catalog.
+            </p>
+        </field>
+    </record>
+
+    <menuitem action="action_product_catelog" id="menu_product_catelog" parent="sales_team.menu_sales" sequence="15" />
+
+    <act_window
+            id="act_add_to_catalog"
+            name="Add to Catalog"
+            res_model="add.to.catalog.wizard"
+            key2="client_action_multi"
+            src_model="product.catelog"
+            view_mode="form" target="new" view_type="form" />
+
+
+</odoo>

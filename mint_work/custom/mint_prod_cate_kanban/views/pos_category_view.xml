@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="pos_product_category_kanban_view" model="ir.ui.view">
+        <field name="name">pos.product.category.kanban</field>
+        <field name="model">pos.category</field>
+        <field name="arch" type="xml">
+            <kanban create="false" edit="false">
+                <field name="name"/>
+                <field name="product_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('pos.category', 'image_medium', record.id.value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div name="tags"/>
+                                <ul>
+                                    <li>Total Products: <field
+                                            name="product_count"></field></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+
+
+    <record id="point_of_sale.product_pos_category_action" model="ir.actions.act_window">
+        <field name="view_id" ref="pos_product_category_kanban_view" />
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+    <record id="inherit_product_category_form_view" model="ir.ui.view">
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[@class='oe_title']" position="before">
+                <field name="image_medium" widget='image' class="oe_avatar"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+    <record id="product_category_kanban_view" model="ir.ui.view">
+        <field name="name">product.category.kanban</field>
+        <field name="model">product.category</field>
+        <field name="arch" type="xml">
+            <kanban create="false" edit="false">
+                <field name="name"/>
+                <field name="product_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('product.category', 'image_medium', record.id.value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div name="tags"/>
+                                <ul>
+                                    <li>Total Products: <field
+                                            name="product_count"></field></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="product.product_category_action_form" model="ir.actions.act_window">
+        <field name="view_id" ref="product_category_kanban_view" />
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+</odoo>

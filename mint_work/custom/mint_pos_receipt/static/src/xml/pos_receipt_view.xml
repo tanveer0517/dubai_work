@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="point_of_sale.template" xml:space="preserve">
+    <t t-extend="PosTicket">
+        <t t-jquery="tr[t-foreach='orderlines']" t-operation="replace">
+            <t t-foreach="orderlines" t-as="orderline">
+                <t t-if="report_option == 'line_wise'">
+                    <t t-if="widget.pos.config.first_lang == widget.pos.config.other_lang">
+                        <tr>
+                            <td>
+                                <t t-esc="orderline.get_product().lang_display_name" />
+                            </td>
+                            <td class="pos-left-align">
+                                <t t-esc="orderline.get_quantity_str_with_unit()" />
+                            </td>
+                            <td class="pos-right-align">
+                                <t t-esc="widget.format_currency(orderline.get_display_price())" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <t t-esc="orderline.get_product().display_name" />
+                            </td>
+                        </tr>
+                    </t>
+                    <t t-if="widget.pos.config.first_lang != widget.pos.config.other_lang">
+                        <tr>
+                            <td>
+                                <t t-esc="orderline.get_product().display_name" />
+                            </td>
+                            <td class="pos-left-align">
+                                <t t-esc="orderline.get_quantity_str_with_unit()" />
+                            </td>
+                            <td class="pos-right-align">
+                                <t t-esc="widget.format_currency(orderline.get_display_price())" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <t t-esc="orderline.get_product().lang_display_name" />
+                            </td>
+                        </tr>
+                    </t>
+                </t>
+                <t t-if="report_option != 'line_wise'">
+                    <tr>
+                        <td>
+                            <t t-esc="orderline.get_product().display_name" />
+                        </td>
+                        <td class="pos-left-align">
+                            <t t-esc="orderline.get_quantity_str_with_unit()" />
+                        </td>
+                        <td class="pos-right-align">
+                            <t t-esc="widget.format_currency(orderline.get_display_price())" />
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+        <t t-jquery="t[t-esc='orderline.get_product().display_name']" t-operation="replace">
+            <t t-if="lang_display_name">
+                <t t-esc="orderline.get_product().lang_display_name" />
+            </t>
+            <t t-if="!lang_display_name">
+                <t t-esc="orderline.get_product().display_name" />
+            </t>
+        </t>
+    </t>
+    <t t-name="XmlReceipt">
+        <receipt align='center' width='40' value-thousands-separator='' >
+            <div>
+                <t t-if='receipt.company.name'>
+                    <div size='double-height'><b><t t-esc='receipt.company.name'/></b></div>
+                </t>
+                <t t-if='company_address'>
+                    <div><pre><t t-esc='company_address' /></pre></div>
+                </t>
+                 <t t-if='receipt.company.phone'>
+                    <div>Call:<t t-esc='receipt.company.phone' /></div>
+                </t>
+                <t t-if='receipt.company.website'>
+                    <div><t t-esc='receipt.company.website' /></div>
+                </t>
+                <t t-if='receipt.header_xml'>
+                    <t t-raw='receipt.header_xml' />
+                </t>
+                <t t-if='!receipt.header_xml and receipt.header'>
+                    <div><t t-esc='receipt.header' /></div>
+                </t>
+                <t t-if='receipt.cashier'>
+                    <div class='cashier'>
+                        <div>--------------------------------</div>
+                        <div>Served by <t t-esc='receipt.cashier' /></div>
+                    </div>
+                </t>
+            </div>
+            <br />
+            <div>
+            	<line>
+            		<left>
+            			<b><div>Order Number: </div></b>
+            		</left>
+            		<right>
+            			<b><div><t t-esc="receipt.name"/></div></b>
+            		</right>
+            	</line>
+            	<line>
+            		<left>
+            			<b><div>Date and Time: </div></b>
+            		</left>
+            		<right>
+            			<b><div><t t-esc="receipt.date.localestring"/></div></b>
+            		</right>
+            	</line>
+            </div>
+            <div>
+                <line><left>--------------------------------</left><right>--------------------------------</right></line>
+                <line>
+                    <left><b>Name</b></left>
+                    <right align="left"><b>QTY</b></right>
+                    <right><b>Price</b></right>
+                </line>
+                <line><left>--------------------------------</left><right>--------------------------------</right></line>
+            </div>
+
+            <!-- Orderlines -->
+
+            <div class='orderlines' line-ratio='0.6'>
+                <t t-foreach='receipt.orderlines' t-as='line'>
+                    <line>
+                        <left><t t-esc='line.product_name_wrapped[0]' /></left>
+                        <right align="left">
+                            <value t-att-value-decimals='pos.dp["Product Unit of Measure"]' value-autoint='on'>
+                                <t t-esc='line.quantity' />
+                            </value>
+                        </right>
+                        <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='line.price_display' /></value></right>
+                    </line>
+                    <t t-call="XmlReceiptWrappedProductNameLines"/>
+                </t>
+            </div>
+
+            <!-- Subtotal -->
+
+            <line><left>--------------------------------</left><right>--------------------------------</right></line>
+            <line>
+                <left>Sub Total</left>
+                <right><value t-att-value-decimals='pos.currency.decimals'>
+                    <t t-esc="receipt.subtotal" /></value>
+                </right>
+            </line>
+
+            <t t-if='receipt.total_discount'>
+                <line><left>--------------------------------</left><right>--------------------------------</right></line>
+                <line>
+                    <left>Discount Amount</left>
+                    <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.total_discount'/></value></right>
+                </line>
+            </t>
+
+            <t t-if="receipt.tax_details.length">
+                <line><left>--------------------------------</left><right>--------------------------------</right></line>
+                <t t-foreach='receipt.tax_details' t-as='tax'>
+                    <line>
+                        <left><t t-esc='tax.name' /></left>
+                        <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='tax.amount' /></value></right>
+                    </line>
+                </t>
+            </t>
+
+            <!-- Total -->
+
+            <line><left>--------------------------------</left><right>--------------------------------</right></line>
+            <line class='total' size='double-height'>
+                <left><b><pre>Amount AED</pre></b></left>
+                <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.total_with_tax' /></value></right>
+            </line>
+            <br/>
+
+            <!-- Payment Lines -->
+
+            <t t-foreach='paymentlines' t-as='line'>
+                <line>
+                    <left><t t-esc='line.name' /></left>
+                    <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='line.get_amount()'/></value></right>
+                </line>
+            </t>
+            <br/> 
+
+            <line><left>--------------------------------</left><right>--------------------------------</right></line>
+            <line size='double-height'>
+                <left><b><pre>Change: </pre></b></left>
+                <right><value t-att-value-decimals='pos.currency.decimals'><t t-esc='receipt.change' /></value></right>
+            </line>
+            <line><left>--------------------------------</left><right>--------------------------------</right></line>
+            <br/>
+
+            <div size='double-height'>
+                <b>THANK YOU!</b>
+            </div>
+            <div class='before-footer' />
+
+            <!-- Footer -->
+            <t t-if='receipt.footer_xml'>
+                <t t-raw='receipt.footer_xml' />
+            </t>
+
+            <t t-if='!receipt.footer_xml and receipt.footer'>
+                <br/>
+                <t t-esc='receipt.footer' />
+                <br/>
+                <br/>
+            </t>
+
+            <div class='after-footer' />
+            <div>
+                <line><left>--------------------------------</left><right>--------------------------------</right></line>
+                <div size='double-height'>
+                     POWERED BY
+                 </div>                
+                <t t-if='widget.pos.config.enable_receipt_image'>
+                    <div>
+                    	<img t-att-src='widget.pos.receipt_logo_base64'
+                              style="width: 100px;margin-left: 16px;"/>
+                    </div>
+                </t>
+                <t t-if='!widget.pos.config.enable_receipt_image'>
+                    <t t-if='widget.pos.config.image'>
+                        <div>
+                    	    <img t-att-src="widget.pos.config_logo_base64"
+               					style="width: 50px;margin-left: 16px;"/>
+                        </div>
+                    </t>
+                    <t t-if='!widget.pos.config.image'>
+                        <div>
+                    	    <img src="/point_of_sale/static/src/img/logo.png"
+                                  style="width: 100px;margin-left: 16px;"/>
+                        </div>
+                    </t>
+                </t>
+            </div>
+
+        </receipt>
+    </t>
+</templates>

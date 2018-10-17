@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Saas Paasword Reset Message for mail template-->
+        <template id="serves_page" name="Servers Page">
+            <t t-call="website.layout">
+                <div id="generic_price_table">
+                    <section id="Generic_price_table">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <t t-if="servers">
+                                        <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.3s">SELECT <span>SERVICE</span></h2>
+                                        <hr class="gline bounceIn" data-wow-offset="50" data-wow-delay="0.1s"/>
+                                    </t>
+                                </div>
+                                <t t-if="no_servers_found">
+                                    <div class="col-md-12">
+                                        <h2 class="wow bounceIn" data-wow-offset="50" data-wow-delay="0.5s">SORRY!! <span><t t-esc="no_template_found"/></span></h2>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <!--BLOCK ROW START-->
+                            <div class="row">
+                                <t t-set="count" t-value="0"/>
+                                <t t-if="servers">
+                                    <t t-foreach="servers" t-as="server">
+                                        <t t-if="server.active">
+                                            <div class="col-md-12" style="margin-top: 20px;">
+                                                <div class="server-table text-center">
+                                                    <div class="panel panel-primary" style="border: none;">
+                                                        <div class="controle-header panel-heading panel-heading-landing">
+                                                            <h1 class="panel-title panel-title-landing">
+                                                                Server <t t-set="count" t-value="count+1"/><t t-esc="count"/>
+                                                            </h1>
+                                                        </div>
+                                                        <div class="controle-panel-heading panel-heading panel-heading-landing-box">
+                                                            <span t-esc="server['server_name']"/>
+                                                            <a t-attf-href="/page/service/#{server.id}" class="btn btn-price btn-success btn-lg">Go</a>
+                                                        </div>
+                                                        <!--<div class="panel-body panel-body-landing">-->
+                                                        <!--<table class="table">-->
+                                                        <!--<tr>-->
+                                                        <!--<td width="100%"><i class="fa fa-check"></i> <span t-esc="server['name']"/></td>-->
+                                                        <!--</tr>-->
+                                                        <!--</table>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="panel-footer panel-footer-landing">-->
+                                                        <!--<a t-attf-href="/page/service/#{server.id}" class="btn btn-price btn-success btn-lg"><i class="fas fa-arrow-square-right"></i> Go</a>-->
+                                                        <!--</div>-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </t>
+                                </t>
+                            </div>
+                            <!--//BLOCK ROW END-->
+                        </div>
+                    </section>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

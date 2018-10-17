@@ -1,0 +1,12 @@
+<openerp>
+    <data>
+        <!-- Load Required css and js for project case portal -->
+        <template id="website_suport_portal_css_js_load" inherit_id="website.assets_frontend" name="Website Support Portal Box">
+            <xpath expr="." position="inside">
+                <link rel='stylesheet' href='/website_support/static/src/css/css_project_case_portal.css'/>
+                <!--<script type="text/javascript" src="/project_case_portal/static/src/js/js_project_case_portal.js"/>-->
+            </xpath>
+        </template>
+
+    </data>
+</openerp>

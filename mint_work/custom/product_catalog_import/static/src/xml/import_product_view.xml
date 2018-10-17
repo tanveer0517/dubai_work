@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="ListView.ImportButton">
+        <button type="button" class="btn btn-primary btn-sm o_list_button_import" accesskey="i">
+            Import
+        </button>
+        </t>
+</templates>

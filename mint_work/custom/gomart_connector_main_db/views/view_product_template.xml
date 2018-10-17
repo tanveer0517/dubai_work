@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--     added small description field -->
+    <record id="view_product_small_descpt_inherit_form" model="ir.ui.view">
+        <field name="name">view.product.small.desc.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='description_sale']" position="attributes">
+                <attribute name="attrs"> {'required': [('is_subscription', '=', False)], 'invisible': [('is_subscription', '=', True)]}</attribute>
+            </xpath>
+            <field name="description_sale" position="after">
+                <separator string="Small Description for Product"/>
+                <field
+                    attrs="{'required': [('is_subscription', '=', False)], 'invisible': [('is_subscription', '=', True)]}"
+                    colspan="4" name="small_description" nolabel="1" placeholder="Description for product"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_product_template_inherite" model="ir.ui.view">
+        <field name="name">view.product.template.inherite</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <header>
+                <button
+                    attrs="{'invisible': [('is_subscription', '=', True)]}"
+                    name="add_to_gomart" string="Add to GoMart Product" type="object"/>
+            </header>
+            <xpath expr="//field[@name='barcode']" position="attributes">
+                <attribute name="attrs"> {'required': [('is_subscription', '=', False)], 'invisible': [('is_subscription', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='brand_id']" position="attributes">
+                <attribute name="attrs"> {'required': [('is_subscription', '=', False)], 'invisible': [('is_subscription', '=', True)]}</attribute>
+            </xpath>
+            <field name="barcode" position="after">
+                <field
+                    attrs="{'required': [('is_subscription', '=', False)], 'invisible': [('is_subscription', '=', True)]}" name="range_name"/>
+                <field
+                    attrs="{'invisible': [('is_subscription', '=', True)]}"
+                    name="go_mart_product_id" readonly="1"/>
+                <field
+                    attrs="{'invisible': [('is_subscription', '=', True)]}"
+                    name="go_mart_range_id" readonly="1"/>
+                <field name="product_img_name" readonly="0" attrs="{'invisible': [('is_subscription', '=', True)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>

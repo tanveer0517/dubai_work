@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--Loads javascript and css files in pos assets-->
+        <template id="assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+               <script type="text/javascript" src="/mint_vas/static/src/js/models.js"></script>
+               <script type="text/javascript" src="/mint_vas/static/src/js/get_plan.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

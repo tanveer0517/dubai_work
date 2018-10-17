@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <!-- Product Brand Form view -->
+        <record id="view_product_brand_form_inherit" model="ir.ui.view">
+            <field name="name">product.brand.form.inherit</field>
+            <field name="model">product.brand</field>
+            <field name="inherit_id" ref="product_enhancement.view_product_brand_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='brand_img']" position="attributes">
+                    <attribute name="attrs">{"filename":'brand_img_filename'}</attribute>
+                </xpath>
+                <xpath expr="//div[@class='oe_title']" position="after">
+                    <group>
+                        <field name="go_mart_brand_id"/>
+                        <field name="brand_img_filename" readonly="0"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <!-- Add GoMart Brand ID,Product Brand Tree view -->
+        <record id="view_product_brand_tree_inherit" model="ir.ui.view">
+            <field name="name">product.brand.tree.inherit</field>
+            <field name="model">product.brand</field>
+            <field name="inherit_id" ref="product_enhancement.view_product_brand_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="go_mart_brand_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

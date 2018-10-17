@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="support_call_report" name="Support Call Report">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="project_case.case_layout_letter">
+                    <div class="page">
+                        <table width="100%">
+                            <tr>
+                                <td width="20%"></td>
+                                <td width="50%" style="font-size:25px; text-align:center;">
+                                    <b>Support Call Report</b>
+                                </td>
+                                <td width="30%"></td>
+                            </tr>
+                        </table>
+
+                        <br/>
+                        <br/>
+
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+			
+                            <tr>
+                                <td width="15%" class="text-left" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Case No:</b>
+                                </td>
+                                <td width="15%" class="text-left" style="border: 1px solid #000;">
+                                    <b>
+                                        <span t-field="o.name"/>
+                                    </b>
+                                </td>
+                                <td width="20%" class="text-left"></td>
+                                <td width="15%" class="text-left" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Call Type:</b>
+                                </td>
+                                <td width="30%" class="text-left" style="border: 1px solid #000;">
+                                    <b>
+                                        <span t-field="o.call_type"/>
+                                    </b>
+                                </td>
+                                <td width="5%" class="text-left"></td>
+                            </tr>
+                        </table>
+	
+                        <br/>
+
+
+                        <h4>
+                            <b>Project Information:</b>
+                        </h4>
+
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Caller Name</b>
+                                </td>
+                                <td width="60%" style="border: 1px solid #000;">
+                                    <b>
+                                        <span t-field="o.contact_id.name"/>
+                                    </b>
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Customer Name</b>
+                                </td>
+                                <td width="60%" style="border: 1px solid #000;">  
+                                    <b>
+                                        <span t-field="o.partner_id.name"/>
+                                    </b>
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Project</b>
+                                </td>
+                                <td width="60%" style="border: 1px solid #000;">  
+                                    <b>
+                                        <span t-field="o.analytic_id.name"/>
+                                    </b>
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+                        </table>
+
+                        <br/>
+
+                        <h4>
+                            <b>Call Information:</b>
+                        </h4>
+
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Call Received:</b>
+                                </td>
+                                <td width="60%" style="border: 1px solid #000;">  
+                                    <b>
+                                        <span t-field="o.call_received"/>
+                                    </b>
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Call Attended</b>
+                                </td>
+                                <td width="60%" style="border: 1px solid #000;">  
+                                    <b>
+                                        <span t-field="o.call_attended"/>
+                                    </b>
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="30%" class="text-center" style="border: 1px solid #000; background-color: #e6e6e6;">
+                                    <b>Call Closed</b>
+                                </td>
+                                <td width="60%" style="border: 1px solid #000;">  
+                                    <b>
+                                        <span t-field="o.call_closed"/>
+                                    </b>
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+                        </table>
+
+
+
+
+
+                        <br/>
+
+                        <h4>
+                            <b>Call Description:</b>
+                        </h4>
+
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+			
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="90%">  
+                                    <b>
+                                        <span t-field="o.description"/>
+                                    </b>
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+
+                        </table>
+
+
+                        <br/>
+
+                        <h4>
+                            <b>Action Taken:</b>
+                        </h4>
+
+                        <table width="100%" class="text-left" style="font-size:15px;letter-spacing: 1px">
+			
+                            <tr>
+                                <td width="5%"></td>
+                                <td width="90%">  
+                                    <b>
+                                        <span t-field="o.action_taken"/>
+                                    </b>
+                                </td>
+                                <td width="5%"> </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                 
+                </t>
+            </t>
+        </template>
+
+
+        <!--	<template id="support_call_report">
+            <t t-call="report.html_container">
+                <t t-foreach="doc_ids" t-as="doc_id">
+                    <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'project_case.report_support_call')"/>
+                </t>
+            </t>
+        </template>-->
+
+    </data>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data >
+        <record model="ir.module.category" id="user_access_empower">
+            <field name="name">Empower</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="group_empower_employee" model="res.groups">
+            <field name="name">Employee</field>
+            <field name="category_id" ref="user_access_empower"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('base.group_user')), (4, ref('service_management.group_service_user'))]"/>
+        </record>
+        <record id="group_empower_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="category_id" ref="user_access_empower"/>
+            <field name="implied_ids"
+                   eval="[(4, ref('saas_user_auto_create.group_empower_employee')), (4, ref('hr_employee_customization.group_employee_manager')),(4, ref('hr_holidays.group_hr_holidays_manager'
+))]"/>
+        </record>
+    </data>
+</odoo>

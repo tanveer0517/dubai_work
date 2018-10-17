@@ -1,0 +1,175 @@
+element {
+}
+.contact-page {
+    padding: 30px 0px;
+}
+.contact-page .cc-contact-page {
+    background: #F0F0F0 none repeat scroll 0% 0%;
+    padding: 30px 0px;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}
+* {
+    box-sizing: border-box;
+}
+body, html {
+    font-family: "ZurichBT-RomanCondensed";
+}
+body {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857;
+    color: #333;
+}
+html {
+
+    font-size: 10px;
+
+}
+html {
+
+    font-family: sans-serif;
+
+}
+.cc-enquiry h3 {
+    font-size: 40px;
+    color: #696969;
+    font-weight: bold;
+    padding: 10px;
+}
+.cc-complain h3 {
+    font-size: 40px;
+    color: #696969;
+    font-weight: bold;
+    margin: 0px 0px 0px 110px;
+}
+.fixed-logo {
+    position: absolute;
+    z-index: 99999;
+    left: 5%;
+}
+div {
+    display: block;
+}
+.page-heading {
+    background-color: #EEE;
+}
+.container {
+    width: 1170px;
+}
+.profile {
+    margin: 20px 0px;
+}
+.profile span {
+    text-transform: uppercase;
+    font-size: 20px;
+}
+.profile h2 {
+    text-transform: uppercase;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.contact-page input, .contact-page select {
+    border: 1px solid #DBDAD6;
+    padding: 10px;
+    width: 85%;
+    height: 45px;
+    background-color: #EEE;
+}
+
+.contact-page .cc-input input, .contact-page .cc-input select{
+    border: 1px solid #DBDAD6;
+    padding: 10px;
+    width: 85%;
+    height: 45px;
+    background-color: #FFF;
+}
+.contact-page .cc-input textarea{
+    border: 1px solid #DBDAD6;
+    padding: 10px;
+    width: 85%;
+    height: 95px;
+    background-color: #FFF;
+}
+
+.contact-page .cc-input .con-submit {
+    background-color: #C42436;
+    color: #FFF;
+}
+.contact-page .cc-input .con-submit:hover {
+    background-color: #808080;
+    color: #FFF;
+    font-weight: bold;
+}
+
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+input {
+    line-height: normal;
+}
+.contact-page .con-submit {
+    background-color: #C42436;
+    color: #FFF;
+}
+.contact-page .con-submit:hover {
+    background-color: #808080;
+    color: #FFF;
+    font-weight: bold;
+}
+.contact-page textarea {
+    border: 1px solid #DBDAD6;
+    padding: 10px;
+    width: 85%;
+    height: 95px;
+    background-color: #EEE;
+}
+textarea {
+    overflow: auto;
+}
+.col-md-1 {
+    width: 8.33333%;
+}
+.tabbable-line > .nav-tabs {
+    margin: 0px;
+}
+.tabbable-line > .nav-tabs > li.active > a{
+    //border-bottom: 3px solid #F3565D;
+    font-weight: bold;
+}
+.tabbable-line > .nav-tabs > li > a{
+    color:black;
+    font-weight: normal;
+}
+div.listing-blog-main:first-of-type {
+    padding-top: 10px;
+}
+.listing-blog-main {
+    margin: 12px 0px;
+    padding: 12px 0px;
+    border-bottom: 1px solid #333;
+    overflow: hidden;
+}
+
+.events-rd-more{
+    background-color: #959494;
+    color: white;
+    margin: 0 auto;
+    padding: 8px;
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    width: 35%;
+    text-transform: uppercase;
+    border-radius: 3px;
+}
+
+.events-rd-more:hover{
+    background-color: #C42436;
+    color: white;
+    font-weight: bold;
+    text-decoration:none;
+}

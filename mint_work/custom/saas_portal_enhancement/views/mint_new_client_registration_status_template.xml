@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--This is to replace the Order and the Quates from the Menu in My Account Tab-->
+        <template id="add_registration_status" name="Registration Status" inherit_id="website_portal_sale.portal_my_home_menu_sale">
+            <!--<xpath expr="//ul[contains(@class,'o_portal_submenu')]" position="inside">-->
+            <!--<li><a href="/new_registration_status">Registration Status</a></li>-->
+            <!--</xpath>-->
+            <xpath expr="//ul[contains(@class,'o_portal_submenu')]/li[3]" position="replace">
+                <li>
+                    <a href="/my/invoices">My Invoices</a>
+                </li>
+            </xpath>
+            <xpath expr="//ul[contains(@class,'o_portal_submenu')]/li[3]" position="before">
+                <li><a href="/new_registration_status">My Status</a></li>
+            </xpath>
+        </template>
+
+        <!--Saas Client Subscription template-->
+        <template id="new_registration_status" name="New Registration Status">
+            <t t-call="saas_plan_subscription.portal_layout_changes">
+                <style>
+                    .reg_tab_pan{
+                    margin-top:20px;
+                    }
+                </style>
+                <div class="container" style="margin:20px auto; float:none;">
+                    <t t-if="client_rec">
+                        <input type="hidden" t-att-value="user_id.id" name="user_id" id="user_id" />
+                        <div class="jumbotron" style="background: #2d5e22;color: #fff;">
+                            <h2>Hello <b><t t-if="client_rec.client_id.name" t-esc="client_rec.client_id.name"/></b></h2>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row" style="overflow-x: scroll;">
+                                <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="4"><h4><b>REGISTRATION REQUEST NUMBER</b>:<t t-if="client_rec.request_no" t-esc="client_rec.request_no"/></h4></th>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="4">
+                                                <h5>STATE:<t t-if="client_rec.state == 'document_rejected' or client_rec.state == 'document_pending' or client_rec.state == 'rejected'"><span style="color:red;font-weight:bold;" t-esc="{False: False,
+                                        'new': 'New', 'pending_approval': 'Pending Approval', 'document_pending': 'Docuemnt Pending',
+                                        'document_rejected': 'Document Rejected',
+                                        'document_approval': 'Document Approval',
+                                        'confirmed': 'Approved',
+                                        'rejected': 'Rejected'}[client_rec.state]"/></t>
+                                                    <t t-if="client_rec.state == 'document_approval' or client_rec.state == 'pending_approval' or client_rec.state == 'new'"><span style="color:orange;font-weight:bold;" t-esc="{False: False,
+                                        'new': 'New', 'pending_approval': 'Pending Approval', 'document_pending': 'Docuemnt Pending',
+                                        'document_rejected': 'Document Rejected',
+                                        'document_approval': 'Document Approval',
+                                        'confirmed': 'Approved',
+                                        'rejected': 'Rejected'}[client_rec.state]"/></t>
+                                                    <t t-if="client_rec.state == 'confirmed'"><span style="color:green;font-weight:bold;" t-esc="{False: False,
+                                        'new': 'New', 'pending_approval': 'Pending Approval', 'document_pending': 'Docuemnt Pending',
+                                        'document_rejected': 'Document Rejected',
+                                        'document_approval': 'Document Approval',
+                                        'confirmed': 'Approved',
+                                        'rejected': 'Rejected'}[client_rec.state]"/></t>
+                                                </h5>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>Name</th>
+                                            <td><t t-if="client_rec.client_id.name" t-esc="client_rec.client_id.name"/></td>
+                                            <th>Merchant Type</th>
+                                            <td><t t-if="client_rec.merchant_id.name" t-esc="client_rec.merchant_id.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Selected Plan</th>
+                                            <td><t t-if="client_rec.plan_id.name" t-esc="client_rec.plan_id.name"/></td>
+                                            <th>Store Type</th>
+                                            <td>
+                                                <!--<t t-if="client_rec.store_id.store_name" t-esc="client_rec.store_id.store_name"/>-->
+                                                <t t-if="client_rec.store_type" t-esc="client_rec.store_type"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Plan type</th>
+                                            <td><t t-if="client_rec.plan_type" t-esc="client_rec.plan_type"/></td>
+                                            <th>Plan Price</th>
+                                            <td><t t-if="client_rec.plan_price" t-esc="client_rec.plan_price"/></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Subscription</th>
+                                            <td colspan="3"><t t-if="client_rec.sub_period" t-esc="client_rec.sub_period"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <hr/>
+
+                        <div class="container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#Personal">Personal</a></li>
+                                <li><a data-toggle="tab" href="#Business">Business</a></li>
+                                <li><a data-toggle="tab" href="#Bank">Bank</a></li>
+                                <li><a data-toggle="tab" href="#Document">Document</a></li>
+                                <t t-if="client_rec.state == 'document_rejected' or client_rec.state == 'document_approval'">
+                                    <li><a data-toggle="tab" href="#Rejection" style="color:red;">Rejection</a></li>
+                                </t>
+                                <t t-if="client_rec.state == 'document_rejected' or client_rec.state == 'document_approval' or client_rec.state == 'document_pending'">
+                                    <t t-if="client_rec.emirates_id_card_rejected or
+                                             client_rec.passport_and_poa_rejected or
+                                             client_rec.vat_num_rejected or
+                                             client_rec.visa_and_poa_rejected or
+                                             client_rec.operating_address_uae_rejected or
+                                             client_rec.trade_license_rejected">
+                                        <li><a data-toggle="tab" href="#Upload" style="color:red;">Upload Document</a></li>
+                                    </t>
+                                </t>
+
+                            </ul>
+
+                            <div class="tab-content">
+                                <div id="Personal" class="tab-pane fade in active">
+                                    <div class="container reg_tab_pan">
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Company Name</b></div><div class="col-xs-7">:<t t-if="client_rec.company" t-esc="client_rec.company"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Company Website</b></div><div class="col-xs-7">:<t t-if="client_rec.company_website" t-esc="client_rec.company_website"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Company Registered Number</b></div><div class="col-xs-7">:<t t-if="client_rec.company_reg_num" t-esc="client_rec.company_reg_num"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Company Type</b></div><div class="col-xs-7">:<t t-if="client_rec.company_type" t-esc="client_rec.company_type.name"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Domain Name</b></div><div class="col-xs-7">:<t t-if="client_rec.database" t-esc="client_rec.database"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>VAT No</b></div><div class="col-xs-7">:<t t-if="client_rec.vat" t-esc="client_rec.vat"/></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Address</b></div>
+                                                <div class="col-xs-7">
+                                                    :<t t-if="client_rec.street1" t-esc="client_rec.street1"/>
+                                                    <t t-if="client_rec.street1">,</t> <t t-if="client_rec.street2" t-esc="client_rec.street2"/>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>City</b></div><div class="col-xs-7">:<t t-if="client_rec.city" t-esc="client_rec.city"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>State</b></div><div class="col-xs-7">:<t t-if="client_rec.state_id" t-esc="client_rec.state_id.name"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Country</b></div><div class="col-xs-7">:<t t-if="client_rec.country_id" t-esc="client_rec.country_id.name"/></div>
+                                            </div>
+                                            <!--<div class="row">-->
+                                                <!--<div class="col-xs-5"><b>Zip</b></div><div class="col-xs-7">:<t t-if="client_rec.zip" t-esc="client_rec.zip"/></div>-->
+                                            <!--</div>-->
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Contact No</b></div><div class="col-xs-7">:<t t-if="client_rec.contact_no" t-esc="client_rec.contact_no"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Landline No</b></div><div class="col-xs-7">:<t t-if="client_rec.landline_no" t-esc="client_rec.landline_no"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Business" class="tab-pane fade reg_tab_pan">
+                                    <div class="container reg_tab_pan">
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Business Type</b></div>
+                                                <div class="col-xs-7">:
+                                                    <t t-if="client_rec.business_type_ids">
+                                                        <t t-foreach="client_rec.business_type_ids" t-as="business">
+                                                            <t t-if="business.id" t-esc="business.name"/> <t t-if="business.id" >,</t>
+                                                        </t>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Number of Outlets</b></div><div class="col-xs-7">:<t t-if="client_rec.num_of_outlets" t-esc="client_rec.num_of_outlets"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Type of Barcode Used</b></div><div class="col-xs-7">:<t t-if="client_rec.types_of_barcodes" t-esc="client_rec.types_of_barcodes"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Brands Allowed to Sell</b></div>
+                                                <div class="col-xs-7">:
+                                                    <t t-if="client_rec.brand_ids">
+                                                        <t t-foreach="client_rec.brand_ids" t-as="brand">
+                                                            <t t-if="brand.id" t-esc="brand.name"/> ,
+                                                        </t>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <!--<div class="row">-->
+                                                <!--<div class="col-xs-5"><b>Product Type</b></div><div class="col-xs-7">:<t t-if="client_rec.product_type" t-esc="client_rec.product_type"/></div>-->
+                                            <!--</div>-->
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Average Selling Price</b></div><div class="col-xs-7">:<t t-if="client_rec.avg_selling_price" t-esc="client_rec.avg_selling_price"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Average Monthly Sales</b></div><div class="col-xs-7">:<t t-if="client_rec.avg_monthly_sales" t-esc="client_rec.avg_monthly_sales"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Number of Styles</b></div><div class="col-xs-7">:<t t-if="client_rec.num_of_styles" t-esc="client_rec.num_of_styles"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Ecommerce Platforms</b></div>
+                                                <div class="col-xs-7">:
+                                                    <t t-if="client_rec.ecommerce_platforms_ids">
+                                                        <t t-foreach="client_rec.ecommerce_platforms_ids" t-as="ecommerce_ids">
+                                                            <t t-if="ecommerce_ids.id" t-esc="ecommerce_ids.name"/> ,
+                                                        </t>
+                                                    </t>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Bank" class="tab-pane fade in active">
+                                    <div class="container reg_tab_pan">
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Bank Name</b></div><div class="col-xs-7">:<t t-if="client_rec.client_bank_id" t-esc="client_rec.client_bank_id.name"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Account Number</b></div><div class="col-xs-7">:<t t-if="client_rec.client_bank_acc" t-esc="client_rec.client_bank_acc"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-5"><b>Bank IBAN</b></div><div class="col-xs-7">:<t t-if="client_rec.client_bank_iban" t-esc="client_rec.client_bank_iban"/></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Document" class="tab-pane fade reg_tab_pan">
+                                    <div class="container reg_tab_pan">
+                                        <div class="col-xs-12 col-md-7">
+                                            <div class="row">
+                                                <div class="col-xs-6"><b>Emirates ID Card</b></div><div class="col-xs-6">:<t t-if="client_rec.emirates_id_card_name" t-esc="client_rec.emirates_id_card_name"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6"><b>Passport and POA</b></div><div class="col-xs-6">:<t t-if="client_rec.passport_and_poa_name" t-esc="client_rec.passport_and_poa_name"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6"><b>VAT Number</b></div><div class="col-xs-6">:<t t-if="client_rec.vat_num_name" t-esc="client_rec.vat_num_name"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6"><b>VISA and POA</b></div><div class="col-xs-6">:<t t-if="client_rec.visa_and_poa_name" t-esc="client_rec.visa_and_poa_name"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6"><b>Operating Address UAE</b></div><div class="col-xs-6">:<t t-if="client_rec.operating_address_uae_name" t-esc="client_rec.operating_address_uae_name"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-6"><b>Trade License</b></div><div class="col-xs-6">:<t t-if="client_rec.trade_license_name" t-esc="client_rec.trade_license_name"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Rejection" class="tab-pane fade reg_tab_pan">
+                                    <div class="container reg_tab_pan">
+                                        <div class="row">
+                                            <section id="Documentation">
+                                                <div class="col-xs-12">
+                                                    <!--<form class="form-horizontal" enctype="multipart/form-data" t-attf-action="/confirmed_update{{ '?debug' if debug else '' }}" method="post" onsubmit="this.action = this.action + location.hash" id="Uploaded_Document">-->
+                                                    <!--<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>-->
+                                                    <table class="table table-condensed" id="price_buy_now">
+                                                        <tr class="active">
+                                                            <th>Document</th>
+                                                            <th>File Name</th>
+                                                            <th>Rejection Reason</th>
+                                                            <th>Status</th>
+                                                            <!--<th>Upload</th>-->
+                                                        </tr>
+                                                        <t t-foreach="client_rec.rejection" t-as="rejection" >
+                                                            <tr>
+                                                                <td><t t-if="rejection.document" t-esc="rejection.document"/></td>
+                                                                <td><t t-if="rejection.file_name" t-esc="rejection.file_name"/>
+                                                                    <!--<input type="hidden" t-att-name="rejection.file_name" t-att-value="rejection.file_name"/>-->
+                                                                </td>
+                                                                <td><t t-if="rejection.name" t-esc="rejection.name"/></td>
+                                                                <td>
+                                                                    <t t-if="rejection.state == 'rejected'"><span style="color:red" t-esc="{False: False,
+                                                                        'updated': 'Updated',
+                                                                        'rejected': 'Rejected'}[rejection.state]"/></t>
+                                                                    <t t-if="rejection.state == 'updated'"><span style="color:green" t-esc="{False: False,
+                                                                        'updated': 'Updated',
+                                                                        'rejected': 'Rejected'}[rejection.state]"/></t>
+                                                                </td>
+                                                                <!--<td>-->
+                                                                <!--<div class="container">-->
+                                                                <!--<input t-att-name="rejection.id" type="file" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true" accept="*"/>-->
+                                                                <!--</div>-->
+                                                                <!--&lt;!&ndash;<input type="hidden" t-att-name="'uid_%s'%uid" t-att-value="user_id.id"/>&ndash;&gt;-->
+                                                                <!--</td>-->
+                                                            </tr>
+                                                        </t>
+                                                        <!--<tr>-->
+                                                        <!--<th colspan="4" class="text-right">-->
+                                                        <!--<div class="container">-->
+                                                        <!--<input type="hidden" name="client_id" t-att-value="client_rec.id"/>-->
+                                                        <!--<button type="submit" class="btn btn-primary">-->
+                                                        <!--<i class="fa fa-check" aria-hidden="true"></i><span>Confirm Uploads</span>-->
+                                                        <!--</button>-->
+                                                        <!--</div>-->
+                                                        <!--</th>-->
+                                                        <!--</tr>-->
+                                                    </table>
+                                                    <!--</form>-->
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="Upload" class="tab-pane fade reg_tab_pan">
+                                    <div class="container reg_tab_pan">
+                                        <div class="row">
+                                            <section id="Documentation">
+                                                <div class="col-xs-12">
+                                                    <form class="form-horizontal" enctype="multipart/form-data" t-attf-action="/confirmed_update{{ '?debug' if debug else '' }}" method="post" onsubmit="this.action = this.action + location.hash" id="Uploaded_Document">
+                                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <label class="control-label"><h3>Upload KYC's</h3></label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" t-if="client_rec.emirates_id_card_rejected">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <span class="col-xs-12 col-md-4 text-left">
+                                                                            <label  class="control-label">Emirates ID : </label>
+                                                                        </span>
+                                                                        <span class="col-xs-12 col-md-8 text-left">
+                                                                            <input class="emirates_id_card" name="emirates_id_card" type="file" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true" accept="*" required="True"/>
+                                                                            <!--<input type="checkbox" id="emirates_id_card_rejected" invisible="0"/>-->
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" t-if="client_rec.passport_and_poa_rejected">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <span class="col-xs-12 col-md-4 text-left">
+                                                                            <label  class="control-label">Passport and POA : </label>
+                                                                        </span>
+                                                                        <span class="col-xs-12 col-md-8 text-left">
+                                                                            <input class="passport_and_poa" name="passport_and_poa" type="file" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true" accept="*" required="True"/>
+                                                                            <!--<input type="checkbox" id="passport_and_poa_rejected" invisible="0"/>-->
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" t-if="client_rec.vat_num_rejected">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <span class="col-xs-12 col-md-4 text-left">
+                                                                            <label  class="control-label">VAT Number : </label>
+                                                                        </span>
+                                                                        <span class="col-xs-12 col-md-8 text-left">
+                                                                            <input class="vat_num" name="vat_num" type="file" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true" accept="*" required="True"/>
+                                                                            <!--<input type="checkbox" id="vat_num_rejected" invisible="0"/>-->
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" t-if="client_rec.visa_and_poa_rejected">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <span class="col-xs-12 col-md-4 text-left">
+                                                                            <label  class="control-label">VISA and POA : </label>
+                                                                        </span>
+                                                                        <span class="col-xs-12 col-md-8 text-left">
+                                                                            <input class="visa_and_poa" name="visa_and_poa" type="file" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true" accept="*" required="True"/>
+                                                                            <!--<input type="checkbox" id="visa_and_poa_rejected" invisible="0"/>-->
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" t-if="client_rec.operating_address_uae_rejected">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <span class="col-xs-12 col-md-4 text-left">
+                                                                            <label class="control-label">Operating Address UAE  : </label>
+                                                                        </span>
+                                                                        <span class="col-xs-12 col-md-8 text-left">
+                                                                            <input class="operating_address_uae" name="operating_address_uae" type="file" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true" accept="*" required="True"/>
+                                                                            <!--<input type="checkbox" id="operating_address_uae_rejected" invisible="0"/>-->
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" t-if="client_rec.trade_license_rejected">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                        <span class="col-xs-12 col-md-4 text-left">
+                                                                            <label  class="control-label">Trade License : </label>
+                                                                        </span>
+                                                                        <span class="col-xs-12 col-md-8 text-left">
+                                                                            <input class="trade_license" name="trade_license" type="file" data-show-upload="true" data-show-caption="true" lass="file" data-show-preview="true" accept="*" required="True"/>
+                                                                            <!--<input type="checkbox" id="trade_license_rejected" invisible="0"/>-->
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-xs-12 col-md-12">
+                                                                <div class="form-group">
+                                                                    <input type="hidden" class="res_id" name="client_id" t-att-value="client_rec.id"/>
+                                                                    <button type="submit" class="btn btn-primary">
+                                                                        <i class="fa fa-check" aria-hidden="true"></i><span>Confirm Uploads</span>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-if="not client_rec">
+                        <center>
+                            <h1>Your Record Does Not Exist</h1>
+                            <p>
+                                Please Contact Our Admin for this.
+                            </p>
+                            <p>
+                                Thank you
+                            </p>
+                        </center>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+
+        <!--After the plan subscription is done it will redirect to this page-->
+        <template id="client_docuemnt_updated" name="Document Updated">
+            <t t-call="website_portal.portal_layout">
+                <div class="col-xs-12 text-center" style="vertical-align:center;margin:100px auto;float:none;">
+                    <strong><h3>Your Documents are Updated</h3></strong>
+                    <p>
+                        We will get back to you soon.
+                    </p>
+                    <p>
+                        Please keep checking your status in Portal.
+                    </p>
+                    <p>
+                        Thank You
+                    </p>
+                </div>
+            </t>
+        </template>
+    </data>
+</odoo>

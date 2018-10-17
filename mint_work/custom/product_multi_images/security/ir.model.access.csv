@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_img_catelog,product.image,model_product_image,sales_team.group_sale_salesman,1,1,1,0
+access_product_image_catelog,product.image.catalog,model_product_image,sales_team.group_sale_manager,1,1,1,0
+access_user_product_image,product_multi_images.access_user_product_image,product_multi_images.model_product_image,base.group_user,1,1,0,0
+access_manager_product_image,product_multi_images.access_manager_product_image,product_multi_images.model_product_image,base.group_erp_manager,1,1,1,0

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record id="make_extra_menu_invisible" model="res.groups">
+            <field name="name">Invisible</field>
+        </record>
+
+        <record id="helpdesk_module_category" model="ir.module.category">
+            <field name="name">Helpdesk</field>
+            <field name="description">Help Desk Support</field>
+        </record>
+
+        <!-- Groups -->
+        <!-- helpdesk user -->
+        <record id="group_helpdesk_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="helpdesk_module_category" />
+        </record>
+
+        <!-- Helpdesk Manager -->
+        <record id="group_helpdesk_manager" model="res.groups">
+            <field name="name">Manager</field>
+            <field name="implied_ids" eval="[ ( 6, 0, [ ref('group_helpdesk_user') ] ) ]" />
+            <field name="category_id" ref="helpdesk_module_category" />
+        </record>
+
+    </data>
+</odoo>

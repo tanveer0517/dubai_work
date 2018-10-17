@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets" inherit_id="point_of_sale.assets" name="Mint Pos Client Assets">
+            <xpath expr="." position="inside">
+               <script type="text/javascript" src="/mint_pos_client/static/src/js/mint_pos_client.js"></script>
+               <link rel="stylesheet" href="/mint_pos_client/static/src/css/pos.css" id="pos-stylesheet"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

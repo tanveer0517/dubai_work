@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--   Schedular for the Sync Product to GoMart  -->
+    <record id="ir_cron_sync_product" model="ir.cron">
+        <field name="name">GoMart Product Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">product.template</field>
+        <field name="function">ir_sync_products</field>
+    </record>
+    <!--   Schedular for the Sync State to GoMart  -->
+    <record id="ir_cron_sync_state" model="ir.cron">
+        <field name="name">GoMart State Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">res.country.state</field>
+        <field name="function">ir_sync_state</field>
+    </record>
+    <!--   Schedular for the Sync City to GoMart -->
+    <record id="ir_cron_sync_city" model="ir.cron">
+        <field name="name">GoMart City Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">city.city</field>
+        <field name="function">ir_sync_city</field>
+    </record>
+    <!--   Schedular for the Sync Location to GoMart -->
+    <record id="ir_cron_sync_locality" model="ir.cron">
+        <field name="name">GoMart Locality Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">city.area</field>
+        <field name="function">ir_sync_area</field>
+    </record>
+    <!--   Schedular for the Sync Account Tax to GoMart -->
+    <record id="ir_cron_sync_tax" model="ir.cron">
+        <field name="name">GoMart Account Tax Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">account.tax</field>
+        <field name="function">ir_sync_account_tax</field>
+    </record>
+    <!--   Schedular for the Sync Product UOM to GoMart -->
+    <record id="ir_cron_sync_uom" model="ir.cron">
+        <field name="name">GoMart Product UOM Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">product.uom</field>
+        <field name="function">ir_sync_product_uom</field>
+    </record>
+    <!--   Schedular for the Sync Product Group to GoMart -->
+    <record id="ir_cron_sync_group" model="ir.cron">
+        <field name="name">GoMart Product group Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">product.group</field>
+        <field name="function">ir_sync_product_group</field>
+    </record>
+    <!--   Schedular for the Sync Product brand to GoMart -->
+    <record id="ir_cron_sync_brand" model="ir.cron">
+        <field name="name">GoMart Product brand Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">product.brand</field>
+        <field name="function">ir_sync_produc_brand</field>
+    </record>
+    <!--   Schedular for the Sync Product category to GoMart -->
+    <record id="ir_cron_sync_category" model="ir.cron">
+        <field name="name">GoMart Product Category Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">product.category</field>
+        <field name="function">ir_sync_category</field>
+    </record>
+    <!--     Schedular for the Product Attribute  -->
+    <record id="ir_cron_sync_product_attribute" model="ir.cron">
+        <field name="name">GoMart Product Attribute Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">product.attribute</field>
+        <field name="function">ir_sync_attribute</field>
+    </record>
+    <!--     Schedular for the Customer  -->
+    <record id="ir_cron_sync_res_partner" model="ir.cron">
+        <field name="name">GoMart Customer Sync</field>
+        <field name="interval_type">hours</field>
+        <field name="interval_number">4</field>
+        <field name="numbercall">-1</field>
+        <field eval="True" name="doall"/>
+        <field name="model">res.partner</field>
+        <field name="function">ir_sync_res_partner</field>
+    </record>
+</odoo>

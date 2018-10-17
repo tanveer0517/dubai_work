@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- POS Order Wizard -->
+        <record id="view_pos_sales_report_customer_history" model="ir.ui.view">
+            <field name="name">view.pos.sales.report.customer.wizard</field>
+            <field name="model">pos.sales.report.customer</field>
+            <field name="arch" type="xml">
+                <form string="Order History by Customer">
+                    <group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="partner_id"/>
+                            <field name="state"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button string="Print" type="object" name="sales_order_report_customer" class="oe_highlight"/>
+                        <button string="Cancel" type="object" name="cancel" class="oe_link" special="cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+
+        <!--action window for Customer Menu Wizard for Customer wise Report printing-->
+        <!--  POS Order Form view -->
+        <record id="action_view_pos_sales_report_customer_wizard" model="ir.actions.act_window">
+            <field name="name">Sales Order Report by Customer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.sales.report.customer</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="point_of_sale.view_report_pos_order_search"/>
+            <field name="target">new</field>
+        </record>
+
+        <!-- POS order Menu -->
+        <menuitem id="menu_pos_sales_customer_report" action="action_view_pos_sales_report_customer_wizard" parent="point_of_sale.menu_point_rep" sequence="6"/>
+
+    </data>
+</odoo>

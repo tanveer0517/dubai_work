@@ -1,0 +1,101 @@
+<odoo>
+    <data>
+        <!-- Feature Mater Tree View -->
+        <record id="view_plan_features_tree" model="ir.ui.view">
+            <field name="name">feature.master.tree</field>
+            <field name="model">plan.features.master</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="Plan Features" create="false">
+                    <field name="pfeature_master_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="feature_list_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Feature Mater Form View -->
+        <record id="view_plan_features_form" model="ir.ui.view">
+            <field name="name">plan.feature.master.form</field>
+            <field name="model">plan.features.master</field>
+            <field name="arch" type="xml">
+                <form string="Feature Master" create="false">
+                    <sheet>
+                        <group>
+                            <group string="Feature Name">
+                                <field name="plan_id" invisible="1"/>
+                                <field name="name" readonly="1"/>
+                                <field name="pfeature_master_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <group string="Plan Features Description">
+                            <field name="feature_list_ids" nolabel="1" options="{'no_create': True}">
+                                <tree string="Plan Feature List" editable="bottom" delete="false">
+                                    <field name="name" readonly="1"/>
+                                    <field name="pfeature_list_id" invisible="1"/>
+                                    <field name="checked"/>
+                                    <field name="is_there"/>
+                                    <field name="description"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Feature Mater Action View -->
+        <record id="action_plan_features" model="ir.actions.act_window">
+            <field name="name">Feature Master</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">plan.features.master</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Feature list Tree View -->
+        <record id="view_plan_features_list_tree" model="ir.ui.view">
+            <field name="name">plan.feature.master.list.tree</field>
+            <field name="model">plan.feature.list</field>
+            <field name="priority">5</field>
+            <field name="arch" type="xml">
+                <tree string="Feature List" editable="bottom" create="false" delete="false">
+                    <field name="pfeature_list_id"/>
+                    <field name="name"/>
+                    <field name="checked"/>
+                    <field name="is_there" attrs="{'readonly':[('checked','!=',True)]}"/>
+                    <field name="description" attrs="{'readonly':[('checked','=',True)]}"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Feature list Form View -->
+        <record id="view_plan_features_list_form" model="ir.ui.view">
+            <field name="name">plan.feature.master.list.form</field>
+            <field name="model">plan.feature.list</field>
+            <field name="arch" type="xml">
+                <form string="Feature List" create="false" delete="false">
+                    <sheet>
+                        <group name="Features List">
+                            <field name="pfeature_list_id"/>
+                            <field name="name"/>
+                            <field name="checked"/>
+                            <field name="is_there" attrs="{'readonly':[('checked','!=',True)]}"/>
+                            <field name="description" attrs="{'readonly':[('checked','=',True)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Feature list Action View -->
+        <record id="action_plan_features_list" model="ir.actions.act_window">
+            <field name="name">Feature List</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">plan.feature.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

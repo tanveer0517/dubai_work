@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- inherit company view for adding multi store field and
+        functionlity -->
+        <record id="res_company_inherit_for_store_form_view" model="ir.ui.view">
+            <field name="name">res.company.inherit.for.store.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Chanined Store" name="chain_store"
+                          attrs="{'invisible' : [('store_type', '!=', 'multi')]}">
+                        <group>
+                            <group>
+                                <field name="store_type" invisible="1"/>
+                                <field name="number_of_outlets" />
+                                <field name="merchant_type"/>
+                            </group>
+                            <group>
+                                <field name="commission" />
+                                <field name="create_date" string="Start Date" />
+                            </group>
+                        </group>
+
+                        <group string="Chain Store">
+                            <field name="chain_store_ids" nolabel="1"
+                                   context="{'from_main_store':1}">
+                                <field name="name" string="Store" />
+                            </field>
+                        </group>
+                    </page>
+                    <page name="extra" string="Extras" attrs="{'invisible' : [('store_type', '=', 'multi')]}">
+                        <group>
+                            <group>
+                                <field name="other_prefix" />
+                                <field name="min_order_amt" />
+                            </group>
+                            <group>
+                                <field name="delivery_charge" />
+                                <field name="delivery_duration" />
+                            </group>
+                        </group>
+                        <group string="Delivery Charge for below order amount">
+                            <group>
+                                <field name="delivery_charge_below" />
+                                <field name="deli_charge_below_order"
+                                       attrs="{'invisible' : [('delivery_charge_below', '=', False)]}" />
+                            </group>
+                            <group>
+                                <field name="min_del_order_message"
+                                       attrs="{'invisible' : [('delivery_charge_below', '=', False)]}" />
+                            </group>
+                        </group>
+
+
+                        <group string="Store Time" attrs="{'invisible' : [('store_type', '=', 'multi')]}">
+                            <field name="store_time_ids" nolabel="1">
+                                <tree string="Working Time" editable="top">
+                                    <field name="store_status"/>
+                                    <field name="dayofweek"/>
+                                    <field name="hour_from" widget="float_time"/>
+                                    <field name="hour_to" widget="float_time"/>
+                                    <!--<field name="date_from"/>-->
+                                    <!--<field name="date_to"/>-->
+                                </tree>
+
+                            </field>
+                        </group>
+                        <group string="Payment Options">
+                            <field name="payment_option"
+                                   widget="many2many_checkboxes" domain
+                                           ="[('type','in',('cash','bank'))]"/>
+                        </group>
+                        <group string="Terms and Conditions">
+                            <field name="terms_and_conditions" nolabel="1"  />
+                        </group>
+                    </page>
+                    <page name="delivery_region" string="Delivery Regions" attrs="{'invisible' : [('store_type', '=', 'multi')]}">
+                        <group>
+                            <group>
+                                <field name="country_id" />
+                                <field name="loc_city_id" />
+                            </group>
+                            <group>
+                                <field name="loc_state_id" />
+                            </group>
+                        </group>
+                        <group>
+                            <field name="location_ids"
+                                   widget="many2many_checkboxes"
+                                   domain = "[('usage','=','customer')]"/>
+                        </group>
+                    </page>
+                </notebook>
+
+                <xpath expr="//field[@name='parent_id']" position="attributes">
+                    <attribute name="required">context.get('from_main_store',False)</attribute>
+                </xpath>
+            </field>
+
+        </record>
+
+                <!-- inherit user form view for hiding Administration group
+                for non admin user
+                 -->
+        <record id="disable_administration_group" model="ir.ui.view">
+            <field name="name">res.users.noadministration.view.form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.user_groups_view"/>
+            <field name="arch" type="xml">
+                <field name="sel_groups_3_4" position="replace">
+                    <field name="sel_groups_3_4" attrs="{'invisible': [('id', '!=', 1)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="base.action_res_company_form" model="ir.actions.act_window">
+            <field name="context">{'company_id_custom': 1}</field>
+        </record>
+
+        <!-- Added new menu for store setting for creating store -->
+        <menuitem name="Store Settings"
+                  id="menu_store_administrator"
+                  web_icon="saas_client_manager,static/description/user-management.png"
+                  sequence="400" groups="saas_store_manager"/>
+
+        <menuitem  name="Stores" id="sub_store_managment"
+                   parent="menu_store_administrator" groups="saas_store_manager"
+        />
+
+        <menuitem action="base.action_res_company_form"
+                  id="menu_action_client_multi_store"
+                  parent="sub_store_managment"  name="Store" sequence="1" />
+
+
+        <menuitem  name="Store Users" id="sub_store_managment"
+                   parent="menu_store_administrator" groups="saas_store_manager"
+        />
+
+        <menuitem action="base.action_res_users"
+                  id="menu_action_client_user"
+                  parent="sub_store_managment"  name="Store Users"
+                  sequence="2" />
+
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+group_helpdesk_access,model.project.case,project_case.model_project_case,project_case.group_helpdesk,1,1,1,1
+group_case_type_access,model.case.type,project_case.model_case_type,project_case.group_helpdesk,1,1,1,1
+group_case_task_mast_access,model.case.task.mast,project_case.model_case_task_mast,project_case.group_helpdesk,1,1,1,1
+group_case_sla_access,model.case.sla,project_case.model_case_sla,project_case.group_helpdesk,1,1,1,1

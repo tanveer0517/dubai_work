@@ -1,0 +1,36 @@
+# -*- coding: utf-8 -*-
+{
+
+    'name': 'Mint SaaS Portal dependency',
+    "summary": "SaaS Base Module",
+    'description': """
+        - All Portal Dependency module list
+    """,
+    'version': '10.0.1.0.1',
+    'author': "Bista Solutions",
+    'category': 'SaaS Base Module',
+    'depends': ['saas_portal',
+        'saas_plan_subscription',
+        'saas_login_registration',
+        'contract',
+        'mint_partner_enhancement',
+        'mint_plan_upgrade',
+        'product_enhancement',
+        'saas_mint_web_theme',
+        'saas_portal_enhancement',
+        'saas_portal_user_logs',
+        # 'saas_user_auto_create',
+        'app_odoo_customize',
+        'web_favicon',
+        'gomart_theme',
+        'mint_pos',
+        'mint_plan_enhancement',
+        'product_multi_images',
+    ],
+    "website": "https://www.bistasolutions.com",
+    "data": [ ],
+    "demo": [ ],
+    'installable': True,
+    'auto_install': False,
+    'application': True,
+}

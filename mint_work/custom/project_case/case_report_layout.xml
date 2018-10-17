@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		
+		<template id="case_layout_letter">
+		    <!-- Multicompany -->
+		    <t t-if="o and 'company_id' in o">
+		        <t t-set="company" t-value="o.company_id"></t>
+		    </t>
+		    <t t-if="not o or not 'company_id' in o">
+		        <t t-set="company" t-value="res_company"></t>
+		    </t>
+		
+			<t t-call="project_case.case_header_letter" />
+		    <t t-raw="0" />
+		</template>
+
+		<template id="case_header_letter">
+		    <div class="header">
+		        <div class="header_info">
+		        	<style>
+		        		.logo{
+							float:left;
+							width:10%;
+							height: 50px;
+
+						}
+		        	</style>
+				  	<div class="logo">
+			  			<img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo"/>
+			  		</div>
+	             </div>
+				
+		    </div>
+		    
+		</template>
+		
+		
+	</data>
+</odoo>

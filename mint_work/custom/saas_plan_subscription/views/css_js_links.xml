@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <!--&lt;!&ndash; JS, CSS, Validation Scripts&ndash;&gt;-->
+        <template id="subscription_assets_frontend" name="saas_plan_subscription assets" inherit_id="web.assets_frontend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" type="text/css" href="/saas_plan_subscription/static/src/css/style.css"/>
+                <script type="text/javascript" src="/saas_plan_subscription/static/src/js/custom.js"></script>
+                <script type="text/javascript" src="/saas_plan_subscription/static/src/js/plan_subscription.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>
+

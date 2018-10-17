@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="auth_oauth_login_inherit" inherit_id="auth_oauth.login" name="OAuth Login buttons inherits">
+        <xpath expr="//div[@class='pull-right']" position="replace">
+        </xpath>
+    </template>
+
+    <template id="auth_oauth_reset_password_inherit" inherit_id="auth_oauth.reset_password" name="OAuth Reset Password buttons inherit">
+        <xpath expr="//div[@class='pull-right']" position="replace">
+        </xpath>
+    </template>
+
+</odoo>
