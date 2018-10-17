@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Marakez Server Tree View -->
+        <record id="marakez_server_api_tree" model="ir.ui.view">
+            <field name="name">marakez.server.api.tree</field>
+            <field name="model">marakez.server.api</field>
+            <field name="arch" type="xml">
+                <tree string="Marakez API URL">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <!-- Marakez Server Form View -->
+        <record id="marakez_server_api_form" model="ir.ui.view">
+            <field name="name">marakez.server.api.form</field>
+            <field name="model">marakez.server.api</field>
+            <field name="arch" type="xml">
+                <form string="Marakez API URL">
+                    <sheet>
+                        <h1>Marakez API URL</h1>
+                        <p>
+                            <field name="name" placeholder="http://www.erpzone.com/api/" required="1"/>
+                        </p>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!--  Marakez Server Action View -->
+        <record id="action_marakez_server_api" model="ir.actions.act_window">
+            <field name="name">API URL </field>
+            <field name="res_model">marakez.server.api</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Marakez Server Menu below the -->
+        <menuitem id="main_marakez_server_api_menuitem" name="Marakez API"
+            parent="base.menu_custom" sequence="10"/>
+        <menuitem action="action_marakez_server_api"
+            id="marakez_server_api_menuitem" name="API URL" parent="main_marakez_server_api_menuitem" sequence="1"/>
+
+    <!-- JWT Authentication -->
+    <record model="ir.ui.view" id="jwt_authentication_tree">
+        <field name="name">jwt.authentication.tree</field>
+        <field name="model">jwt.authentication</field>
+        <field name="arch" type="xml">
+            <tree string="JWT Authentication">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="jwt_authentication_form">
+        <field name="name">jwt.authentication.form</field>
+        <field name="model">jwt.authentication</field>
+        <field name="arch" type="xml">
+            <form string="JWT Authentication">
+                <header>
+                    <button name="get_jwt_authentication" string="Get Authentication" type='object' class="oe_highlight"/>
+                </header>
+                <sheet>
+                  <group>
+                    <field name="name" required="1"/>
+                    <field name="userid" required="1"/>
+                    <field name="password" required="1"/>
+                    <field name="token" readonly="1"/>
+                    <field name="expiry" readonly="1"/>
+                 </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_jwt_authentication">
+        <field name="name">JWT Authentication</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">jwt.authentication</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="JWT Authentication" groups="base.group_system" action="action_jwt_authentication" parent="main_marakez_server_api_menuitem" id="menu_jwt_authentication" sequence="3"/>
+
+</odoo>

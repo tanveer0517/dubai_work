@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record forcecreate="True" id="ir_cron_marakez_country_sync" model="ir.cron">
+            <field name="name">Marakez Country Sync</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'res.country'" name="model"/>
+            <field eval="'sync_country_marakez'" name="function"/>
+            <field eval="'()'" name="args"/>
+	       <field eval="False" name="active"/>
+        </record>
+
+        <record forcecreate="True" id="ir_cron_marakez_state_sync" model="ir.cron">
+            <field name="name">Marakez State Sync</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'res.country.state'" name="model"/>
+            <field eval="'sync_state_marakez'" name="function"/>
+            <field eval="'()'" name="args"/>
+	       <field eval="False" name="active"/>
+        </record>
+
+        <record forcecreate="True" id="ir_cron_marakez_city_sync" model="ir.cron">
+            <field name="name">Marakez City Sync</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'city.city'" name="model"/>
+            <field eval="'sync_city_marakez'" name="function"/>
+            <field eval="'()'" name="args"/>
+	       <field eval="False" name="active"/>
+        </record>
+
+	    <record forcecreate="True" id="ir_cron_marakez_currency_sync" model="ir.cron">
+            <field name="name">Marakez Currency Sync</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'res.currency'" name="model"/>
+            <field eval="'sync_currency_marakez'" name="function"/>
+            <field eval="'()'" name="args"/>
+	       <field eval="False" name="active"/>
+        </record>
+
+	    <record forcecreate="True" id="ir_cron_marakez_language_sync" model="ir.cron">
+            <field name="name">Marakez Language Sync</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'res.lang'" name="model"/>
+            <field eval="'sync_language_marakez'" name="function"/>
+            <field eval="'()'" name="args"/>
+	       <field eval="False" name="active"/>
+        </record>
+
+	    <record forcecreate="True" id="ir_cron_marakez_locality_sync" model="ir.cron">
+            <field name="name">Marakez Locality Sync</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'city.area'" name="model"/>
+            <field eval="'sync_locality_marakez'" name="function"/>
+            <field eval="'()'" name="args"/>
+	       <field eval="False" name="active"/>
+        </record>
+
+        <record forcecreate="True" id="ir_cron_marakez_brand_sync" model="ir.cron">
+            <field name="name">Marakez Brand Sync</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'product.brand'" name="model"/>
+            <field eval="'sync_brand_marakez'" name="function"/>
+            <field eval="'()'" name="args"/>
+           <field eval="False" name="active"/>
+        </record>
+
+    </data>
+</openerp>
